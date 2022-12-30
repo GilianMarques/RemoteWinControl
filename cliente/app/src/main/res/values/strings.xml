@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RemoteWinControl</string>
+    <string name="Acessibilidade">Acessibilidade</string>
+    <string name="Sensibilidade">Sensibilidade</string>
+</resources>

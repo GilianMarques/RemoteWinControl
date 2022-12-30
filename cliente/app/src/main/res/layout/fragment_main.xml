@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+
+        tools:context=".presenter.ui.MainFragment">
+
+
+        <LinearLayout
+            android:id="@+id/mouse_pad"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/vec_grid"
+            android:backgroundTint="?colorPrimary"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/mouse_btn_meio"
+            app:layout_constraintEnd_toStartOf="@id/rv_infinite_scroll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_infinite_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fadingEdgeLength="100dp"
+            android:requiresFadingEdge="vertical"
+
+            app:layout_constraintBottom_toTopOf="@id/mouse_btn_meio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mouse_btn_esq"
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            android:layout_margin="4dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mouse_btn_meio"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mouse_btn_meio"
+            android:layout_width="48dp"
+            android:layout_height="125dp"
+            android:layout_margin="4dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mouse_btn_dir"
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            android:layout_margin="4dp"
+            app:cardBackgroundColor="?attr/colorSurface"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mouse_btn_meio" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
