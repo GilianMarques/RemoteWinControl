@@ -14,11 +14,11 @@ class ScrollAdapter(private val inflater: LayoutInflater) : RecyclerView.Adapter
     inner class Holder(private val item: RvItemScrollBinding) : RecyclerView.ViewHolder(item.root) {
         fun bind(indice: Int) {
 
-            val intervalo = 5
+            val intervalo = 3
             val condicao = indice % intervalo == 0
 
-            item.indicadorDestaque.visibility = if (condicao) View.VISIBLE else View.GONE
-            item.indicadorPadrao.visibility = if (condicao) View.GONE else View.VISIBLE
+            item.indicadorDestaque.visibility = if (condicao) View.VISIBLE else View.INVISIBLE
+            item.indicadorPadrao.visibility = if (condicao) View.INVISIBLE else View.VISIBLE
 
         }
     }

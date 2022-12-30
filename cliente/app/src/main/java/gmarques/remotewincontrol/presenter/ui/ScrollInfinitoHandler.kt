@@ -9,10 +9,6 @@ import kotlinx.coroutines.delay
 
 private const val MULTIPLICADOR = 4
 
-/** quando só tiver esse valor de view faltando pra ser exibida, mais itens
- * serao inseridos no adapter */
-private const val FOLGA = 50
-
 
 /**
  * chame  inicializar(), esse é o ponto de entrada da classe
@@ -25,6 +21,10 @@ class ScrollInfinito(
 ) : RecyclerView.OnScrollListener() {
 
     lateinit var scrollListener: (direcao: Int) -> Any
+
+    /** quando só tiver esse valor de view faltando pra ser exibida, mais itens
+     * serao inseridos no adapter */
+    private var folga = 10
 
     /**maximo de itens no adapter*/
     var maxItens = -1
@@ -51,7 +51,7 @@ class ScrollInfinito(
         var primeiraVisivel = 0
 
         while (primeiraVisivel <= 0) {
-            scrollAdapter.addItens(false, FOLGA)
+            scrollAdapter.addItens(false, folga)
             delay(10) // espero o rv carregar as views pra consultar as posiçoes
             ultimaVisivel = layoutManager.findLastVisibleItemPosition()
             primeiraVisivel = layoutManager.findFirstVisibleItemPosition()
@@ -60,6 +60,7 @@ class ScrollInfinito(
         val maxItensNaTela = ultimaVisivel - primeiraVisivel
 
         maxItens = maxItensNaTela * MULTIPLICADOR
+        folga = maxItensNaTela / MULTIPLICADOR
 
     }
 
@@ -86,8 +87,8 @@ class ScrollInfinito(
     private fun scrollPraBaixo() {
         val primeiroItemVisivel = layoutManager.findFirstCompletelyVisibleItemPosition()
 
-        if (primeiroItemVisivel <= FOLGA) Handler(Looper.getMainLooper()).post {
-            scrollAdapter.addItens(false, FOLGA)
+        if (primeiroItemVisivel <= folga) Handler(Looper.getMainLooper()).post {
+            scrollAdapter.addItens(false, folga)
 
             val excedente = scrollAdapter.itemCount - maxItens
             if (excedente > 0) scrollAdapter.removerExcesso(true, excedente)
@@ -100,8 +101,8 @@ class ScrollInfinito(
     private fun scrollPraCima() {
         val ultimoItemVisivel = layoutManager.findLastCompletelyVisibleItemPosition()
 
-        if (scrollAdapter.itemCount - ultimoItemVisivel <= FOLGA) Handler(Looper.getMainLooper()).post {
-            scrollAdapter.addItens(true, FOLGA)
+        if (scrollAdapter.itemCount - ultimoItemVisivel <= folga) Handler(Looper.getMainLooper()).post {
+            scrollAdapter.addItens(true, folga)
 
             val excedente = scrollAdapter.itemCount - maxItens
             if (excedente > 0) scrollAdapter.removerExcesso(false, excedente)

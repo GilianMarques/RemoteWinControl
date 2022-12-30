@@ -1,6 +1,7 @@
 package gmarques.remotewincontrol.presenter.ui
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -13,11 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
+import gmarques.remotewincontrol.domain.GestureType
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.presenter.VolumeHelper
-import gmarques.remotewincontrol.presenter.ui.mousepad.MousepadHandler
-import gmarques.remotewincontrol.presenter.ui.mousepad.gestos.GestureClick
-import gmarques.remotewincontrol.presenter.ui.mousepad.gestos.GestureLongClick
 import kotlinx.coroutines.launch
 
 
@@ -50,17 +49,21 @@ class MainFragment : Fragment() {
         initMenu()
         initScroll()
         initMousePad()
+        initBotoesMouse()
         observerVibracaoDeScroll()
+        observerVibracaoDoMousePad()
     }
 
+    private fun initBotoesMouse() {
+        binding.mouseBtnEsq.setOnClickListener {viewModel.mouseClique(1)}
+        binding.rvInfiniteScroll.setOnClickListener {viewModel.mouseClique(3)}
+        binding.mouseBtnDir.setOnClickListener {viewModel.mouseClique(2)}
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     private fun initMousePad() {
-        val gestos = arrayOf(
-            GestureClick(),
-            GestureLongClick())
-
-        val mMousepadHandler = MousepadHandler(gestos)
-        binding.mousePad.setOnTouchListener(mMousepadHandler)
-
+        binding.mousePad.setOnTouchListener(viewModel.getMousePadHandler())
     }
 
     private fun initScroll() {
@@ -81,7 +84,17 @@ class MainFragment : Fragment() {
 
     private fun observerVibracaoDeScroll() =
             viewModel.vibrarScroll.observe(viewLifecycleOwner) { duracao ->
-                Vibrador.vibScroll(duracao, lifecycleScope)
+                if (duracao > 0) Vibrador.vibScroll(duracao, lifecycleScope)
+            }
+
+    private fun observerVibracaoDoMousePad() =
+            viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
+                when (tipo) {
+                    GestureType.CLICK -> Vibrador.vibCLick()
+                    GestureType.CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
+                    GestureType.LONG_CLICK -> Vibrador.vibLongCLick()
+                    else -> {}
+                }
             }
 
     private fun initMenu() {

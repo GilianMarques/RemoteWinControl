@@ -2,8 +2,6 @@ package gmarques.remotewincontrol.presenter
 
 import android.content.Context
 import android.os.*
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.lifecycleScope
 import gmarques.remotewincontrol.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -28,6 +26,14 @@ object Vibrador {
     fun vibInteracao() =
             vib.vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE))
 
+    fun vibSucesso() {
+        val vibra = 30L
+        val espera = 30L
+        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(vibra, espera, vibra, espera, vibra, espera),
+            VibrationEffect.DEFAULT_AMPLITUDE))
+    }
+
+
     fun vibScroll(duracao: Int, mCoroutineScope: CoroutineScope) {
 
         mCoroutineScope.launch {
@@ -35,17 +41,24 @@ object Vibrador {
 
                 vibrandoScroll = true
                 vib.vibrate(VibrationEffect.createOneShot(duracao.toLong(), VibrationEffect.EFFECT_TICK))
-                delay(duracao.toLong() * 2)
+                delay(duracao.toLong() / 2)
                 vibrandoScroll = false
             }
         }
 
     }
 
-    fun vibSucesso() {
-        val vibra = 30L
-        val espera = 30L
-        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(vibra, espera, vibra, espera, vibra, espera),
+    fun vibLongCLick() =
+            vib.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE))
+
+    fun vibCLick() =
+            vib.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
+
+    fun vibClickTwoFingers() {
+        val espera = 75L
+        val vibra = 50L
+        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(/*espera*/0, vibra, espera, vibra),
             VibrationEffect.DEFAULT_AMPLITUDE))
     }
+
 }
