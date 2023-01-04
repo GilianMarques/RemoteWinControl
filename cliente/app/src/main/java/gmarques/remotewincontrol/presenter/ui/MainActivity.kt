@@ -4,6 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.MaterialToolbar
 import gmarques.remotewincontrol.R
+import gmarques.remotewincontrol.domain.Cliente
+import gmarques.remotewincontrol.domain.Servidor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +24,19 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
+
+
+        CoroutineScope(Job()).launch {
+            println("ligando servidor")
+            Servidor.ligar()
+        }
+
+        CoroutineScope(Job()).launch {
+            println("ligando cliente")
+            Cliente.ligar()
+
+        }
+
     }
 
 }

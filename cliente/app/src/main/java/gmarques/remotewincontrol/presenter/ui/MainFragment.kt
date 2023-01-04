@@ -17,6 +17,7 @@ import gmarques.remotewincontrol.databinding.FragmentMainBinding
 import gmarques.remotewincontrol.domain.GestureType
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.presenter.VolumeHelper
+import gmarques.remotewincontrol.presenter.perifericos.mouse.ScrollInfinito
 import kotlinx.coroutines.launch
 
 
@@ -55,9 +56,9 @@ class MainFragment : Fragment() {
     }
 
     private fun initBotoesMouse() {
-        binding.mouseBtnEsq.setOnClickListener {viewModel.mouseClique(1)}
-        binding.rvInfiniteScroll.setOnClickListener {viewModel.mouseClique(3)}
-        binding.mouseBtnDir.setOnClickListener {viewModel.mouseClique(2)}
+        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(1) }
+        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(3) }
+        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(2) }
 
     }
 
