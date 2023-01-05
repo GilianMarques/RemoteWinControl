@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gmarques.remotewincontrol.domain.GestureType
 import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.MousePadTouchListener
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.SupportedGesturesCallback
+import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
 import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventClick
 import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventClickTwoFingers
 import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventLongClick
@@ -32,38 +32,27 @@ class MainViewModel : ViewModel() {
 
     fun getMousePadHandler(): MousePadTouchListener {
 
+         val mousePadCallback = object : GestoCallback {
+
+            override fun gestoValidado(tipo: GestureType, metadata: ArrayList<Pair<String, Float>>) {
+                Log.d("USUK", "MainViewModel.".plus("gesto tipo = '$tipo', metadata = '$metadata'"))
+                _vibrarMousePad.value = tipo
+            }
+
+        }
+
         //classes que vao identificar entradas do usuario e gerar eventos
         //que por sua vez serao analizados para identificar gestos suportados
         val eventos = arrayOf(
-            EventClick(),
-            EventClickTwoFingers(),
-            EventLongClick(),
-            EventMove())
+            EventClick(mousePadCallback),
+            EventClickTwoFingers(mousePadCallback),
+            EventLongClick(mousePadCallback),
+            EventMove(mousePadCallback))
 
-        return MousePadTouchListener(eventos, mousePadCallback)
+        return MousePadTouchListener(eventos)
     }
 
-    private val mousePadCallback = object : SupportedGesturesCallback {
 
-        override fun click(tipo: GestureType, metadata: ArrayList<Pair<String, Float>>) {
-            Log.d("USUK", "MainViewModel.".plus("click() tipo = $tipo, metadata = $metadata"))
-            _vibrarMousePad.value = tipo
-        }
-
-        override fun clickTwoFingers(tipo: GestureType, metadata: ArrayList<Pair<String, Float>>) {
-            Log.d("USUK", "MainViewModel.".plus("clickTwoFingers() tipo = $tipo, metadata = $metadata"))
-            _vibrarMousePad.value = tipo
-        }
-
-        override fun move(tipo: GestureType, metadata: ArrayList<Pair<String, Float>>) {
-            Log.d("USUK", "MainViewModel.".plus("move() tipo = $tipo, metadata = $metadata"))
-        }
-
-        override fun longClick(tipo: GestureType, metadata: ArrayList<Pair<String, Float>>) {
-            Log.d("USUK", "MainViewModel.".plus("longClick() tipo = $tipo, metadata = $metadata"))
-            _vibrarMousePad.value = tipo
-        }
-    }
 
     fun mouseClique(botao: Int) {
         when (botao) {

@@ -2,13 +2,12 @@ package gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos
 
 import android.view.MotionEvent
 import gmarques.remotewincontrol.domain.GestureType
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.SupportedGesturesCallback
+import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
 import kotlin.math.abs
 
-class EventMove : Event() {
+class EventMove(override var callback: GestoCallback) : Event() {
 
     private var actionDown: Pair<Float, Float>? = null
-    override lateinit var callback: SupportedGesturesCallback
     private var ignoreLimits = false
 
     override fun actionDown(event: MotionEvent) {
@@ -23,7 +22,7 @@ class EventMove : Event() {
 
             if (abs(movX) > MAX_MOV_APR && abs(movY) > MAX_MOV_APR) ignoreLimits = true
 
-            if (ignoreLimits) callback.move(GestureType.MOVE, arrayListOf("movX" to movX, "movY" to movY))
+            if (ignoreLimits) callback.gestoValidado(GestureType.MOVE, arrayListOf("movX" to movX, "movY" to movY))
         }
     }
 

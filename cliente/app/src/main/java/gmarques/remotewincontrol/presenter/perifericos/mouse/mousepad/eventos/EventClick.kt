@@ -2,13 +2,12 @@ package gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos
 
 import android.view.MotionEvent
 import gmarques.remotewincontrol.domain.GestureType
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.SupportedGesturesCallback
+import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
 import kotlin.math.abs
 
-class EventClick : Event() {
+class EventClick(override var callback: GestoCallback) : Event() {
 
     private var actionDown: Pair<Float, Float>? = null
-    override lateinit var callback: SupportedGesturesCallback
 
 
     override fun actionDown(event: MotionEvent) {
@@ -28,7 +27,7 @@ class EventClick : Event() {
             val duracao = event.eventTime - event.downTime
 
             if (duracao <= CLICK_INTERVAL && movX <= MAX_MOV_APR && movY <= MAX_MOV_APR)
-                callback.click(GestureType.CLICK, arrayListOf("" to 0f))
+                callback.gestoValidado(GestureType.CLICK, arrayListOf("" to 0f))
 
         }
 

@@ -1,7 +1,8 @@
 package gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos
 
 import android.view.MotionEvent
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.SupportedGesturesCallback
+import gmarques.remotewincontrol.domain.GestureType
+import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
 
 
 /**
@@ -10,8 +11,8 @@ import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.SupportedG
  */
 abstract class Event {
 
-    /** basta implementar como lateinit na subclasse, será inicializado automaticamente */
-    abstract var callback: SupportedGesturesCallback
+    /** callback que ira notificar o cliente quando o gesto for validado*/
+    abstract var callback: GestoCallback
 
     open fun actionDown(event: MotionEvent) {}
 

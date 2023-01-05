@@ -12,12 +12,8 @@ import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.Ev
  * */
 class MousePadTouchListener(
     private val eventos: Array<Event>,
-    private val callback: SupportedGesturesCallback,
 ) : View.OnTouchListener {
 
-    init {
-        eventos.forEach { it.callback = callback }
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent): Boolean {

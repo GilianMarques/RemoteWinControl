@@ -4,17 +4,16 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import gmarques.remotewincontrol.domain.GestureType
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.SupportedGesturesCallback
+import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
 
 import kotlin.math.abs
 
-class EventLongClick : Event() {
+class EventLongClick(override var callback: GestoCallback) : Event() {
 
     private var actionDown: Pair<Float, Float>? = null
 
     private var longClick = false
     private var cancelarVerificacao = false
-    override lateinit var callback: SupportedGesturesCallback
 
 
     override fun actionDown(event: MotionEvent) {
@@ -35,7 +34,7 @@ class EventLongClick : Event() {
             val movX = abs(actionDown!!.first - event.x)
             val movY = abs(actionDown!!.second - event.y)
 
-            if (movX <= MAX_MOV_APR && movY <= MAX_MOV_APR) callback.longClick(GestureType.LONG_CLICK, arrayListOf("" to 0f))
+            if (movX <= MAX_MOV_APR && movY <= MAX_MOV_APR) callback.gestoValidado(GestureType.LONG_CLICK, arrayListOf("" to 0f))
 
         } else cancelarVerificacao = true
 
