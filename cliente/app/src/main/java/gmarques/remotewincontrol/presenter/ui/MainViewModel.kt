@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gmarques.remotewincontrol.domain.GestureType
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.MousePadTouchListener
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventClick
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventClickTwoFingers
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventLongClick
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.EventMove
+import gmarques.remotewincontrol.presenter.mouse.mousepad.MousePadTouchListener
+import gmarques.remotewincontrol.presenter.mouse.mousepad.GestoCallback
+import gmarques.remotewincontrol.presenter.mouse.mousepad.eventos.EventClick
+import gmarques.remotewincontrol.presenter.mouse.mousepad.eventos.EventClickTwoFingers
+import gmarques.remotewincontrol.presenter.mouse.mousepad.eventos.EventLongClick
+import gmarques.remotewincontrol.presenter.mouse.mousepad.eventos.EventMove
 import kotlin.math.abs
 
 class MainViewModel : ViewModel() {

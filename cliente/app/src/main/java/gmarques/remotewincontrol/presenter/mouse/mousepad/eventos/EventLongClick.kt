@@ -1,10 +1,10 @@
-package gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos
+package gmarques.remotewincontrol.presenter.mouse.mousepad.eventos
 
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import gmarques.remotewincontrol.domain.GestureType
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.GestoCallback
+import gmarques.remotewincontrol.presenter.mouse.mousepad.GestoCallback
 
 import kotlin.math.abs
 

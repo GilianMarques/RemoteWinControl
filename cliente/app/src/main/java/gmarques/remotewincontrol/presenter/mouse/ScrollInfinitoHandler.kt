@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.presenter.perifericos.mouse
+package gmarques.remotewincontrol.presenter.mouse
 
 import android.os.Handler
 import android.os.Looper

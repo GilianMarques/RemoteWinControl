@@ -1,9 +1,9 @@
-package gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad
+package gmarques.remotewincontrol.presenter.mouse.mousepad
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
-import gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad.eventos.Event
+import gmarques.remotewincontrol.presenter.mouse.mousepad.eventos.Event
 
 /**
  * Recebe as entradas do usuario direto da view e passa para serem analisados

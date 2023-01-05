@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
 import gmarques.remotewincontrol.domain.GestureType
+import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.presenter.VolumeHelper
-import gmarques.remotewincontrol.presenter.perifericos.mouse.ScrollInfinito
+import gmarques.remotewincontrol.presenter.mouse.ScrollInfinito
 import kotlinx.coroutines.launch
 
 

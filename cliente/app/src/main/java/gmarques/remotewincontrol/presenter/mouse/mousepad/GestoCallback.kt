@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.presenter.perifericos.mouse.mousepad
+package gmarques.remotewincontrol.presenter.mouse.mousepad
 
 import gmarques.remotewincontrol.domain.GestureType
 

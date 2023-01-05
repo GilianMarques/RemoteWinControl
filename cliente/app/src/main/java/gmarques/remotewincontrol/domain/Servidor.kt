@@ -14,7 +14,7 @@ object Servidor {
     suspend fun ligar() = withContext(Dispatchers.IO) {
 
         val porta = 1777
-        var mensagem: String
+        var mensagem: String?
 
         val server = ServerSocket(porta)
         println("Tentando conectar pela $porta...")
