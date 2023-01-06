@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Job()).launch {
             println("ligando cliente")
-            Cliente.enviarMsg("TEste de mensagem")
+            Cliente.enviarMsg("Teste de mensagem")
 
         }
 

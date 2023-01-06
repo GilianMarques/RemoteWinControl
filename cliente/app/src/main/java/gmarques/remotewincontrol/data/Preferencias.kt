@@ -15,7 +15,7 @@ class Preferencias {
 
     fun getInt(chave: String, padrao: Int = -1) = preferencias.getInt(chave, padrao)
 
-    fun getString(chave: String, padrao: String) = preferencias.getString(chave, padrao)
+    fun getString(chave: String, padrao: String?) = preferencias.getString(chave, padrao)
 
 
 }

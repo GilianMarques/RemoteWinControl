@@ -15,7 +15,7 @@ import java.net.Socket
 
 object Cliente : ICliente {
     private var porta = -1
-    private var ip = InetAddress.getLocalHost().toString()
+    private var ip = InetAddress.getLocalHost().hostAddress
 
     init {
         porta = Preferencias().getInt(PORTA, 1777)
