@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="false"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="5dp"
+
+
+            app:navigationIcon="@drawable/vec_arrow_back"
+            app:title="@string/Gravar_acao"
+            app:titleTextColor="?colorPrimary" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            tools:visibility="visible"
+            android:visibility="gone"
+
+            android:layout_marginEnd="16dp"
+            android:hint="@string/Nome"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="textAutoComplete"
+                android:maxLines="1"
+                tools:text="pular abertura netflix" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_gravar"
+            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:drawablePadding="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/Iniciar_gravacao"
+            app:icon="@drawable/vec_gravar" />
+
+        <Button
+            android:id="@+id/btn_parar_gravacao"
+            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/Parar_gravaco"
+            android:visibility="gone"
+            app:icon="@drawable/vec_parar_gravacao" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_cancelar"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="32dp"
+                android:layout_weight="1"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/Cancelar"
+                app:icon="@drawable/vec_cancelar" />
+
+            <Button
+                android:id="@+id/btn_salvar"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
+                android:layout_weight="1"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/Salvar"
+                android:visibility="gone"
+                app:icon="@drawable/vec_check" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

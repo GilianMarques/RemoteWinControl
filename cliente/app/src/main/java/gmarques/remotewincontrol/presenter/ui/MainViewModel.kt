@@ -9,7 +9,7 @@ import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.data.PREFS_IP
 import gmarques.remotewincontrol.data.PREFS_PORTA
 import gmarques.remotewincontrol.data.Preferencias
-import gmarques.remotewincontrol.presenter.EntradaUsuario
+import gmarques.remotewincontrol.presenter.ComandosUsuario
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.presenter.mouse.EntradaCallback
 import gmarques.remotewincontrol.presenter.mouse.MousePadTouchListener
@@ -32,7 +32,7 @@ class MainViewModel : ViewModel() {
     private val _vibrarScroll = MutableLiveData(0)
     val vibrarScroll get() = _vibrarScroll
 
-    private val _vibrarMousePad = MutableLiveData(EntradaUsuario.NONE)
+    private val _vibrarMousePad = MutableLiveData(ComandosUsuario.NONE)
     val vibrarMousePad get() = _vibrarMousePad
 
     init {
@@ -47,13 +47,13 @@ class MainViewModel : ViewModel() {
             _vibrarScroll.postValue(vibDuracao)
 
             val sucesso = redeAdapter.enviarGesto(
-                ComandoDto(EntradaUsuario.SCROLL,
+                ComandoDto(ComandosUsuario.SCROLL,
                     ScrollHandler.getMetadata(direcao)))
 
             if (!sucesso) {
                 val msg = String.format(
                     App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado,
-                        EntradaUsuario.SCROLL))
+                        ComandosUsuario.SCROLL))
                 notificarErroToasty(msg)
             }
         }
@@ -79,7 +79,7 @@ class MainViewModel : ViewModel() {
         return MousePadTouchListener(eventosSuportados)
     }
 
-    fun mouseClique(botao: EntradaUsuario) = viewModelScope.launch {
+    fun mouseClique(botao: ComandosUsuario) = viewModelScope.launch {
         _vibrarMousePad.value = botao
         val sucesso = redeAdapter.enviarGesto(ComandoDto(botao))
         if (!sucesso) notificarErroToasty(String.format(App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado), botao))

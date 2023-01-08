@@ -7,6 +7,8 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.*
 
+//http://www.java2s.com/Code/Java/Network-Protocol/StringbasedcommunicationbetweenSocket.htm
+
 
 object Servidor {
 

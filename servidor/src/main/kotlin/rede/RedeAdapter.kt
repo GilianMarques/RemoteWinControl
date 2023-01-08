@@ -1,9 +1,10 @@
 package rede
 
-import EntradaUsuario.*
+import ComandosUsuario.*
 import com.google.gson.GsonBuilder
 import comandos_remotos.Mouse
 import comandos_remotos.Volume
+import comandos_remotos.acoes.Acoes
 import rede.dtos.ComandoDto
 import rede.io.Servidor
 
@@ -11,11 +12,11 @@ import rede.io.Servidor
  * Converte os comandos recebidos via socket para eventos que podem ser executados localmente
  * @see Servidor
  * */
-class RedeAdapter() {
+object RedeAdapter{
 
     private val gson = GsonBuilder()/*.setPrettyPrinting()*/.create()
 
-    init {
+    fun anexarListenerAoServidor() {
         Servidor.addListener(::eventoRecebido)
     }
 
@@ -33,6 +34,8 @@ class RedeAdapter() {
             VOLUME_MENOS -> Volume.diminuir()
             PAD_MOVE -> Mouse.mover(comando.metadata)
             SCROLL -> Mouse.rolar(comando.metadata)
+            ACAO_GRAVAR -> Acoes.gravar()
+            ACAO_PARAR_GRAVACAO -> Acoes.pararGravacao(comando)
             else -> {}
         }
 

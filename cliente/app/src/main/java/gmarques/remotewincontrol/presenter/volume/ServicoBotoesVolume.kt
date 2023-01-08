@@ -3,7 +3,6 @@ package gmarques.remotewincontrol.presenter.volume
 import android.accessibilityservice.AccessibilityService
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityEvent
-import gmarques.remotewincontrol.presenter.VolumeHelper
 
 class ServicoBotoesVolume : AccessibilityService() {
 

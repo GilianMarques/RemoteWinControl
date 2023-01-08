@@ -1,7 +1,7 @@
 package gmarques.remotewincontrol.presenter.mouse.mousepad_gestos
 
 import android.view.MotionEvent
-import gmarques.remotewincontrol.presenter.EntradaUsuario
+import gmarques.remotewincontrol.presenter.ComandosUsuario
 import gmarques.remotewincontrol.presenter.mouse.EntradaCallback
 import gmarques.remotewincontrol.rede.dtos.ComandoDto
 import kotlin.math.abs
@@ -28,7 +28,7 @@ class EntradaClique(override var callback: EntradaCallback) : EntradaAbs() {
             val duracao = event.eventTime - event.downTime
 
             if (duracao <= CLICK_INTERVAL && movX <= MAX_MOV_PERM && movY <= MAX_MOV_PERM)
-                callback.entradaValidada(ComandoDto(EntradaUsuario.MOUSE_CLICK_ESQ))
+                callback.entradaValidada(ComandoDto(ComandosUsuario.MOUSE_CLICK_ESQ))
 
         }
 

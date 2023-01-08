@@ -1,35 +1,43 @@
 package rede.io
 
-import kotlinx.coroutines.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.PrintWriter
-import java.net.InetAddress
 import java.net.Socket
 
+//http://www.java2s.com/Code/Java/Network-Protocol/StringbasedcommunicationbetweenSocket.htm
 
+/**
+ * Usado pelo ControladorDeRede para enviar mensagens ao telefone
+ * Nao use essa classe diretamente.
+ * @See RedeAdapter
+ * */
 object Cliente {
 
-    suspend fun ligar() = withContext(Dispatchers.IO) {
 
-        val portNumber = 1777
-        var str: String? = "Mensagem #1"
+    /**
+     * Envia uma mensagem para o servidor via socket
+     * @return true se a mensagem foi enviada com sucesso
+     * */
+    suspend fun enviarMsg(mensagem: String, porta: Int, ip: String): Boolean = withContext(Dispatchers.IO) {
+        try {
 
-        val mSocket = Socket(InetAddress.getLocalHost(), portNumber)
-        val mBufferedReader = BufferedReader(InputStreamReader(mSocket.getInputStream())) // le retorno do servidor
-        val mPrintWriter = PrintWriter(mSocket.getOutputStream(), true) // escreve pro servidor
+            val mSocket = Socket(ip, porta)
+            PrintWriter(mSocket.getOutputStream(), true)
+                .also {
+                    it.println(mensagem) // mando pro servidor
+                    it.close()
+                }
 
-        mPrintWriter.println(str) // mando pro servidor
+            println("\"$mensagem\" enviado para telefone")
+            mSocket.close()
 
-        //aguardo retorno
-        while (mBufferedReader.readLine().also { str = it } != null) {
-            println("Servidor diz: $str")
-            mPrintWriter.println("sair")
-            if (str == "sair") break
+            return@withContext true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return@withContext false
         }
-        mBufferedReader.close()
-        mPrintWriter.close()
-        mSocket.close()
+
     }
 
 }

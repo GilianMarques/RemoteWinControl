@@ -7,41 +7,42 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener
 
 class KeyboardListener : NativeKeyListener {
 
-    override fun nativeKeyTyped(nativeEvent: NativeKeyEvent?) {
-        //captura o conteudo que pode ser digitado num campo de texto Ex: ao pressionar 'SHIFT+2' ira capturar '@'
-        println(
-            "Escreveu: '${nativeEvent?.keyChar}' " +
-                    "keyCode: ${nativeEvent?.keyCode} " +
-                    "location: ${nativeEvent?.keyLocation} " +
-                    "rawCode: ${nativeEvent?.rawCode} "
-        )
+    private lateinit var callback: Callback
 
-        if (nativeEvent?.keyCode == NativeKeyEvent.VC_ESCAPE) {
-            try {
-                GlobalScreen.unregisterNativeHook()
-            } catch (nativeHookException: NativeHookException) {
-                nativeHookException.printStackTrace()
-            }
+    fun ligar(callback: Callback) {
+        this.callback = callback
+        GlobalScreen.addNativeKeyListener(this)
+
+    }
+
+    fun desligar() {
+        try {
+            GlobalScreen.unregisterNativeHook()
+        } catch (nativeHookException: NativeHookException) {
+            nativeHookException.printStackTrace()
         }
+    }
+
+    override fun nativeKeyTyped(nativeEvent: NativeKeyEvent?) {
 
         super.nativeKeyTyped(nativeEvent)
     }
 
-    override fun nativeKeyReleased(nativeEvent: NativeKeyEvent?) {
+    override fun nativeKeyPressed(nativeEvent: NativeKeyEvent?) {
+        callback.tecladoPressionouTecla(nativeEvent!!.rawCode, NativeKeyEvent.getKeyText(nativeEvent.keyCode))
 
-        //captura todas as teclas digitadas
-        println(
-            "Pressionou: '${NativeKeyEvent.getKeyText(nativeEvent!!.keyCode)}' " +
-                    "keyCode: ${nativeEvent.keyCode} " +
-                    "location: ${nativeEvent.keyLocation} " +
-                    "rawCode: ${nativeEvent.rawCode} "
-        )
+        super.nativeKeyPressed(nativeEvent)
+    }
+
+    override fun nativeKeyReleased(nativeEvent: NativeKeyEvent?) {
+        callback.tecladoSoltouTecla(nativeEvent!!.rawCode, NativeKeyEvent.getKeyText(nativeEvent.keyCode))
 
         super.nativeKeyReleased(nativeEvent)
     }
 
-    fun init() {
-
-        GlobalScreen.addNativeKeyListener(this)
+    interface Callback {
+        fun tecladoPressionouTecla(rawCode: Int, nomeTecla: String)
+        fun tecladoSoltouTecla(rawCode: Int, nomeTecla: String)
     }
 }
+

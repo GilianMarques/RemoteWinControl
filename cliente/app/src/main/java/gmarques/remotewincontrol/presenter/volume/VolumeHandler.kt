@@ -1,6 +1,6 @@
 package gmarques.remotewincontrol.presenter.volume
 
-import gmarques.remotewincontrol.presenter.EntradaUsuario
+import gmarques.remotewincontrol.presenter.ComandosUsuario
 import gmarques.remotewincontrol.rede.RedeAdapter
 import gmarques.remotewincontrol.rede.dtos.ComandoDto
 import kotlinx.coroutines.*
@@ -19,7 +19,7 @@ class VolumeHandler {
 
     fun pressionouVolumeDown() = scope.launch(Job().also { downJob = it }) {
         while (true) {
-            redeAdapter.manipularVolume(ComandoDto(EntradaUsuario.VOLUME_MENOS))
+            redeAdapter.manipularVolume(ComandoDto(ComandosUsuario.VOLUME_MENOS))
             delay(INTERVALO)
         }
 
@@ -27,7 +27,7 @@ class VolumeHandler {
 
     fun pressionouVolumeUp() = scope.launch(Job().also { upJob = it }) {
         while (true) {
-            redeAdapter.manipularVolume(ComandoDto(EntradaUsuario.VOLUME_MAIS))
+            redeAdapter.manipularVolume(ComandoDto(ComandosUsuario.VOLUME_MAIS))
             delay(INTERVALO)
         }
 

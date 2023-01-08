@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
-import gmarques.remotewincontrol.presenter.EntradaUsuario
+import gmarques.remotewincontrol.presenter.ComandosUsuario
 import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollClique
@@ -54,15 +54,16 @@ class MainFragment : Fragment() {
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
         // TODO:     verificarPermissaoDeAcessibilidade()
+        mostrarDialogoDeAcoes()
     }
 
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initBotoesMouse() {
-        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(EntradaUsuario.MOUSE_CLICK_ESQ) }
+        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(ComandosUsuario.MOUSE_CLICK_ESQ) }
         binding.rvInfiniteScroll.setOnTouchListener(ScrollClique())//chama o onClick qdo detecta um clique por evento de toque
-        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(EntradaUsuario.MOUSE_CLICK_CEN) }
-        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(EntradaUsuario.MOUSE_CLICK_DIR) }
+        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(ComandosUsuario.MOUSE_CLICK_CEN) }
+        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(ComandosUsuario.MOUSE_CLICK_DIR) }
 
     }
 
@@ -94,10 +95,10 @@ class MainFragment : Fragment() {
     private fun observerVibracaoDoMousePad() =
             viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
                 when (tipo) {
-                    EntradaUsuario.NONE -> {}
-                    EntradaUsuario.PAD_MOVE -> {}
-                    EntradaUsuario.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
-                    EntradaUsuario.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
+                    ComandosUsuario.NONE -> {}
+                    ComandosUsuario.PAD_MOVE -> {}
+                    ComandosUsuario.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
+                    ComandosUsuario.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
                     else -> Vibrador.vibCLick()
 
                 }
@@ -114,7 +115,7 @@ class MainFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.acessibilidade -> abrirTelaDeAcessibilidade()
                     R.id.ip -> exibirDialogoIpPorta()
-                    /*R.id.sensibilidade-> mostrarDialogoDeSensibilidades()*/
+                    R.id.acoes -> mostrarDialogoDeAcoes()
                 }
                 return true
             }
@@ -122,6 +123,13 @@ class MainFragment : Fragment() {
 
         val menuHost = requireActivity()
         menuHost.addMenuProvider(provider)
+    }
+
+    private fun mostrarDialogoDeAcoes() {
+
+        DialogoAcoes(this) { porta, ip ->
+
+        }
     }
 
     private fun exibirDialogoIpPorta() {

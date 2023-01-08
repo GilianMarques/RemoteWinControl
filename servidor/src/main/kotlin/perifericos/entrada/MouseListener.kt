@@ -1,6 +1,5 @@
 package perifericos.entrada
 
-import perifericos.DisplaySizeInfo
 import com.github.kwhat.jnativehook.GlobalScreen
 import com.github.kwhat.jnativehook.mouse.NativeMouseEvent
 import com.github.kwhat.jnativehook.mouse.NativeMouseInputListener
@@ -9,42 +8,39 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseWheelListener
 
 
 class MouseListener : NativeMouseInputListener, NativeMouseWheelListener {
-    override fun nativeMouseClicked(e: NativeMouseEvent) {
-        println("Mouse Clicked: " + e.clickCount)
-    }
 
-    override fun nativeMousePressed(e: NativeMouseEvent) {
-        println("Mouse Pressed: " + e.button)
-    }
+    private lateinit var callback: MouseCallback
 
-    override fun nativeMouseReleased(e: NativeMouseEvent) {
-        println("Mouse Released: " + e.button)
-    }
+    override fun nativeMousePressed(e: NativeMouseEvent) = callback.mouseBotaoPressionado(e.button)
 
-    override fun nativeMouseMoved(e: NativeMouseEvent) {
-        DisplaySizeInfo().printarMovimentoRelativo(e.x,e.y)
-        DisplaySizeInfo().printarMovimentoAbsoluto(e.x,e.y)
-    }
 
-    override fun nativeMouseDragged(e: NativeMouseEvent) {
-        println("Mouse Dragged: " + e.x + ", " + e.y)
-    }
+    override fun nativeMouseReleased(e: NativeMouseEvent) = callback.mouseBotaoSolto(e.button)
 
-    override fun nativeMouseWheelMoved(nativeEvent: NativeMouseWheelEvent) {
-        println(
-            "Mosue Wheel Moved: wheelRotation: ${nativeEvent.wheelRotation}" +
-                    " wheelDirection: ${nativeEvent.wheelDirection} " +
-                    " scrollAmount: ${nativeEvent.scrollAmount}" +
-                    " scrollType: ${nativeEvent.scrollType}"
-        )
-        super.nativeMouseWheelMoved(nativeEvent)
-    }
+    override fun nativeMouseMoved(e: NativeMouseEvent) = callback.mouseMoveu(e.x, e.y)
 
-    fun init() {
+    override fun nativeMouseWheelMoved(nativeEvent: NativeMouseWheelEvent) =
+        callback.mouseRolou(nativeEvent.wheelRotation)
+
+    fun ligar(callback: MouseCallback) {
+        this.callback = callback
 
         GlobalScreen.addNativeMouseListener(this)
         GlobalScreen.addNativeMouseMotionListener(this)
         GlobalScreen.addNativeMouseWheelListener(this)
+    }
+
+    fun desligar() {
+
+        GlobalScreen.removeNativeMouseListener(this)
+        GlobalScreen.removeNativeMouseMotionListener(this)
+        GlobalScreen.removeNativeMouseWheelListener(this)
+    }
+
+    interface MouseCallback {
+        fun mouseBotaoPressionado(botao: Int)
+        fun mouseBotaoSolto(botao: Int)
+        fun mouseMoveu(x: Int, y: Int)
+        fun mouseRolou(direcao: Int)
     }
 
 }

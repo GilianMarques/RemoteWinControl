@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.presenter
+package gmarques.remotewincontrol.presenter.volume
 
 import android.content.Context
 import android.media.AudioManager

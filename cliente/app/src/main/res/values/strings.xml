@@ -11,4 +11,8 @@
     <string name="Cancelar">Cancelar</string>
     <string name="Permissao_de_acessibilidade_necessaria_para_controlar">Permissão de \"Acessibilidade\" necessária para controlar o volume.</string>
     <string name="Permitir">Permitir</string>
+    <string name="Gravar_acao">Gravar ação</string>
+    <string name="Iniciar_gravacao">Iniciar gravação</string>
+    <string name="Parar_gravaco">Parar gravação</string>
+    <string name="Nome">Nome</string>
 </resources>

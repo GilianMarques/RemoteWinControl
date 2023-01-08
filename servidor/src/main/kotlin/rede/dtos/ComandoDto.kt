@@ -1,8 +1,10 @@
 package rede.dtos
 
-import EntradaUsuario
+import ComandosUsuario
 
- class ComandoDto(
-    val tipo: EntradaUsuario,
+class ComandoDto(
+    val tipo: ComandosUsuario,
     vararg val metadata: Float,
+    val ipParaResposta: String,
+    val portaParaResposta: Int,
 )

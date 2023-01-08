@@ -1,11 +1,14 @@
-package gmarques.remotewincontrol.presenter
 
 /**
  * Todas as entradas que o usuario pode dar
  * Essas entradas serao enviadas para serem interpretadas no servidor
  *
  * */
-enum class EntradaUsuario(val nome: String) {
+enum class ComandosUsuario(val nome: String) {
+
+    ACAO_RECUPECAR("acao_recuperar"),
+    ACAO_PARAR_GRAVACAO("acao_parar_gravacao"),
+    ACAO_GRAVAR("acao_gravar"),
     MOUSE_CLICK_ESQ("clique_mouse_esq"), // toque no mousepad e clique no botao esquerdo do mouse são sempre interpretados da mesma forma
     MOUSE_CLICK_DIR("clique_mouse_dir"),
     MOUSE_CLICK_CEN("clique_mouse_cen"),
@@ -16,4 +19,5 @@ enum class EntradaUsuario(val nome: String) {
     PAD_MOVE("pad_mover"),
     SCROLL("scroll"),
     NONE("n_a"),
+
 }

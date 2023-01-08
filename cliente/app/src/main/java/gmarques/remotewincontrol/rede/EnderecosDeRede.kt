@@ -13,6 +13,7 @@ class EnderecosDeRede {
     companion object {
 
         var porta = -1
+        var portaEntrada = -1
         var ip = ""
 
         private suspend fun lerIpDaRede(): String = withContext(IO) {
@@ -28,6 +29,7 @@ class EnderecosDeRede {
 
         suspend fun atualizarEnderecos() {
             porta = Preferencias().getInt(PREFS_PORTA, REDE_PORTA_PADRAO)
+            portaEntrada = porta + 1
             ip = Preferencias().getString(PREFS_IP, lerIpDaRede())!!
             Log.d("USUK", "Rede.atualizarEnderecos porta: $porta ip $ip ")
         }
