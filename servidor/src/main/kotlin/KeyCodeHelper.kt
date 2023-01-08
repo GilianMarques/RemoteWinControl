@@ -7,7 +7,7 @@ fun main() {
         val text = KeyEvent.getKeyText(rawCode)
 
         if (!text.contains("Unknown rawCode: ")) {
-            println("rawCode: $rawCode text: $text ")
+            if (!text.contains("Desconhecido")) println("rawCode: $rawCode text: $text ")
         }
     }
 

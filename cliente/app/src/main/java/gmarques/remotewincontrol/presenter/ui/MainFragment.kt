@@ -11,13 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
-import gmarques.remotewincontrol.domain.GestureType
+import gmarques.remotewincontrol.presenter.EntradaUsuario
 import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.presenter.Vibrador
-import gmarques.remotewincontrol.presenter.VolumeHelper
-import gmarques.remotewincontrol.presenter.mouse.ScrollInfinito
+import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollClique
+import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollInfinito
 import kotlinx.coroutines.launch
 
 
@@ -46,29 +47,31 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        VolumeHelper.inicializar(requireContext()).salvarVolumeAtual()
         initMenu()
         initScroll()
         initMousePad()
         initBotoesMouse()
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
+        // TODO:     verificarPermissaoDeAcessibilidade()
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
     private fun initBotoesMouse() {
-        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(1) }
-        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(3) }
-        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(2) }
+        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(EntradaUsuario.MOUSE_CLICK_ESQ) }
+        binding.rvInfiniteScroll.setOnTouchListener(ScrollClique())//chama o onClick qdo detecta um clique por evento de toque
+        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(EntradaUsuario.MOUSE_CLICK_CEN) }
+        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(EntradaUsuario.MOUSE_CLICK_DIR) }
 
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initMousePad() {
-        binding.mousePad.setOnTouchListener(viewModel.getMousePadHandler())
+        binding.mousePad.setOnTouchListener(viewModel.getMousePadListener())
     }
 
     private fun initScroll() {
-
 
         val scrollAdapter = ScrollAdapter(layoutInflater)
         val layoutManager = LinearLayoutManager(requireContext())
@@ -91,10 +94,12 @@ class MainFragment : Fragment() {
     private fun observerVibracaoDoMousePad() =
             viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
                 when (tipo) {
-                    GestureType.CLICK -> Vibrador.vibCLick()
-                    GestureType.CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
-                    GestureType.LONG_CLICK -> Vibrador.vibLongCLick()
-                    else -> {}
+                    EntradaUsuario.NONE -> {}
+                    EntradaUsuario.PAD_MOVE -> {}
+                    EntradaUsuario.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
+                    EntradaUsuario.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
+                    else -> Vibrador.vibCLick()
+
                 }
             }
 
@@ -108,6 +113,7 @@ class MainFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.acessibilidade -> abrirTelaDeAcessibilidade()
+                    R.id.ip -> exibirDialogoIpPorta()
                     /*R.id.sensibilidade-> mostrarDialogoDeSensibilidades()*/
                 }
                 return true
@@ -118,10 +124,32 @@ class MainFragment : Fragment() {
         menuHost.addMenuProvider(provider)
     }
 
-    private fun abrirTelaDeAcessibilidade() {
-        if (!Permissoes().permissaoDeAcessibilidadeConcedida(requireContext())) {
-            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+    private fun exibirDialogoIpPorta() {
+
+        DialogoPortaIp(this) { porta, ip ->
+            viewModel.atualizarEnderecosEnotificar(porta, ip)
         }
+
+    }
+
+    private fun verificarPermissaoDeAcessibilidade() {
+        if (!Permissoes().permissaoDeAcessibilidadeConcedida()) {
+            val snack = Snackbar.make(
+                binding.mouseBtnMeio,
+                getString(R.string.Permissao_de_acessibilidade_necessaria_para_controlar),
+                Snackbar.LENGTH_INDEFINITE)
+
+            snack.setAction(getString(R.string.Permitir)) {
+                abrirTelaDeAcessibilidade()
+            }
+
+            snack.show()
+        }
+
+    }
+
+    private fun abrirTelaDeAcessibilidade() {
+        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
     }
 
 }

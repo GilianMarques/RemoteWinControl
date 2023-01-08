@@ -53,5 +53,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.github.jiconfont:jiconfont-swing:1.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.github.jiconfont:jiconfont:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.github.material-ui-swing:DarkStackOverflowTheme:0.0.1-rc3" level="project" />
+    <orderEntry type="library" name="google.code.gson" level="project" />
   </component>
 </module>

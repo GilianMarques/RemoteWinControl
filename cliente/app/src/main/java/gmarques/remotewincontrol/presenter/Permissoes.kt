@@ -3,18 +3,19 @@ package gmarques.remotewincontrol.presenter
 import android.content.ComponentName
 import android.content.Context
 import android.provider.Settings.Secure
-import gmarques.remotewincontrol.presenter.servicos.VolumeKeysListener
+import gmarques.remotewincontrol.App
+import gmarques.remotewincontrol.presenter.volume.ServicoBotoesVolume
 
 class Permissoes {
 
-    fun permissaoDeAcessibilidadeConcedida(context: Context): Boolean {
+    fun permissaoDeAcessibilidadeConcedida(context: Context = App.get): Boolean {
         try {
 
             val permConcedida = Secure.getInt(context.contentResolver, Secure.ACCESSIBILITY_ENABLED)
 
             return if (permConcedida == 1) {
 
-                val nomeServico = ComponentName(context, VolumeKeysListener::class.java)
+                val nomeServico = ComponentName(context, ServicoBotoesVolume::class.java)
                     .flattenToString()
                 val servicosPermitidos = Secure
                     .getString(context.contentResolver, Secure.ENABLED_ACCESSIBILITY_SERVICES)

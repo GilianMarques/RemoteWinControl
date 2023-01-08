@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">RemoteWinControl</string>
     <string name="Acessibilidade">Acessibilidade</string>
-    <string name="Sensibilidade">Sensibilidade</string>
+    <string name="Erro_x">Erro: %1$s</string>
+    <string name="Gesto_do_tipo_x_nao_foi_enviado">Gesto do tipo "%1$s" não foi enviado</string>
+    <string name="Ip_e_porta">IP e porta</string>
+    <string name="Alterar_ip_e_porta">Alterar IP e porta</string>
+    <string name="Porta">Porta</string>
+    <string name="Endereco_ip">Endereço IP</string>
+    <string name="Salvar">Salvar</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="Permissao_de_acessibilidade_necessaria_para_controlar">Permissão de \"Acessibilidade\" necessária para controlar o volume.</string>
+    <string name="Permitir">Permitir</string>
 </resources>

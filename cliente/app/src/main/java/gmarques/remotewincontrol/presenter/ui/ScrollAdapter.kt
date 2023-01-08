@@ -1,32 +1,25 @@
 package gmarques.remotewincontrol.presenter.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import gmarques.remotewincontrol.databinding.RvItemScrollBinding
 
-class ScrollAdapter(private val inflater: LayoutInflater) : RecyclerView.Adapter<ScrollAdapter.Holder>() {
+class ScrollAdapter(private val inflater: LayoutInflater) :
+    RecyclerView.Adapter<ScrollAdapter.Holder>() {
 
     private val itens = ArrayList<Int>()
 
-    inner class Holder(private val item: RvItemScrollBinding) : RecyclerView.ViewHolder(item.root) {
-        fun bind(indice: Int) {
+    inner class Holder(item: RvItemScrollBinding) : RecyclerView.ViewHolder(item.root) {
 
-            val intervalo = 3
-            val condicao = indice % intervalo == 0
-
-            item.indicadorDestaque.visibility = if (condicao) View.VISIBLE else View.INVISIBLE
-            item.indicadorPadrao.visibility = if (condicao) View.INVISIBLE else View.VISIBLE
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             Holder(RvItemScrollBinding.inflate(inflater, parent, false))
 
-    override fun onBindViewHolder(holder: Holder, indice: Int) = holder.bind(indice)
+    override fun onBindViewHolder(holder: Holder, indice: Int) {
+    }
 
     override fun getItemCount() = itens.size
 
@@ -38,7 +31,7 @@ class ScrollAdapter(private val inflater: LayoutInflater) : RecyclerView.Adapter
      * @param noFinalDaLista onde adicionar novos itens
      * @param quantidade quantidade de itens a adicionar
      *
-     * @see removerExcesso
+     * @see removerItens
      *
      *  */
     fun addItens(noFinalDaLista: Boolean, quantidade: Int) {
@@ -65,7 +58,7 @@ class ScrollAdapter(private val inflater: LayoutInflater) : RecyclerView.Adapter
      *
      * @see addItens
      */
-    fun removerExcesso(doFinalDaFila: Boolean, excedente: Int) {
+    fun removerItens(doFinalDaFila: Boolean, excedente: Int) {
         if (doFinalDaFila) {
             repeat(excedente) {
                 itens.removeAt(itens.size - 1)

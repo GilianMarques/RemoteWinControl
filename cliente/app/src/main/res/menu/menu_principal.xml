@@ -2,11 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/acessibilidade"
-        android:title="@string/Acessibilidade" />
+        android:id="@+id/ip"
+        android:title="@string/Ip_e_porta" />
+
 
     <item
-        android:id="@+id/sensibilidade"
-        android:title="@string/Sensibilidade" />
+        android:id="@+id/acessibilidade"
+        android:title="@string/Acessibilidade" />
 
 </menu>

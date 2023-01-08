@@ -7,19 +7,6 @@
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/indicador_padrao"
-            android:layout_width="32dp"
-            android:layout_height="2dp"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="?attr/colorPrimaryVariant"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/indicador_destaque"
             android:layout_width="32dp"
             android:layout_height="2dp"
