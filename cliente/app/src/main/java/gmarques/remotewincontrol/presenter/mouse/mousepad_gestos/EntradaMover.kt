@@ -1,9 +1,8 @@
 package gmarques.remotewincontrol.presenter.mouse.mousepad_gestos
 
 import android.view.MotionEvent
-import gmarques.remotewincontrol.presenter.ComandosUsuario
 import gmarques.remotewincontrol.presenter.mouse.EntradaCallback
-import gmarques.remotewincontrol.rede.dtos.ComandoDto
+import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteMouseMover
 import kotlin.math.abs
 
 class EntradaMover(override var callback: EntradaCallback) : EntradaAbs() {
@@ -28,8 +27,7 @@ class EntradaMover(override var callback: EntradaCallback) : EntradaAbs() {
         val movimentoValido = abs(movX) >= MIN_MOV_PERM || abs(movY) >= MIN_MOV_PERM
 
         if (movimentoValido) {
-            callback.entradaValidada(ComandoDto(
-                ComandosUsuario.PAD_MOVE, movX * sense, movY * sense))
+            callback.entradaValidada(DtoClienteMouseMover(movX * sense, movY * sense))
 
         }
     }

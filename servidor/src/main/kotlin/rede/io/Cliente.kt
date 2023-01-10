@@ -12,7 +12,7 @@ import java.net.Socket
  * Nao use essa classe diretamente.
  * @See RedeAdapter
  * */
-object Cliente {
+class Cliente {
 
 
     /**

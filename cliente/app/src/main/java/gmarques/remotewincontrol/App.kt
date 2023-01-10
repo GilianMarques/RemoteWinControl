@@ -17,7 +17,6 @@ class App : Application() {
         get = this
         VolumeHelper.inicializar(this).salvarVolumeAtual()
         GlobalScope.launch { EnderecosDeRede.atualizarEnderecos() }
-        startService(Intent(this, ServicoBotoesVolume::class.java))
     }
 
     companion object {

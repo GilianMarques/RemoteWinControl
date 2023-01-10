@@ -15,13 +15,13 @@ import java.net.Socket
  * Nao use essa classe diretamente.
  * @See RedeAdapter
  * */
-object Cliente {
+class Cliente {
 
 
     /**
      * Envia uma mensagem para o servidor via socket
      * @return true se a mensagem foi enviada com sucesso
-     * */
+     */
     suspend fun enviarMsg(mensagem: String): Boolean = withContext(Dispatchers.IO) {
         try {
 

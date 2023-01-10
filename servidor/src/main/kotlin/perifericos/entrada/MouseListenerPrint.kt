@@ -26,7 +26,7 @@ class MouseListenerPrint : NativeMouseInputListener, NativeMouseWheelListener {
     }
 
     override fun nativeMouseDragged(e: NativeMouseEvent) {
-     //   println("Mouse Dragged: " + e.x + ", " + e.y)
+        println("Mouse Dragged: " + e.x + ", " + e.y)
     }
 
     override fun nativeMouseWheelMoved(nativeEvent: NativeMouseWheelEvent) {

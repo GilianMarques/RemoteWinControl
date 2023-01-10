@@ -1,38 +1,42 @@
 package gmarques.remotewincontrol.presenter.volume
 
 import android.accessibilityservice.AccessibilityService
+import android.util.Log
 import android.view.KeyEvent
 import android.view.accessibility.AccessibilityEvent
 
 class ServicoBotoesVolume : AccessibilityService() {
 
-    override fun onServiceConnected() {}
+    companion object {
+        var ignorarEventos = false
+    }
+
+    override fun onServiceConnected() {
+        Log.d("USUK", "ServicoBotoesVolume.onServiceConnected: ")
+    }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {}
 
-    private val handler = VolumeHandler()
-
     override fun onKeyEvent(event: KeyEvent): Boolean {
+        if (ignorarEventos) return super.onKeyEvent(event)
         when (event.keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
                 when (event.action) {
                     KeyEvent.ACTION_DOWN -> {
-                        handler.pressionouVolumeUp()
+                        VolumeHandler.pressionarVolumeUp()
                     }
                     KeyEvent.ACTION_UP -> {
-                        handler.soltouVolumeUp()
-                        VolumeHelper.setarVolumeOriginal()
+                        VolumeHandler.soltouVolumeUp()
                     }
                 }
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
                 when (event.action) {
                     KeyEvent.ACTION_DOWN -> {
-                        handler.pressionouVolumeDown()
+                        VolumeHandler.pressionarVolumeDown()
                     }
                     KeyEvent.ACTION_UP -> {
-                        handler.soltouVolumeDown()
-                        VolumeHelper.setarVolumeOriginal()
+                        VolumeHandler.soltouVolumeDown()
                     }
                 }
             }
@@ -40,5 +44,7 @@ class ServicoBotoesVolume : AccessibilityService() {
         return super.onKeyEvent(event)
     }
 
-    override fun onInterrupt() {}
+    override fun onInterrupt() {
+        Log.d("USUK", "ServicoBotoesVolume.onInterrupt: ")
+    }
 }

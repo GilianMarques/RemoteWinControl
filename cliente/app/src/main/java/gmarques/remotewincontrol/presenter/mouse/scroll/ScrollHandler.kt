@@ -6,10 +6,10 @@ package gmarques.remotewincontrol.presenter.mouse.scroll
 object ScrollHandler {
 
     @Suppress("UnnecessaryVariable")
-    fun getMetadata(direcao: Int): Float {
+    fun getMetadata(direcao: Int): Int {
 
-        val direcaoInvertida = (direcao * -1).toFloat()
-        val linhasRoladas = direcaoInvertida.coerceIn(-1f, 1f)
+        val direcaoInvertida = direcao * -1
+        val linhasRoladas = direcaoInvertida.coerceIn(-1, 1)
 
         return linhasRoladas
 

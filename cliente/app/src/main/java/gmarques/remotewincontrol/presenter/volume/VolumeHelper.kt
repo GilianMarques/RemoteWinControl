@@ -2,6 +2,7 @@ package gmarques.remotewincontrol.presenter.volume
 
 import android.content.Context
 import android.media.AudioManager
+import android.util.Log
 import androidx.core.content.ContextCompat
 
 /**
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
  */
 object VolumeHelper {
 
+    private var maxVolume: Int = 0
     private var audio: AudioManager? = null
     private var currentVolume: Int = 0
 
@@ -20,11 +22,14 @@ object VolumeHelper {
 
     fun setarVolumeOriginal() {
         audio?.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0)
+        Log.d("USUK", "VolumeHelper.setarVolumeOriginal: currentVolume $currentVolume")
     }
 
     fun salvarVolumeAtual() {
         currentVolume = audio!!.getStreamVolume(AudioManager.STREAM_MUSIC)
-        // val maxVolume = audio!!.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        maxVolume = audio!!.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+
+        Log.d("USUK", "VolumeHelper.salvarVolumeAtual: currentVolume $currentVolume maxVolume $maxVolume")
 
     }
 

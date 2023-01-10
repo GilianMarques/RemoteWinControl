@@ -1,33 +1,46 @@
 package gmarques.remotewincontrol.presenter.volume
 
-import gmarques.remotewincontrol.presenter.ComandosUsuario
-import gmarques.remotewincontrol.rede.RedeAdapter
-import gmarques.remotewincontrol.rede.dtos.ComandoDto
+import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
+import gmarques.remotewincontrol.rede.io.RedeAdapter
+import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteSemMetadata
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
-class VolumeHandler {
+object VolumeHandler {
 
     private val INTERVALO = 50L
 
-    private val scope = CoroutineScope(IO)
-    private val redeAdapter = RedeAdapter()
+    private val loopScope = CoroutineScope(IO)
+    private val redeAdapter = RedeAdapter
 
     private lateinit var upJob: Job
     private lateinit var downJob: Job
+    private val jobNaoCancelavel = Job()
 
 
-    fun pressionouVolumeDown() = scope.launch(Job().also { downJob = it }) {
+    fun pressionarVolumeDown() = loopScope.launch(Job().also { downJob = it }) {
+        loopScope.launch(jobNaoCancelavel) {
+            redeAdapter.enviar(DtoClienteSemMetadata(TIPO_DTO_CLIENTE.VOLUME_MENOS))
+            VolumeHelper.setarVolumeOriginal()
+        }
         while (true) {
-            redeAdapter.manipularVolume(ComandoDto(ComandosUsuario.VOLUME_MENOS))
+            redeAdapter.enviar(DtoClienteSemMetadata(TIPO_DTO_CLIENTE.VOLUME_MENOS))
+            VolumeHelper.setarVolumeOriginal()
             delay(INTERVALO)
         }
 
     }
 
-    fun pressionouVolumeUp() = scope.launch(Job().also { upJob = it }) {
+    fun pressionarVolumeUp() = loopScope.launch(Job().also { upJob = it }) {
+
+        loopScope.launch(jobNaoCancelavel) {
+            redeAdapter.enviar(DtoClienteSemMetadata(TIPO_DTO_CLIENTE.VOLUME_MAIS))
+            VolumeHelper.setarVolumeOriginal()
+        }
+
         while (true) {
-            redeAdapter.manipularVolume(ComandoDto(ComandosUsuario.VOLUME_MAIS))
+            redeAdapter.enviar(DtoClienteSemMetadata(TIPO_DTO_CLIENTE.VOLUME_MAIS))
+            VolumeHelper.setarVolumeOriginal()
             delay(INTERVALO)
         }
 

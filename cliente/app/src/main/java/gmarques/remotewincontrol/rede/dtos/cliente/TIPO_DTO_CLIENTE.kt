@@ -1,12 +1,9 @@
-package gmarques.remotewincontrol.presenter
+package gmarques.remotewincontrol.rede.dtos.cliente
 
 /**
- * Todas as entradas que o usuario pode dar
- * Essas entradas serao enviadas para serem interpretadas no servidor
- *
- * */
-enum class ComandosUsuario(val nome: String) {
-    ACAO_RECUPECAR("acao_recuperar"),
+ * Todos os tipos de informaçao que o cliente pode enviar para o servidor
+ */
+enum class TIPO_DTO_CLIENTE(val nome: String) {
     ACAO_PARAR_GRAVACAO("acao_parar_gravacao"),
     ACAO_GRAVAR("acao_gravar"),
     MOUSE_CLICK_ESQ("clique_mouse_esq"), // toque no mousepad e clique no botao esquerdo do mouse são sempre interpretados da mesma forma
@@ -18,5 +15,5 @@ enum class ComandosUsuario(val nome: String) {
     VOLUME_MENOS("volume_menos"),
     PAD_MOVE("pad_mover"),
     SCROLL("scroll"),
-    NONE("n_a"),
+    NONE("nenhuma_acao"),
 }

@@ -1,9 +1,9 @@
 package gmarques.remotewincontrol.presenter.mouse
 
-import gmarques.remotewincontrol.rede.dtos.ComandoDto
+import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteAbs
 
 fun interface EntradaCallback {
 
-    fun entradaValidada(comandoDto: ComandoDto)
+    fun entradaValidada(entrada: DtoClienteAbs)
 
 }

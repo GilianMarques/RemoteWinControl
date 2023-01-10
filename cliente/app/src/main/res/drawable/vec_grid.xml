@@ -14,10 +14,10 @@
                 android:gradientRadius="800.8947"
                 android:type="radial">
                 <item
-                    android:color="@color/purple_500"
+                    android:color="#4D6200EE"
                     android:offset="0" />
                 <item
-                    android:color="#26BB86FC"
+                    android:color="#0DBB86FC"
                     android:offset="1" />
             </gradient>
         </aapt:attr>

@@ -1,7 +1,5 @@
 package comandos_remotos.acoes
 
-import ComandosUsuario
-
 data class Etapa(
     val momentoExec: Long,
     val tipo: AcoesDoUsuario,

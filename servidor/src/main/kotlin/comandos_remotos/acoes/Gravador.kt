@@ -1,6 +1,5 @@
 package comandos_remotos.acoes
 
-import perifericos.DisplaySizeInfo
 import perifericos.entrada.KeyboardListener
 import perifericos.entrada.MouseListener
 
@@ -8,7 +7,6 @@ class Gravador : KeyboardListener.Callback, MouseListener.MouseCallback {
 
     private val tecladoListener = KeyboardListener()
     private val mouseListener = MouseListener()
-    private val displayInfo = DisplaySizeInfo()
     private val horarioInicio = System.currentTimeMillis()
 
     /**consiste do tempo em que a acao foi feita e o comando que sera usado no nirCmd*/
@@ -71,14 +69,13 @@ class Gravador : KeyboardListener.Callback, MouseListener.MouseCallback {
 
         etapas.add(Etapa(tempoDecorrido(), AcoesDoUsuario.MOUSE_MOVER)
             .also {
+
                 it.movX = x
                 it.movY = y
-                it.descricao = "mouse movido x: $x y: $y"
+                it.descricao = "mouse movido x: $x  y: $y "
             }
         )
-        // TODO: aplicar movimento relativo
-        //  DisplaySizeInfo().printarMovimentoRelativo(e.x,e.y)
-        //  DisplaySizeInfo().printarMovimentoAbsoluto(e.x,e.y)
+
     }
 
     override fun mouseRolou(direcao: Int) {
@@ -89,6 +86,7 @@ class Gravador : KeyboardListener.Callback, MouseListener.MouseCallback {
             }
         )
     }
+
 
 }
 

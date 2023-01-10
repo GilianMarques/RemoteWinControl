@@ -14,7 +14,7 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
 
     private var binding = DialogoAcoesBinding.inflate(fragmento.layoutInflater)
     private var dialog: BottomSheetDialog
-    private val acoes = Acoes()
+    private var acoes: Acoes
     private val scope: CoroutineScope
 
     init {
@@ -25,6 +25,7 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         dialog.setCancelable(false)
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
+        acoes = Acoes(::acaoRecebida)
     }
 
     private fun initViews() {
@@ -50,7 +51,6 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
     private fun pararGravacao() = scope.launch {
         if (acoes.pararGravacao()) {
             binding.btnPararGravacao.visibility = View.GONE
-            binding.btnSalvar.visibility = View.VISIBLE // TODO: so mostarr esse botao depois de receber a acao
             binding.inputNome.visibility = View.VISIBLE
             binding.inputNome.requestFocus()
 
@@ -65,10 +65,18 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         }
     }
 
+    /**
+     * invocado a partir da classe Acoes com o script de açoes que foi gravado no pc
+     * @see Acoes
+     * */
+    fun acaoRecebida(script: String) {
+        binding.btnSalvar.visibility = View.VISIBLE
+    }
+
     private fun nomeValido() = binding.edtNome.text.toString().isNotEmpty()
 
     fun interface Callback {
-        fun feito(porta: Int?, ip: String)
+        fun feito()
     }
 
 }

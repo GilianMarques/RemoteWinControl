@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
-import gmarques.remotewincontrol.presenter.ComandosUsuario
+import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
 import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollClique
@@ -30,6 +30,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var volumeService: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
@@ -47,6 +48,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         initMenu()
         initScroll()
         initMousePad()
@@ -54,16 +56,17 @@ class MainFragment : Fragment() {
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
         // TODO:     verificarPermissaoDeAcessibilidade()
-        mostrarDialogoDeAcoes()
+    //    mostrarDialogoDeAcoes()
     }
+
 
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initBotoesMouse() {
-        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(ComandosUsuario.MOUSE_CLICK_ESQ) }
+        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(TIPO_DTO_CLIENTE.MOUSE_CLICK_ESQ) }
         binding.rvInfiniteScroll.setOnTouchListener(ScrollClique())//chama o onClick qdo detecta um clique por evento de toque
-        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(ComandosUsuario.MOUSE_CLICK_CEN) }
-        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(ComandosUsuario.MOUSE_CLICK_DIR) }
+        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(TIPO_DTO_CLIENTE.MOUSE_CLICK_CEN) }
+        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(TIPO_DTO_CLIENTE.MOUSE_CLICK_DIR) }
 
     }
 
@@ -95,10 +98,10 @@ class MainFragment : Fragment() {
     private fun observerVibracaoDoMousePad() =
             viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
                 when (tipo) {
-                    ComandosUsuario.NONE -> {}
-                    ComandosUsuario.PAD_MOVE -> {}
-                    ComandosUsuario.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
-                    ComandosUsuario.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
+                    TIPO_DTO_CLIENTE.NONE -> {}
+                    TIPO_DTO_CLIENTE.PAD_MOVE -> {}
+                    TIPO_DTO_CLIENTE.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
+                    TIPO_DTO_CLIENTE.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
                     else -> Vibrador.vibCLick()
 
                 }
@@ -127,7 +130,7 @@ class MainFragment : Fragment() {
 
     private fun mostrarDialogoDeAcoes() {
 
-        DialogoAcoes(this) { porta, ip ->
+        DialogoAcoes(this) {
 
         }
     }
@@ -159,5 +162,6 @@ class MainFragment : Fragment() {
     private fun abrirTelaDeAcessibilidade() {
         startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
     }
+
 
 }

@@ -1,28 +1,39 @@
 package comandos_remotos.acoes
 
-import com.google.gson.Gson
-import rede.RedeAdapter
-import rede.dtos.ComandoDto
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
+import rede.dtos.cliente.DtoClienteSemMetadata
+import rede.dtos.servidor.DtoServidorAcaoGravada
+import rede.io.RedeAdapter
+import java.util.ArrayList
 
 object Acoes {
 
-    private val gravador = Gravador()
+    private lateinit var acaoGravada: ArrayList<Etapa>
+    private var gravador: Gravador? = null
 
     fun gravar() {
-
-        gravador.gravar()
+        gravador = Gravador()
+        gravador!!.gravar()
     }
 
-    // TODO: afazeres:
-    //  salvar posicao relativa de movimento do mouse
-    //  enviar comando para o telefone
 
-    fun pararGravacao(metadata: ComandoDto) {
-        val acao = gravador.pararGravacao()
-
+    fun pararGravacao(data: DtoClienteSemMetadata) {
+        acaoGravada = gravador!!.pararGravacao()
+        gravador = null
+        enviarGravacao(data)
     }
 
-    fun pararGravacaoTest() = gravador.pararGravacao()
+    private fun enviarGravacao(data: DtoClienteSemMetadata) = CoroutineScope(IO).launch {
+        withTimeout(20/*segs*/ * 1000) {
+            RedeAdapter.enviar(data.ipParaResposta, data.portaParaResposta, DtoServidorAcaoGravada(acaoGravada))
+        }
+    }
+
+
+    fun pararGravacaoTest() = gravador!!.pararGravacao()
 
 
 }
