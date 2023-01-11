@@ -21,8 +21,8 @@ class DialogoPortaIp(fragmento: Fragment, private val callback: Callback) {
     }
 
     private fun initViews() {
-        binding.edtPorta.setText("${EnderecosDeRede.porta}")
-        binding.edtIp.setText(EnderecosDeRede.ip)
+        binding.edtPorta.setText("${EnderecosDeRede.portaDoServidor}")
+        binding.edtIp.setText(EnderecosDeRede.ipDoServidor)
 
         binding.btnSalvar.setOnClickListener {
 

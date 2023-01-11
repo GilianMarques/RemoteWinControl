@@ -6,9 +6,9 @@ abstract class DtoClienteAbs {
 
     abstract val tipo: TIPO_DTO_CLIENTE
     @Suppress("unused")
-    val ipParaResposta: String = EnderecosDeRede.ip
+    val ipParaResposta: String = EnderecosDeRede.ipDoCliente
     @Suppress("unused")
-    val portaParaResposta: Int = EnderecosDeRede.portaEntrada
+    val portaParaResposta: Int = EnderecosDeRede.portaDoCliente
 
     abstract fun toJson(): String
 

@@ -30,12 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            tools:visibility="visible"
-            android:visibility="gone"
-
             android:layout_marginEnd="16dp"
             android:hint="@string/Nome"
-            app:endIconMode="clear_text">
+
+            android:visibility="gone"
+            app:endIconMode="clear_text"
+            tools:visibility="visible">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_nome"
@@ -48,31 +48,35 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <TextView
             android:id="@+id/btn_gravar"
-            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
+            android:background="@drawable/border"
             android:drawablePadding="16dp"
+            android:padding="24dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/Iniciar_gravacao"
-            app:icon="@drawable/vec_gravar" />
+            app:drawableStartCompat="@drawable/vec_gravar" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_parar_gravacao"
-            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
+            android:background="@drawable/border"
+            android:drawablePadding="16dp"
+            android:padding="24dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/Parar_gravaco"
             android:visibility="gone"
-            app:icon="@drawable/vec_parar_gravacao" />
+            app:drawableStartCompat="@drawable/vec_parar_gravacao"
+            tools:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"

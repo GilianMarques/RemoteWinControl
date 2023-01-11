@@ -1,14 +1,19 @@
 package gmarques.remotewincontrol.presenter.acoes
 
-import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
-import gmarques.remotewincontrol.rede.io.RedeAdapter
+import gmarques.remotewincontrol.data.AcoesDao
+import gmarques.remotewincontrol.rede.JsonMapper
 import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteSemMetadata
+import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
 import gmarques.remotewincontrol.rede.dtos.servidor.DtoServidorAcaoGravada
 import gmarques.remotewincontrol.rede.dtos.servidor.TIPO_DTO_SERVIDOR
+import gmarques.remotewincontrol.rede.io.RedeAdapter
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
-class Acoes(private val callback: (String) -> Unit) {
+// TODO: essa classe deveria se chamar acoes controller?
+class Acoes(private val callback: () -> Unit) {
+
+    private lateinit var dto: DtoServidorAcaoGravada
 
     init {
         addListenerDeRede()
@@ -19,10 +24,10 @@ class Acoes(private val callback: (String) -> Unit) {
      * o script de acoes gravadas no PC
      * */
     private fun addListenerDeRede() {
-        // TODO: servidor fecha antes de enviar a gravaçao
-        RedeAdapter.addListener(TIPO_DTO_SERVIDOR.ACAO_GRAVADA) {
-            val dto = it as DtoServidorAcaoGravada
-            callback.invoke(dto.script)
+        RedeAdapter.addListener(TIPO_DTO_SERVIDOR.ACAO_GRAVADA) { json ->
+
+            dto = JsonMapper.fromJson(json, DtoServidorAcaoGravada::class.java)
+            callback.invoke()
             return@addListener true
         }
     }
@@ -38,7 +43,9 @@ class Acoes(private val callback: (String) -> Unit) {
     }
 
     fun salvarAcao(nome: String) {
-
-
+        val acao = Acao(nome, dto.script)
+        AcoesDao().salvarAcao(acao)
     }
+
+
 }

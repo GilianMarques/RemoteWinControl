@@ -1,9 +1,9 @@
 package comandos_remotos.acoes.reprodutores
 
-import com.google.gson.Gson
 import comandos_remotos.acoes.AcoesDoUsuario
 import comandos_remotos.acoes.Etapa
 import kotlinx.coroutines.*
+import rede.JsonMapper
 
 class Reprodutor(private val acao: ArrayList<Etapa>) {
 
@@ -11,7 +11,7 @@ class Reprodutor(private val acao: ArrayList<Etapa>) {
     private val scopeExecucao = CoroutineScope(Job())
 
     fun executar() = scopeExecucao.launch {
-        exibirDescricao("executando ação: ${Gson().toJson(acao)}")
+        exibirDescricao("executando ação: ${JsonMapper.toJson(acao)}")
         iterarSobreEtapas()
         exibirDescricao("ação executada")
     }

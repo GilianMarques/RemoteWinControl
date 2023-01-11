@@ -25,7 +25,7 @@ class Cliente {
     suspend fun enviarMsg(mensagem: String): Boolean = withContext(Dispatchers.IO) {
         try {
 
-            val mSocket = Socket(EnderecosDeRede.ip, EnderecosDeRede.porta)
+            val mSocket = Socket(EnderecosDeRede.ipDoServidor, EnderecosDeRede.portaDoServidor)
             PrintWriter(mSocket.getOutputStream(), true)
                 .also {
                     it.println(mensagem) // mando pro servidor

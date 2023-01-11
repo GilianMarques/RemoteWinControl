@@ -30,7 +30,6 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var volumeService: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
@@ -48,18 +47,22 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         initMenu()
         initScroll()
+        initFabAcoes()
         initMousePad()
         initBotoesMouse()
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
         // TODO:     verificarPermissaoDeAcessibilidade()
-    //    mostrarDialogoDeAcoes()
+        //    mostrarDialogoDeAcoes()
     }
 
-
+    private fun initFabAcoes() {
+        binding.fabAcoes.setOnClickListener {
+            mostarBottomsheetAcoes()
+        }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initBotoesMouse() {
@@ -117,7 +120,7 @@ class MainFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.acessibilidade -> abrirTelaDeAcessibilidade()
-                    R.id.ip -> exibirDialogoIpPorta()
+                    R.id.ip -> mostrarDialogoIpPorta()
                     R.id.acoes -> mostrarDialogoDeAcoes()
                 }
                 return true
@@ -135,7 +138,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun exibirDialogoIpPorta() {
+    private fun mostrarDialogoIpPorta() {
 
         DialogoPortaIp(this) { porta, ip ->
             viewModel.atualizarEnderecosEnotificar(porta, ip)
@@ -143,12 +146,17 @@ class MainFragment : Fragment() {
 
     }
 
+    private fun mostarBottomsheetAcoes() {
+
+        val modalBottomSheet = BottomSheetAcoes()
+        modalBottomSheet.show(parentFragmentManager, BottomSheetAcoes::class.java.name)
+
+    }
+
     private fun verificarPermissaoDeAcessibilidade() {
         if (!Permissoes().permissaoDeAcessibilidadeConcedida()) {
-            val snack = Snackbar.make(
-                binding.mouseBtnMeio,
-                getString(R.string.Permissao_de_acessibilidade_necessaria_para_controlar),
-                Snackbar.LENGTH_INDEFINITE)
+            val snack =
+                    Snackbar.make(binding.mouseBtnMeio, getString(R.string.Permissao_de_acessibilidade_necessaria_para_controlar), Snackbar.LENGTH_INDEFINITE)
 
             snack.setAction(getString(R.string.Permitir)) {
                 abrirTelaDeAcessibilidade()

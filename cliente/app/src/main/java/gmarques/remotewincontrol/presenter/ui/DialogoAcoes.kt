@@ -8,7 +8,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import gmarques.remotewincontrol.databinding.DialogoAcoesBinding
 import gmarques.remotewincontrol.presenter.acoes.Acoes
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
 
@@ -40,12 +43,19 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         }
 
         binding.btnCancelar.setOnClickListener {
-            dialog.dismiss()
+            cancelarGravacao()
         }
         binding.toolbar.setNavigationOnClickListener {
-            dialog.dismiss()
+            cancelarGravacao()
         }
 
+    }
+
+    private fun cancelarGravacao() = scope.launch(IO) {
+
+        if (acoes.pararGravacao()) {
+            dialog.dismiss()
+        }
     }
 
     private fun pararGravacao() = scope.launch {
@@ -66,10 +76,10 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
     }
 
     /**
-     * invocado a partir da classe Acoes com o script de açoes que foi gravado no pc
+     * invocado a partir da classe Acoes para avisar que o script gravado no pc foi recebido
      * @see Acoes
      * */
-    fun acaoRecebida(script: String) {
+    private fun acaoRecebida() = scope.launch(Dispatchers.Main) {
         binding.btnSalvar.visibility = View.VISIBLE
     }
 

@@ -1,10 +1,9 @@
 package gmarques.remotewincontrol.rede.io
 
 import android.util.Log
-import com.google.gson.GsonBuilder
+import gmarques.remotewincontrol.rede.JsonMapper
 import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteAbs
-import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE.*
-import gmarques.remotewincontrol.rede.dtos.servidor.DtoServidorAbs
+import gmarques.remotewincontrol.rede.dtos.servidor.DtoServidorAcaoGravada
 import gmarques.remotewincontrol.rede.dtos.servidor.TIPO_DTO_SERVIDOR
 import gmarques.remotewincontrol.rede.dtos.servidor.TIPO_DTO_SERVIDOR.*
 import kotlinx.coroutines.*
@@ -17,14 +16,13 @@ object RedeAdapter {
 
     private val cliente = Cliente()
     private val servidor = Servidor()
-    private val gson = GsonBuilder().create()
     private val job = Job()
     private val listeners = HashMap<TIPO_DTO_SERVIDOR, ArrayList<RedeCallback>>()
 
     init {
         CoroutineScope(job).launch(IO) {
+            servidor.addListener(::eventoRecebido)
             servidor.ligar()
-            servidor.addListener(RedeAdapter::eventoRecebido)
         }
     }
 
@@ -38,26 +36,29 @@ object RedeAdapter {
      * */
     private fun eventoRecebido(entrada: String) {
 
-        val comando = gson.fromJson(entrada, DtoServidorAbs::class.java)
+        // Aqui, desserializo o json usando uma das subclasses Dto apenas para acessar o tipo
+        // Com essa info posso desserializar usando a classe correta posteriormente
+        val comando = JsonMapper.fromJson(entrada, DtoServidorAcaoGravada::class.java)
+
         Log.d("USUK", "RedeAdapter.eventoRecebido: $entrada")
 
         when (comando.tipo) {
-            ACAO_GRAVADA -> notificarListeners(comando)
+            ACAO_GRAVADA -> notificarListeners(comando.tipo, entrada)
         }
 
     }
 
-    private fun notificarListeners(comando: DtoServidorAbs) {
+    private fun notificarListeners(tipo: TIPO_DTO_SERVIDOR, entrada: String) {
 
         val remocoes = arrayListOf<RedeCallback>()
 
-        listeners[comando.tipo]?.forEach {
-            val removerListener = it.eventoRecebido(comando)
+        listeners[tipo]?.forEach {
+            val removerListener = it.eventoRecebido(entrada)
             if (removerListener) remocoes.add(it)
         }
 
         remocoes.forEach {
-            listeners[comando.tipo]?.remove(it)
+            listeners[tipo]?.remove(it)
         }
 
     }
@@ -70,8 +71,8 @@ object RedeAdapter {
     fun interface RedeCallback {
         /**
          * retorne true quando quiser remover o listener
-         * @param comando o evento recebido do servidor
+         * @param comandoJson o evento recebido do servidor
          * */
-        fun eventoRecebido(comando: DtoServidorAbs): Boolean
+        fun eventoRecebido(comandoJson: String): Boolean
     }
 }

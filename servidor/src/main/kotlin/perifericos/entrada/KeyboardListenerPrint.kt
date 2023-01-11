@@ -16,7 +16,7 @@ class KeyboardListenerPrint : NativeKeyListener {
 
     fun desligar() {
         try {
-            GlobalScreen.unregisterNativeHook()
+            GlobalScreen.removeNativeKeyListener(this)
         } catch (nativeHookException: NativeHookException) {
             nativeHookException.printStackTrace()
         }

@@ -12,9 +12,10 @@ import java.net.Socket
 class EnderecosDeRede {
     companion object {
 
-        var porta = -1
-        var portaEntrada = -1
-        var ip = ""
+        var portaDoServidor = -1
+        var portaDoCliente = -1
+        var ipDoServidor = ""
+        var ipDoCliente = ""
 
         private suspend fun lerIpDaRede(): String = withContext(IO) {
             return@withContext try {
@@ -28,10 +29,14 @@ class EnderecosDeRede {
         }
 
         suspend fun atualizarEnderecos() {
-            porta = Preferencias().getInt(PREFS_PORTA, REDE_PORTA_PADRAO)
-            portaEntrada = porta + 1
-            ip = Preferencias().getString(PREFS_IP, lerIpDaRede())!!
-            Log.d("USUK", "Rede.atualizarEnderecos porta: $porta ip $ip ")
+
+            portaDoServidor = Preferencias().getInt(PREFS_PORTA, REDE_PORTA_PADRAO)
+            ipDoServidor = Preferencias().getString(PREFS_IP, lerIpDaRede())!!
+
+            portaDoCliente = portaDoServidor + 1
+            ipDoCliente = lerIpDaRede()
+
+            Log.d("USUK", "Rede.atualizarEnderecos porta: $portaDoServidor ip $ipDoServidor ")
         }
 
 
