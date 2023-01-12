@@ -17,8 +17,8 @@ import gmarques.remotewincontrol.databinding.FragmentMainBinding
 import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
 import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.presenter.Vibrador
-import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollClique
-import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollInfinito
+import gmarques.remotewincontrol.domain.mouse.scroll.ScrollClique
+import gmarques.remotewincontrol.domain.mouse.scroll.ScrollInfinito
 import kotlinx.coroutines.launch
 
 
@@ -148,7 +148,7 @@ class MainFragment : Fragment() {
 
     private fun mostarBottomsheetAcoes() {
 
-        val modalBottomSheet = BottomSheetAcoes()
+        val modalBottomSheet = BottomSheetAcoes(::mostrarDialogoDeAcoes)
         modalBottomSheet.show(parentFragmentManager, BottomSheetAcoes::class.java.name)
 
     }

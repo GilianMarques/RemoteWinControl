@@ -1,12 +1,15 @@
 package gmarques.remotewincontrol.rede.dtos.servidor
 
-import com.google.gson.Gson
-import gmarques.remotewincontrol.rede.JsonMapper
+import gmarques.remotewincontrol.domain.acoes.Acao
+import gmarques.remotewincontrol.domain.JsonMapper
 
 
-class DtoServidorAcaoGravada : DtoServidorAbs() {
+class DtoServidorAcaoGravada(etapas: Acao) : DtoServidorAbs() {
+    var acao = ""
 
-    var script = ""
+    init {
+        acao = JsonMapper.toJson(etapas)
+    }
 
     override val tipo: TIPO_DTO_SERVIDOR = TIPO_DTO_SERVIDOR.ACAO_GRAVADA
 

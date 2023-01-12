@@ -1,13 +1,13 @@
 package rede.dtos.servidor
 
-import comandos_remotos.acoes.Etapa
+import domain.acoes.Acao
 import rede.JsonMapper
 
-class DtoServidorAcaoGravada(etapas: ArrayList<Etapa>) : DtoServidorAbs() {
-    var script = ""
+class DtoServidorAcaoGravada(acao: Acao) : DtoServidorAbs() {
+    var acao = ""
 
     init {
-        script = JsonMapper.toJson(etapas)
+        this.acao = JsonMapper.toJson(acao)
     }
 
     override val tipo: TIPO_DTO_SERVIDOR = TIPO_DTO_SERVIDOR.ACAO_GRAVADA

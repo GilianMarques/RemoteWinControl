@@ -5,7 +5,7 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.MaterialToolbar
 import gmarques.remotewincontrol.R
-import gmarques.remotewincontrol.presenter.volume.VolumeHandler
+import gmarques.remotewincontrol.domain.volume.VolumeHandler
 
 class MainActivity : AppCompatActivity() {
     // TODO: usar sensores para decidir quando desligar o pc

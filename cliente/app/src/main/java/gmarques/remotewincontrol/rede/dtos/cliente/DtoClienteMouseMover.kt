@@ -1,6 +1,6 @@
 package gmarques.remotewincontrol.rede.dtos.cliente
 
-import gmarques.remotewincontrol.rede.JsonMapper
+import gmarques.remotewincontrol.domain.JsonMapper
 
 @Suppress("unused")
 class DtoClienteMouseMover(val movX: Float, val movY: Float) : DtoClienteAbs() {

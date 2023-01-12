@@ -1,6 +1,6 @@
 package gmarques.remotewincontrol.rede.dtos.cliente
 
-import gmarques.remotewincontrol.rede.EnderecosDeRede
+import gmarques.remotewincontrol.rede.io.EnderecosDeRede
 
 abstract class DtoClienteAbs {
 

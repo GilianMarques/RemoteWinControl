@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import gmarques.remotewincontrol.App
-import gmarques.remotewincontrol.presenter.acoes.Acao
-import gmarques.remotewincontrol.rede.JsonMapper
+import gmarques.remotewincontrol.domain.acoes.Acao
+import gmarques.remotewincontrol.domain.JsonMapper
 
 /**
  * Uma implementação tipo "DAO" para armazenar as açoes gravadas no Computador

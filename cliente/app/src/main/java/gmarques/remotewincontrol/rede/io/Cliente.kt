@@ -1,7 +1,6 @@
 package gmarques.remotewincontrol.rede.io
 
 import android.util.Log
-import gmarques.remotewincontrol.rede.EnderecosDeRede
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,7 +12,7 @@ import java.net.Socket
 /**
  * Usado pelo ControladorDeRede para enviar mensagens ao servidor
  * Nao use essa classe diretamente.
- * @See RedeAdapter
+ * @See RedeController
  * */
 class Cliente {
 

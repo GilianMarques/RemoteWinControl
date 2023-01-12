@@ -1,7 +1,6 @@
 package gmarques.remotewincontrol.rede.dtos.cliente
 
-import com.google.gson.Gson
-import gmarques.remotewincontrol.rede.JsonMapper
+import gmarques.remotewincontrol.domain.JsonMapper
 
 @Suppress("unused")
 class DtoClienteSemMetadata(override val tipo: TIPO_DTO_CLIENTE) : DtoClienteAbs() {

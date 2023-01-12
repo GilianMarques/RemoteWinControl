@@ -4,7 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.provider.Settings.Secure
 import gmarques.remotewincontrol.App
-import gmarques.remotewincontrol.presenter.volume.ServicoBotoesVolume
+import gmarques.remotewincontrol.domain.volume.ServicoBotoesVolume
 
 class Permissoes {
 

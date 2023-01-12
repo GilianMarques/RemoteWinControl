@@ -1,10 +1,8 @@
 package gmarques.remotewincontrol
 
 import android.app.Application
-import android.content.Intent
-import gmarques.remotewincontrol.presenter.volume.VolumeHelper
-import gmarques.remotewincontrol.presenter.volume.ServicoBotoesVolume
-import gmarques.remotewincontrol.rede.EnderecosDeRede
+import gmarques.remotewincontrol.domain.volume.VolumeHelper
+import gmarques.remotewincontrol.rede.io.EnderecosDeRede
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

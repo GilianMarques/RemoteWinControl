@@ -1,7 +1,6 @@
 package rede.io
 
 import kotlinx.coroutines.*
-import rede.EnderecosDeRede
 import rede.REDE_PORTA_PADRAO
 import java.io.BufferedReader
 import java.io.InputStreamReader

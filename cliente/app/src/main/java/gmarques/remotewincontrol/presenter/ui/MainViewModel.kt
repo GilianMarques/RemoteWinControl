@@ -11,15 +11,15 @@ import gmarques.remotewincontrol.data.PREFS_PORTA
 import gmarques.remotewincontrol.data.Preferencias
 import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
 import gmarques.remotewincontrol.presenter.Vibrador
-import gmarques.remotewincontrol.presenter.mouse.EntradaCallback
-import gmarques.remotewincontrol.presenter.mouse.MousePadTouchListener
-import gmarques.remotewincontrol.presenter.mouse.mousepad_gestos.EntradaClique
-import gmarques.remotewincontrol.presenter.mouse.mousepad_gestos.EntradaCliqueDoisDedos
-import gmarques.remotewincontrol.presenter.mouse.mousepad_gestos.EntradaCliqueLongo
-import gmarques.remotewincontrol.presenter.mouse.mousepad_gestos.EntradaMover
-import gmarques.remotewincontrol.presenter.mouse.scroll.ScrollHandler
-import gmarques.remotewincontrol.rede.io.RedeAdapter
-import gmarques.remotewincontrol.rede.EnderecosDeRede
+import gmarques.remotewincontrol.domain.mouse.EntradaCallback
+import gmarques.remotewincontrol.domain.mouse.MousePadTouchListener
+import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaClique
+import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaCliqueDoisDedos
+import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaCliqueLongo
+import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaMover
+import gmarques.remotewincontrol.domain.mouse.scroll.ScrollHandler
+import gmarques.remotewincontrol.rede.io.RedeController
+import gmarques.remotewincontrol.rede.io.EnderecosDeRede
 import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteMouseRolar
 import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteSemMetadata
 import kotlinx.coroutines.Dispatchers.IO
@@ -44,7 +44,7 @@ class MainViewModel : ViewModel() {
             _vibrarScroll.postValue(vibDuracao)
 
             val sucesso =
-                    RedeAdapter.enviar(DtoClienteMouseRolar(ScrollHandler.getMetadata(direcao)))
+                    RedeController.enviar(DtoClienteMouseRolar(ScrollHandler.getMetadata(direcao)))
 
             if (!sucesso) {
                 val msg = String.format(
@@ -60,7 +60,7 @@ class MainViewModel : ViewModel() {
         val mousePadCallback = EntradaCallback { comandoDto ->
             _vibrarMousePad.value = comandoDto.tipo
             viewModelScope.launch {
-                val sucesso = RedeAdapter.enviar(comandoDto)
+                val sucesso = RedeController.enviar(comandoDto)
                 if (!sucesso) notificarErroToasty(String.format(App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado), comandoDto.tipo))
             }
         }
@@ -77,7 +77,7 @@ class MainViewModel : ViewModel() {
 
     fun mouseClique(botao: TIPO_DTO_CLIENTE) = viewModelScope.launch {
         _vibrarMousePad.value = botao
-        val sucesso = RedeAdapter.enviar(DtoClienteSemMetadata(botao))
+        val sucesso = RedeController.enviar(DtoClienteSemMetadata(botao))
         if (!sucesso) notificarErroToasty(String.format(App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado), botao))
 
     }

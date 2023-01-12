@@ -10,7 +10,7 @@ import java.net.Socket
 /**
  * Usado pelo para enviar mensagens ao telefone
  * Nao use essa classe diretamente.
- * @See RedeAdapter
+ * @See RedeController
  * */
 class Cliente {
 
@@ -21,6 +21,7 @@ class Cliente {
      * */
     suspend fun enviarMsg(mensagem: String, porta: Int, ip: String): Boolean = withContext(Dispatchers.IO) {
         try {
+            println("tentando enviar comando p/ $ip porta $porta msg = \"$mensagem\"")
 
             val mSocket = Socket(ip, porta)
             PrintWriter(mSocket.getOutputStream(), true)
@@ -29,7 +30,7 @@ class Cliente {
                     it.close()
                 }
 
-            println("comando enviado para ip $ip porta $porta msg = \"$mensagem\"")
+            println("comando enviado")
             mSocket.close()
 
             return@withContext true

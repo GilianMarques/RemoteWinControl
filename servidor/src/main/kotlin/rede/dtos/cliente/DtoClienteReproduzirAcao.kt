@@ -1,10 +1,11 @@
 package rede.dtos.cliente
 
+import domain.acoes.Acao
 import rede.JsonMapper
 
 
 @Suppress("unused")
-class DtoClienteReproduzirAcao(val script: String) : DtoClienteAbs() {
+class DtoClienteReproduzirAcao(val acao: String) : DtoClienteAbs() {
 
     override val tipo: TIPO_DTO_CLIENTE = TIPO_DTO_CLIENTE.ACAO_REPRODUZIR_GRAVACAO
 

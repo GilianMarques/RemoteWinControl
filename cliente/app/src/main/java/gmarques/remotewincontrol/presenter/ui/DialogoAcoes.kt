@@ -6,18 +6,17 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import gmarques.remotewincontrol.databinding.DialogoAcoesBinding
-import gmarques.remotewincontrol.presenter.acoes.Acoes
+import gmarques.remotewincontrol.domain.acoes.AcaoController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
 
     private var binding = DialogoAcoesBinding.inflate(fragmento.layoutInflater)
     private var dialog: BottomSheetDialog
-    private var acoes: Acoes
+    private var acaoController: AcaoController
     private val scope: CoroutineScope
 
     init {
@@ -28,7 +27,7 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         dialog.setCancelable(false)
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
-        acoes = Acoes(::acaoRecebida)
+        acaoController = AcaoController(::acaoRecebida)
     }
 
     private fun initViews() {
@@ -38,7 +37,7 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         binding.btnPararGravacao.setOnClickListener { pararGravacao() }
 
         binding.btnSalvar.setOnClickListener {
-            if (nomeValido()) acoes.salvarAcao(binding.edtNome.text.toString())
+            if (nomeValido()) acaoController.salvarAcao(binding.edtNome.text.toString())
             dialog.dismiss()
         }
 
@@ -53,13 +52,13 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
 
     private fun cancelarGravacao() = scope.launch(IO) {
 
-        if (acoes.pararGravacao()) {
+        if (acaoController.abortarGravacao()) {
             dialog.dismiss()
         }
     }
 
     private fun pararGravacao() = scope.launch {
-        if (acoes.pararGravacao()) {
+        if (acaoController.pararGravacao()) {
             binding.btnPararGravacao.visibility = View.GONE
             binding.inputNome.visibility = View.VISIBLE
             binding.inputNome.requestFocus()
@@ -69,7 +68,7 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
     }
 
     private fun iniciarGravacao() = scope.launch {
-        if (acoes.iniciarGravacao()) {
+        if (acaoController.iniciarGravacao()) {
             binding.btnPararGravacao.visibility = View.VISIBLE
             binding.btnGravar.visibility = View.GONE
         }
@@ -77,10 +76,11 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
 
     /**
      * invocado a partir da classe Acoes para avisar que o script gravado no pc foi recebido
-     * @see Acoes
+     * @see AcaoController
      * */
     private fun acaoRecebida() = scope.launch(Dispatchers.Main) {
-        binding.btnSalvar.visibility = View.VISIBLE
+        binding.btnSalvar.isEnabled = true
+        binding.btnSalvar.isClickable = true
     }
 
     private fun nomeValido() = binding.edtNome.text.toString().isNotEmpty()

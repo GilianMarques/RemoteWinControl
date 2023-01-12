@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import gmarques.remotewincontrol.databinding.DialogoIpPortaBinding
-import gmarques.remotewincontrol.rede.EnderecosDeRede
+import gmarques.remotewincontrol.rede.io.EnderecosDeRede
 
 class DialogoPortaIp(fragmento: Fragment, private val callback: Callback) {
 
