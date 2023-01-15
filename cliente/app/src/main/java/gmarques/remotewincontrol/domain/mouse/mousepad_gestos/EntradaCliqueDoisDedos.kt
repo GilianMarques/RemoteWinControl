@@ -1,9 +1,9 @@
 package gmarques.remotewincontrol.domain.mouse.mousepad_gestos
 
 import android.view.MotionEvent
-import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
+import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.domain.mouse.EntradaCallback
-import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteSemMetadata
+import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import kotlin.math.abs
 
 class EntradaCliqueDoisDedos(override var callback: EntradaCallback) : EntradaAbs() {
@@ -29,7 +29,7 @@ class EntradaCliqueDoisDedos(override var callback: EntradaCallback) : EntradaAb
             val duracao = event.eventTime - event.downTime
 
             if (duracao <= CLICK_INTERVAL_TWO_FINGERS && movX <= MAX_MOV_PERM_TWO_FINGERS && movY <= MAX_MOV_PERM_TWO_FINGERS)
-                callback.entradaValidada(DtoClienteSemMetadata(TIPO_DTO_CLIENTE.PAD_CLICK_TWO_FINGERS))
+                callback.entradaValidada(DtoCliente(TIPO_EVENTO_CLIENTE.PAD_CLICK_TWO_FINGERS))
 
         }
         actionDown = null

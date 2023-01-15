@@ -5,8 +5,8 @@ data class Etapa(
     val tipo: TIPO,
 ) {
     var botao: Int = -1
-    var movX: Int = -1
-    var movY: Int = -1
+    var coordX: Int = -1
+    var coordY: Int = -1
     var rolarDirecao: Int = -1
     var descricao: String = ""
 

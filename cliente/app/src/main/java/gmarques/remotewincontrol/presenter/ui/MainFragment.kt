@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
-import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
+import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.presenter.Permissoes
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.domain.mouse.scroll.ScrollClique
@@ -55,21 +55,21 @@ class MainFragment : Fragment() {
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
         // TODO:     verificarPermissaoDeAcessibilidade()
-        //    mostrarDialogoDeAcoes()
+        mostrarBottomsheetAcoes()
     }
 
     private fun initFabAcoes() {
         binding.fabAcoes.setOnClickListener {
-            mostarBottomsheetAcoes()
+            mostrarBottomsheetAcoes()
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initBotoesMouse() {
-        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(TIPO_DTO_CLIENTE.MOUSE_CLICK_ESQ) }
+        binding.mouseBtnEsq.setOnClickListener { viewModel.mouseClique(TIPO_EVENTO_CLIENTE.MOUSE_CLICK_ESQ) }
         binding.rvInfiniteScroll.setOnTouchListener(ScrollClique())//chama o onClick qdo detecta um clique por evento de toque
-        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(TIPO_DTO_CLIENTE.MOUSE_CLICK_CEN) }
-        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(TIPO_DTO_CLIENTE.MOUSE_CLICK_DIR) }
+        binding.rvInfiniteScroll.setOnClickListener { viewModel.mouseClique(TIPO_EVENTO_CLIENTE.MOUSE_CLICK_CEN) }
+        binding.mouseBtnDir.setOnClickListener { viewModel.mouseClique(TIPO_EVENTO_CLIENTE.MOUSE_CLICK_DIR) }
 
     }
 
@@ -101,10 +101,10 @@ class MainFragment : Fragment() {
     private fun observerVibracaoDoMousePad() =
             viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
                 when (tipo) {
-                    TIPO_DTO_CLIENTE.NONE -> {}
-                    TIPO_DTO_CLIENTE.PAD_MOVE -> {}
-                    TIPO_DTO_CLIENTE.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
-                    TIPO_DTO_CLIENTE.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
+                    TIPO_EVENTO_CLIENTE.NONE -> {}
+                    TIPO_EVENTO_CLIENTE.MOUSE_MOVE -> {}
+                    TIPO_EVENTO_CLIENTE.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
+                    TIPO_EVENTO_CLIENTE.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
                     else -> Vibrador.vibCLick()
 
                 }
@@ -121,7 +121,6 @@ class MainFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.acessibilidade -> abrirTelaDeAcessibilidade()
                     R.id.ip -> mostrarDialogoIpPorta()
-                    R.id.acoes -> mostrarDialogoDeAcoes()
                 }
                 return true
             }
@@ -133,8 +132,8 @@ class MainFragment : Fragment() {
 
     private fun mostrarDialogoDeAcoes() {
 
-        DialogoAcoes(this) {
-
+        DialogoGravarAcoes(this) {
+            mostrarBottomsheetAcoes()
         }
     }
 
@@ -146,10 +145,9 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun mostarBottomsheetAcoes() {
+    private fun mostrarBottomsheetAcoes() {
 
-        val modalBottomSheet = BottomSheetAcoes(::mostrarDialogoDeAcoes)
-        modalBottomSheet.show(parentFragmentManager, BottomSheetAcoes::class.java.name)
+        DialogoVerAcoes(this, ::mostrarDialogoDeAcoes)
 
     }
 

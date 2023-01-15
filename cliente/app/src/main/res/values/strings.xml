@@ -17,4 +17,7 @@
     <string name="Nome">Nome</string>
     <string name="Manter_tela_ligada">Manter tela ligada</string>
     <string name="Acoes">Ações</string>
+    <string name="Ignorar_movimento_do_mouse">Ignorar movimento do mouse</string>
+    <string name="Clique_para_remover">Clique para remover</string>
+    <string name="Acao_x">Ação #%1$s</string>
 </resources>

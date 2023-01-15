@@ -3,8 +3,9 @@ package domain.acoes
 import domain.acoes.Etapa.TIPO
 import domain.listeners.KeyboardListener
 import domain.listeners.MouseListener
+import java.awt.MouseInfo
 
-class Gravador : KeyboardListener.Callback, MouseListener.MouseCallback {
+class Gravador(val ignorarMovimentoMouse: Boolean) : KeyboardListener.Callback, MouseListener.MouseCallback {
 
     private val tecladoListener = KeyboardListener()
     private val mouseListener = MouseListener()
@@ -28,69 +29,56 @@ class Gravador : KeyboardListener.Callback, MouseListener.MouseCallback {
     private fun tempoDecorrido() = (System.currentTimeMillis() - horarioInicio)
 
     override fun tecladoPressionouTecla(rawCode: Int, nomeTecla: String) {
-        acao.etapas.add(
-            Etapa(tempoDecorrido(), TIPO.TECLADO_PRESS)
-                .also {
-                    it.botao = rawCode
-                    it.descricao = "Teclado Press tecla $nomeTecla"
-                }
-        )
+        acao.etapas.add(Etapa(tempoDecorrido(), TIPO.TECLADO_PRESS).also {
+                it.botao = rawCode
+                it.descricao = "Teclado Press. tecla $nomeTecla"
+            })
     }
 
     override fun tecladoSoltouTecla(rawCode: Int, nomeTecla: String) {
 
-        acao.etapas.add(
-            Etapa(tempoDecorrido(), TIPO.TECLADO_SOLTAR)
-                .also {
-                    it.botao = rawCode
-                    it.descricao = "Teclado soltar tecla $nomeTecla"
-                }
-        )
+        acao.etapas.add(Etapa(tempoDecorrido(), TIPO.TECLADO_SOLTAR).also {
+                it.botao = rawCode
+                it.descricao = "Teclado soltar tecla $nomeTecla"
+            })
 
     }
 
     override fun mouseBotaoPressionado(botao: Int) {
-        acao.etapas.add(
-            Etapa(tempoDecorrido(), TIPO.MOUSE_PRESS)
-                .also {
-                    it.botao = botao
-                    it.descricao = "mouse press tecla $botao"
-                }
-        )
+        acao.etapas.add(Etapa(tempoDecorrido(), TIPO.MOUSE_PRESS).also {
+                it.botao = botao
+                it.coordY = MouseInfo.getPointerInfo().location.x;
+                it.coordX = MouseInfo.getPointerInfo().location.y;
+                it.descricao = "Mouse press. tecla $botao"
+            })
     }
 
     override fun mouseBotaoSolto(botao: Int) {
-        acao.etapas.add(
-            Etapa(tempoDecorrido(), TIPO.MOUSE_SOLTAR)
-                .also {
-                    it.botao = botao
-                    it.descricao = "mouse solta tecla $botao"
-                }
-        )
+        acao.etapas.add(Etapa(tempoDecorrido(), TIPO.MOUSE_SOLTAR).also {
+                it.botao = botao
+                it.coordY = MouseInfo.getPointerInfo().location.x;
+                it.coordX = MouseInfo.getPointerInfo().location.y;
+                it.descricao = "Mouse solta tecla $botao"
+            })
     }
 
-    override fun mouseMoveu(x: Int, y: Int) {
+    override fun mouseMoveu(x: Int, y: Int, arrastando: Boolean) {
+        if (!arrastando && ignorarMovimentoMouse) return
 
-        acao.etapas.add(
-            Etapa(tempoDecorrido(), TIPO.MOUSE_MOVER)
-                .also {
+        acao.etapas.add(Etapa(tempoDecorrido(), TIPO.MOUSE_MOVER).also {
 
-                    it.movX = x
-                    it.movY = y
-                    it.descricao = "mouse movido x: $x  y: $y "
-                }
-        )
+                it.coordX = x
+                it.coordY = y
+                it.descricao = "Mouse mover x: $x  y: $y "
+            })
 
     }
 
     override fun mouseRolou(direcao: Int) {
-        acao.etapas.add(
-            Etapa(tempoDecorrido(), TIPO.MOUSE_ROLAR)
-                .also {
-                    it.rolarDirecao = direcao
-                    it.descricao = "mouse rolado dir:$direcao"
-                }
-        )
+        acao.etapas.add(Etapa(tempoDecorrido(), TIPO.MOUSE_ROLAR).also {
+                it.rolarDirecao = direcao
+                it.descricao = "Mouse rolar dir: $direcao"
+            })
     }
 
 

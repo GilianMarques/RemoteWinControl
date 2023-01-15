@@ -6,13 +6,14 @@ import domain.acoes.Etapa
 class ReprodutorTeclado {
 
      fun tecladoPressionarTecla(etapa: Etapa) {
-        val cmd = "nircmd.exe sendkey ${etapa.botao} down"
+
+        val cmd = "nircmd.exe sendkey ${NirCmdTeclas.codigoTecla(etapa.botao)} down"
         Cmd.run(cmd)
         exibirDescricao(" ${etapa.descricao} comando: $cmd")
     }
 
      fun tecladoSoltarTecla(etapa: Etapa) {
-        val cmd = "nircmd.exe sendkey ${etapa.botao} up"
+        val cmd = "nircmd.exe sendkey ${NirCmdTeclas.codigoTecla(etapa.botao)} up"
         Cmd.run(cmd)
         exibirDescricao(" ${etapa.descricao} comando: $cmd")
     }

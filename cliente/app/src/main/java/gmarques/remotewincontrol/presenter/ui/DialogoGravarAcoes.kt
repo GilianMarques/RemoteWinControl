@@ -7,12 +7,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import gmarques.remotewincontrol.databinding.DialogoAcoesBinding
 import gmarques.remotewincontrol.domain.acoes.AcaoController
+import gmarques.remotewincontrol.presenter.Vibrador
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
+class DialogoGravarAcoes(fragmento: Fragment, private val callback: Callback) {
 
     private var binding = DialogoAcoesBinding.inflate(fragmento.layoutInflater)
     private var dialog: BottomSheetDialog
@@ -27,6 +28,7 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         dialog.setCancelable(false)
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
+        dialog.setOnDismissListener { callback.feito() }
         acaoController = AcaoController(::acaoRecebida)
     }
 
@@ -37,8 +39,10 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
         binding.btnPararGravacao.setOnClickListener { pararGravacao() }
 
         binding.btnSalvar.setOnClickListener {
-            if (nomeValido()) acaoController.salvarAcao(binding.edtNome.text.toString())
-            dialog.dismiss()
+            if (nomeValido()) {
+                acaoController.salvarAcao(binding.edtNome.text.toString())
+                dialog.dismiss()
+            } else Vibrador.vibErro()
         }
 
         binding.btnCancelar.setOnClickListener {
@@ -68,9 +72,10 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
     }
 
     private fun iniciarGravacao() = scope.launch {
-        if (acaoController.iniciarGravacao()) {
+        if (acaoController.iniciarGravacao(binding.sMovMouse.isChecked)) {
             binding.btnPararGravacao.visibility = View.VISIBLE
             binding.btnGravar.visibility = View.GONE
+            binding.sMovMouse.visibility = View.GONE
         }
     }
 
@@ -88,5 +93,6 @@ class DialogoAcoes(fragmento: Fragment, private val callback: Callback) {
     fun interface Callback {
         fun feito()
     }
+
 
 }

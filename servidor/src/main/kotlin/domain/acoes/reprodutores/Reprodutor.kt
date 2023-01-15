@@ -8,13 +8,14 @@ import rede.JsonMapper
 
 object Reprodutor {
 
-    private val aceleracao = 1
+    private var velocidade = 1f
     private val scopeExecucao = CoroutineScope(Job())
     private val reprodutorMouse = ReprodutorMouse()
     private val reprodutorTeclado = ReprodutorTeclado()
     private lateinit var acao: Acao
 
-    fun executar(acao: Acao) = scopeExecucao.launch {
+    fun executar(acao: Acao, velocidade: Float) = scopeExecucao.launch {
+        this@Reprodutor.velocidade = velocidade
         this@Reprodutor.acao = acao
         exibirDescricao("executando ação: ${JsonMapper.toJson(acao.etapas)}")
         iterarSobreEtapas()
@@ -29,8 +30,15 @@ object Reprodutor {
         for (i in 0 until acao.etapas.size) {
             val etapa = acao.etapas[i]
             avaliarAcao(etapa)
-            if (i < acao.etapas.size - 1) delay((acao.etapas[i + 1].momentoExec - etapa.momentoExec) / aceleracao)
 
+            if (i < acao.etapas.size - 1) {
+                val intervalo = acao.etapas[i + 1].momentoExec - etapa.momentoExec
+                val delay = if (velocidade < 1f) intervalo / velocidade else intervalo / velocidade
+                val delayTratado = delay.toLong().coerceIn(1, 60_000)
+                println("esperando ${delayTratado}mls delay orginal ${intervalo}mls vel: $velocidade")
+                delay(delayTratado)
+
+            }
         }
     }
 

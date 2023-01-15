@@ -23,6 +23,7 @@ class AcoesDao {
             json.let { acoes.add(JsonMapper.fromJson(json as String, Acao::class.java)) }
 
         }
+        acoes.sortBy { it.nome }
         return acoes
     }
 

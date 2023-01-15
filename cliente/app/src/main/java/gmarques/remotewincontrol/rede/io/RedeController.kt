@@ -2,10 +2,10 @@ package gmarques.remotewincontrol.rede.io
 
 import android.util.Log
 import gmarques.remotewincontrol.domain.JsonMapper
-import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteAbs
-import gmarques.remotewincontrol.rede.dtos.servidor.DtoServidorAcaoGravada
-import gmarques.remotewincontrol.rede.dtos.servidor.TIPO_DTO_SERVIDOR
-import gmarques.remotewincontrol.rede.dtos.servidor.TIPO_DTO_SERVIDOR.*
+import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
+import gmarques.remotewincontrol.domain.dtos.servidor.DtoServidor
+import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
+import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
@@ -17,7 +17,7 @@ object RedeController {
     private val cliente = Cliente()
     private val servidor = Servidor()
     private val job = Job()
-    private val listeners = HashMap<TIPO_DTO_SERVIDOR, ArrayList<RedeCallback>>()
+    private val listeners = HashMap<TIPO_EVENTO_SERVIDOR, ArrayList<RedeCallback>>()
 
     init {
         CoroutineScope(job).launch(IO) {
@@ -26,8 +26,11 @@ object RedeController {
         }
     }
 
-    suspend fun enviar(dtoClienteAbs: DtoClienteAbs): Boolean = withContext(IO) {
-        return@withContext cliente.enviarMsg(dtoClienteAbs.toJson())
+    suspend fun enviar(dto: DtoCliente): Boolean = withContext(IO) {
+        dto.ipResposta = EnderecosDeRede.ipDoCliente
+        dto.portaResposta = EnderecosDeRede.portaDoCliente
+
+        return@withContext cliente.enviarMsg(dto.toJson())
     }
 
     /**
@@ -36,24 +39,24 @@ object RedeController {
      * */
     private fun eventoRecebido(entrada: String) {
 
-        // Aqui, desserializo o json usando uma das subclasses Dto apenas para acessar o tipo
-        // Com essa info posso desserializar usando a classe correta posteriormente
-        val comando = JsonMapper.fromJson(entrada, DtoServidorAcaoGravada::class.java)
 
-        Log.d("USUK", "RedeController.eventoRecebido: $entrada")
+        val comando = JsonMapper.fromJson(entrada, DtoServidor::class.java)
+
+        Log.d("USUK", "RedeController.eventoRecebido: '${comando.tipo}' $entrada")
 
         when (comando.tipo) {
-            ACAO_GRAVADA -> notificarListeners(comando.tipo, entrada)
+            ACAO_GRAVADA -> notificarListeners(comando.tipo, comando)
+            else -> {}
         }
 
     }
 
-    private fun notificarListeners(tipo: TIPO_DTO_SERVIDOR, entrada: String) {
+    private fun notificarListeners(tipo: TIPO_EVENTO_SERVIDOR, comando: DtoServidor) {
 
         val remocoes = arrayListOf<RedeCallback>()
 
         listeners[tipo]?.forEach {
-            val removerListener = it.eventoRecebido(entrada)
+            val removerListener = it.eventoRecebido(comando)
             if (removerListener) remocoes.add(it)
         }
 
@@ -63,7 +66,7 @@ object RedeController {
 
     }
 
-    fun addListener(tipo: TIPO_DTO_SERVIDOR, callback: RedeCallback) {
+    fun addListener(tipo: TIPO_EVENTO_SERVIDOR, callback: RedeCallback) {
         if (listeners[tipo] == null) listeners[tipo] = arrayListOf(callback)
         else listeners[tipo]!!.add(callback)
     }
@@ -73,6 +76,6 @@ object RedeController {
          * retorne true quando quiser remover o listener
          * @param comandoJson o evento recebido do servidor
          * */
-        fun eventoRecebido(comandoJson: String): Boolean
+        fun eventoRecebido(comandoJson: DtoServidor): Boolean
     }
 }

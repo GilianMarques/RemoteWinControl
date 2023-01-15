@@ -3,9 +3,9 @@ package gmarques.remotewincontrol.domain.mouse.mousepad_gestos
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
-import gmarques.remotewincontrol.rede.dtos.cliente.TIPO_DTO_CLIENTE
+import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.domain.mouse.EntradaCallback
-import gmarques.remotewincontrol.rede.dtos.cliente.DtoClienteSemMetadata
+import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 
 import kotlin.math.abs
 
@@ -35,7 +35,7 @@ class EntradaCliqueLongo(override var callback: EntradaCallback) : EntradaAbs() 
             val movX = abs(actionDown!!.first - event.x)
             val movY = abs(actionDown!!.second - event.y)
 
-            if (movX <= MAX_MOV_PERM && movY <= MAX_MOV_PERM) callback.entradaValidada(DtoClienteSemMetadata(TIPO_DTO_CLIENTE.PAD_LONG_CLICK))
+            if (movX <= MAX_MOV_PERM && movY <= MAX_MOV_PERM) callback.entradaValidada(DtoCliente(TIPO_EVENTO_CLIENTE.PAD_LONG_CLICK))
 
         } else cancelarVerificacao = true
 

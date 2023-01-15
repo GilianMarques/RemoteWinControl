@@ -21,7 +21,7 @@
             app:layout_constraintBottom_toTopOf="@id/mouse_btn_dir"
             app:layout_constraintEnd_toEndOf="@id/mouse_btn_dir"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/vec_acao"
+            app:srcCompat="@drawable/vec_gravar"
             android:contentDescription="@string/Acoes" />
 
         <LinearLayout

@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#BABABA</color>
+    <color name="remover">#F44336</color>
     <color name="card_color_day">#F5F5F5</color>
 </resources>

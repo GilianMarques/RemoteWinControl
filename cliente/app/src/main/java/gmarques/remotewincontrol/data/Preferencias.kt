@@ -13,10 +13,14 @@ class Preferencias {
 
     fun getInt(chave: String, padrao: Int = -1) = preferencias.getInt(chave, padrao)
 
+    fun getFloat(chave: String, padrao: Float = -1f) = preferencias.getFloat(chave, padrao)
+
     fun getString(chave: String, padrao: String = "") = preferencias.getString(chave, padrao)
 
 
     fun putInt(chave: String, valor: Int) = preferencias.edit { putInt(chave, valor) }
+
+    fun putFloat(chave: String, valor: Float) = preferencias.edit { putFloat(chave, valor) }
 
     fun putString(chave: String, valor: String) = preferencias.edit { putString(chave, valor) }
 

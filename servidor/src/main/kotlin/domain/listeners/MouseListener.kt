@@ -15,12 +15,12 @@ class MouseListener : NativeMouseInputListener, NativeMouseWheelListener {
 
     override fun nativeMouseReleased(e: NativeMouseEvent) = callback.mouseBotaoSolto(e.button)
 
-    override fun nativeMouseMoved(e: NativeMouseEvent) = callback.mouseMoveu(e.x, e.y)
+    override fun nativeMouseMoved(e: NativeMouseEvent) = callback.mouseMoveu(e.x, e.y, false)
 
     override fun nativeMouseWheelMoved(nativeEvent: NativeMouseWheelEvent) =
         callback.mouseRolou(nativeEvent.wheelRotation)
 
-    override fun nativeMouseDragged(e: NativeMouseEvent) = callback.mouseMoveu(e.x, e.y)
+    override fun nativeMouseDragged(e: NativeMouseEvent) = callback.mouseMoveu(e.x, e.y, true)
 
 
     fun ligar(callback: MouseCallback) {
@@ -41,7 +41,7 @@ class MouseListener : NativeMouseInputListener, NativeMouseWheelListener {
     interface MouseCallback {
         fun mouseBotaoPressionado(botao: Int)
         fun mouseBotaoSolto(botao: Int)
-        fun mouseMoveu(x: Int, y: Int)
+        fun mouseMoveu(x: Int, y: Int, arrastando: Boolean)
         fun mouseRolou(direcao: Int)
     }
 

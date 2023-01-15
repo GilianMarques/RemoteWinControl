@@ -4,9 +4,10 @@ import domain.acoes.reprodutores.Reprodutor
 import globalScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import domain.dtos.cliente.DtoCliente
+import domain.dtos.servidor.DtoServidor
+import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
 import rede.JsonMapper
-import rede.dtos.cliente.DtoClienteSemMetadata
-import rede.dtos.servidor.DtoServidorAcaoGravada
 import rede.io.RedeController
 
 object AcaoController {
@@ -14,15 +15,14 @@ object AcaoController {
     private lateinit var acaoGravada: Acao
     private var gravador: Gravador? = null
 
-    fun gravar() {
-        gravador = Gravador()
+    fun gravar(comando: DtoCliente) {
+        gravador = Gravador(comando.getInt("ignorar_movimento_mouse") == 1)
         gravador!!.gravar()
     }
 
 
-    fun pararGravacao(data: DtoClienteSemMetadata) {
+    fun pararGravacao(data: DtoCliente) {
         desligarListeners()
-        println("solicitando solicitacao de envio de açao gravada")
         enviarGravacao(data)
     }
 
@@ -37,15 +37,20 @@ object AcaoController {
         gravador = null
     }
 
-    private fun enviarGravacao(data: DtoClienteSemMetadata) = globalScope.launch(IO) {
-        println("solicitando envio de açao gravada")
-        RedeController.enviar(data.ipParaResposta, data.portaParaResposta, DtoServidorAcaoGravada(acaoGravada))
-
+    private fun enviarGravacao(data: DtoCliente) = globalScope.launch(IO) {
+        RedeController.enviar(
+            data.ipResposta,
+            data.portaResposta,
+            DtoServidor(TIPO_EVENTO_SERVIDOR.ACAO_GRAVADA)
+                .addString("acao", acaoGravada.toJson())
+        )
     }
 
-    fun reproduzir(acao: Acao) {
-        // TODO: aguardar o fim da execucao antes de executar outra acao 
-        Reprodutor.executar(acao)
+    // TODO: aguardar o fim da execucao antes de executar outra acao
+    fun reproduzir(comando: DtoCliente) {
+        val acao = JsonMapper.fromJson(comando.getString("acao"), Acao::class.java)
+        val velocidade = comando.getFloat("velocidade")
+        Reprodutor.executar(acao, velocidade)
     }
 
 

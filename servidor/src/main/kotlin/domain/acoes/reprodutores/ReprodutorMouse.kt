@@ -2,6 +2,7 @@ package domain.acoes.reprodutores
 
 import domain.reprodutores.Cmd
 import domain.acoes.Etapa
+import kotlinx.coroutines.delay
 import java.awt.Robot
 
 class ReprodutorMouse {
@@ -23,6 +24,9 @@ class ReprodutorMouse {
     }
 
     fun mousePress(etapa: Etapa) {
+        /* Preciso posicionar corretamente o ponteiro antes do clique  para caso
+         o usuario tenha escolhido nao gravar o movimentos do mouse*/
+        mouse.mouseMove(etapa.coordY, etapa.coordX)
 
         val botao = when (etapa.botao) {
             1 -> "left"
@@ -30,7 +34,6 @@ class ReprodutorMouse {
             3 -> "middle"
             else -> "?"
         }
-
         val cmd = "nircmd.exe sendmouse $botao down"
         Cmd.run(cmd)
         exibirDescricao(" ${etapa.descricao} comando: $cmd")
@@ -43,7 +46,7 @@ class ReprodutorMouse {
 
     fun mouseMover(etapa: Etapa) {
 
-        mouse.mouseMove(etapa.movX, etapa.movY)
+        mouse.mouseMove(etapa.coordX, etapa.coordY)
         exibirDescricao(" ${etapa.descricao} comando:")
     }
 
