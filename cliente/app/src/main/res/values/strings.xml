@@ -15,9 +15,19 @@
     <string name="Iniciar_gravacao">Iniciar gravação</string>
     <string name="Parar_gravaco">Parar gravação</string>
     <string name="Nome">Nome</string>
-    <string name="Manter_tela_ligada">Manter tela ligada</string>
     <string name="Acoes">Ações</string>
     <string name="Ignorar_movimento_do_mouse">Ignorar movimento do mouse</string>
     <string name="Clique_para_remover">Clique para remover</string>
     <string name="Acao_x">Ação #%1$s</string>
+    <string name="Agendar_desligamento">Agendar desligamento</string>
+    <string name="x_mins">%1$s mins</string>
+    <string name="Abortar">Abortar</string>
+    <string name="Agendar">Agendar</string>
+    <string name="Encerrar">Encerrar</string>
+    <string name="Tempo_ate_desligar">Tempo até desligar</string>
+    <string name="Servico_de_desligamento_do_pc">Serviço de desligamento do PC</string>
+    <string name="Servico_de_volume">Serviço de controle do volume</string>
+    <string name="descricao_servico_volume">Permite interceptar os cliques nos botes de volume do aparelho e enviar para o servidor, manipulando o volume do computador.</string>
+    <string name="Enviando_seus_cliques_ao_pc">Enviando seus cliques ao PC (Clique aqui para parar)</string>
+    <string name="Controle_de_volume">Controle de volume</string>
 </resources>

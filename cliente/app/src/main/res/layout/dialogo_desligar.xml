@@ -5,7 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="8dp">
 
@@ -15,61 +15,28 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/vec_arrow_back"
-            app:title="@string/Acoes"
+            app:title="@string/Agendar_desligamento"
             app:titleTextColor="?colorPrimary" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/div4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true"
-                app:alignContent="stretch"
-                app:alignItems="stretch"
-                app:flexDirection="row"
-                app:flexWrap="wrap"
-                app:justifyContent="space_evenly">
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/div4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toTopOf="@id/fab_add_acao" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/container_velocidade"
-            android:layout_width="0dp"
+            android:id="@+id/container_desligar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="48dp"
             android:background="@drawable/background_dialogo_ver_acoes"
             android:elevation="4dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/fab_add_acao"
-            app:layout_constraintEnd_toStartOf="@id/fab_add_acao"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/fab_add_acao">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ImageView
                 android:id="@+id/iv_sub"
@@ -86,21 +53,24 @@
                 android:layout_width="1dp"
                 android:layout_height="24dp" />
 
-            <TextView
-                android:id="@+id/tv_velocidade"
+            <EditText
+                android:id="@+id/edt_minutos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:drawablePadding="12dp"
                 android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="number"
                 android:padding="16dp"
                 android:textColor="?colorSurface"
-                app:drawableStartCompat="@drawable/vec_velocidade"
+                app:drawableStartCompat="@drawable/vec_desligar"
                 app:drawableTint="?colorSurface"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="1.25x" />
+                tools:text="25min" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/div1"
@@ -120,24 +90,25 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <TextView
-            android:id="@+id/fab_add_acao"
-            android:elevation="4dp"
+
+        <Button
+            android:id="@+id/btn_agendar"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/background_dialogo_ver_acoes"
-            android:clickable="true"
-            android:contentDescription="@string/Gravar_acao"
-            android:drawableStart="@drawable/vec_add"
-            android:drawablePadding="16dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/Gravar_acao"
-            android:textColor="?colorSurface"
-            app:drawableTint="?colorSurface"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/Agendar"
+            app:icon="@drawable/vec_check"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container_desligar" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

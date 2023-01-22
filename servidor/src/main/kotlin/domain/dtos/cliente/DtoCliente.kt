@@ -1,6 +1,5 @@
 package domain.dtos.cliente
 
-import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import rede.JsonMapper
 
 @Suppress("unused")

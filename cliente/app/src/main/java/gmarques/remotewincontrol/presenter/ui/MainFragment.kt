@@ -6,19 +6,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import gmarques.remotewincontrol.App
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
+import gmarques.remotewincontrol.domain.desligamento_agendado.DesligamentoController
+import gmarques.remotewincontrol.domain.desligamento_agendado.ServicoAgendarDesligamento
+import gmarques.remotewincontrol.domain.desligamento_agendado.ServicoAgendarDesligamento.Companion.servicoDesligamento
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
-import gmarques.remotewincontrol.presenter.Permissoes
-import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.domain.mouse.scroll.ScrollClique
 import gmarques.remotewincontrol.domain.mouse.scroll.ScrollInfinito
+import gmarques.remotewincontrol.presenter.Vibrador
+import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoDesligar
+import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoGravarAcoes
+import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoPortaIp
+import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoVerAcoes
 import kotlinx.coroutines.launch
 
 
@@ -30,10 +39,37 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
+    private val listener = object : DesligamentoController.Listener {
+
+        override fun tick(tempoFormatado: String) {
+
+            lifecycleScope.launch {
+                binding.tvTimer.visibility = VISIBLE
+                binding.tvTimer.text = tempoFormatado
+            }
+
+        }
+
+        override fun abortarAgendamento(millisAteDesligar: Long) {
+            lifecycleScope.launch {
+                binding.tvTimer.visibility = GONE
+            }
+        }
+
+        override fun quaseDesligando(millisAteDesligar: Long) {
+            Vibrador.vibDesligar()
+        }
+
+        override fun desligar() {
+            requireActivity().finish()
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding = FragmentMainBinding.inflate(layoutInflater)
+
         super.onCreate(savedInstanceState)
     }
 
@@ -54,13 +90,18 @@ class MainFragment : Fragment() {
         initBotoesMouse()
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
-        // TODO:     verificarPermissaoDeAcessibilidade()
-        mostrarBottomsheetAcoes()
+        addListenersAoServicoDeDesligamento()
+
+    }
+
+    override fun onDetach() {
+        removerListenersAoServicoDeDesligamento()
+        super.onDetach()
     }
 
     private fun initFabAcoes() {
         binding.fabAcoes.setOnClickListener {
-            mostrarBottomsheetAcoes()
+            mostrarDialogoVerAcoes()
         }
     }
 
@@ -121,6 +162,7 @@ class MainFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.acessibilidade -> abrirTelaDeAcessibilidade()
                     R.id.ip -> mostrarDialogoIpPorta()
+                    R.id.desligar -> mostrarDialogoDesligar()
                 }
                 return true
             }
@@ -130,10 +172,30 @@ class MainFragment : Fragment() {
         menuHost.addMenuProvider(provider)
     }
 
-    private fun mostrarDialogoDeAcoes() {
+    private fun mostrarDialogoDesligar() = DialogoDesligar(this, ::agendarDesligamento)
+
+    private fun agendarDesligamento(tempoEmMinutos: Int) {
+
+        if (servicoDesligamento == null) {
+            val servicoDesligamentoIntent = Intent(App.get, ServicoAgendarDesligamento::class.java)
+            servicoDesligamentoIntent.putExtra("tempoEmMinutos", tempoEmMinutos)
+            requireActivity().startService(servicoDesligamentoIntent)
+
+        } else servicoDesligamento?.reagendar(tempoEmMinutos)
+    }
+
+    private fun addListenersAoServicoDeDesligamento() {
+        ServicoAgendarDesligamento.listeners.add(listener)
+    }
+
+    private fun removerListenersAoServicoDeDesligamento() {
+        ServicoAgendarDesligamento.listeners.remove(listener)
+    }
+
+    private fun mostrarDialogoGravarDeAcoes() {
 
         DialogoGravarAcoes(this) {
-            mostrarBottomsheetAcoes()
+            mostrarDialogoVerAcoes()
         }
     }
 
@@ -145,24 +207,8 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun mostrarBottomsheetAcoes() {
-
-        DialogoVerAcoes(this, ::mostrarDialogoDeAcoes)
-
-    }
-
-    private fun verificarPermissaoDeAcessibilidade() {
-        if (!Permissoes().permissaoDeAcessibilidadeConcedida()) {
-            val snack =
-                    Snackbar.make(binding.mouseBtnMeio, getString(R.string.Permissao_de_acessibilidade_necessaria_para_controlar), Snackbar.LENGTH_INDEFINITE)
-
-            snack.setAction(getString(R.string.Permitir)) {
-                abrirTelaDeAcessibilidade()
-            }
-
-            snack.show()
-        }
-
+    private fun mostrarDialogoVerAcoes() {
+        DialogoVerAcoes(this, ::mostrarDialogoGravarDeAcoes)
     }
 
     private fun abrirTelaDeAcessibilidade() {

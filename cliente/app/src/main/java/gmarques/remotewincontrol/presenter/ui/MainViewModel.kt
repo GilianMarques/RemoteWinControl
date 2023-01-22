@@ -9,8 +9,8 @@ import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.data.PREFS_IP
 import gmarques.remotewincontrol.data.PREFS_PORTA
 import gmarques.remotewincontrol.data.Preferencias
+import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
-import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.domain.mouse.EntradaCallback
 import gmarques.remotewincontrol.domain.mouse.MousePadTouchListener
 import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaClique
@@ -18,12 +18,13 @@ import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaCliqueDoisD
 import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaCliqueLongo
 import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaMover
 import gmarques.remotewincontrol.domain.mouse.scroll.ScrollHandler
-import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
-import gmarques.remotewincontrol.rede.io.RedeController
+import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.rede.io.EnderecosDeRede
+import gmarques.remotewincontrol.rede.io.RedeController
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+
 
 class MainViewModel : ViewModel() {
 
@@ -97,6 +98,5 @@ class MainViewModel : ViewModel() {
 
         EnderecosDeRede.atualizarEnderecos()
     }
-
 
 }

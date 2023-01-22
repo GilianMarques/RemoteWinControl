@@ -29,10 +29,16 @@ object Vibrador {
     fun vibSucesso() {
         val vibra = 30L
         val espera = 30L
-        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(vibra, espera, vibra, espera, vibra, espera),
+        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(espera, vibra, espera, vibra, espera, vibra),
             VibrationEffect.DEFAULT_AMPLITUDE))
     }
 
+    fun vibDesligar() {
+        val vibra = 500L
+        val espera = 30L
+        vib.vibrate(VibrationEffect.createWaveform(longArrayOf(espera, vibra, espera, vibra, espera, vibra, espera, vibra, espera, vibra, espera / 2, vibra / 2, espera / 2, vibra / 2, espera / 2, vibra / 2, espera / 3, vibra / 3, espera / 3, vibra / 3, espera / 3, vibra * 3),
+            VibrationEffect.DEFAULT_AMPLITUDE))
+    }
 
     fun vibScroll(duracao: Int, mCoroutineScope: CoroutineScope) {
 
@@ -41,7 +47,7 @@ object Vibrador {
 
                 vibrandoScroll = true
                 vib.vibrate(VibrationEffect.createOneShot(duracao.toLong(), VibrationEffect.EFFECT_TICK))
-                delay(duracao.toLong() / 2)
+                delay(duracao.toLong() / 3)
                 vibrandoScroll = false
             }
         }

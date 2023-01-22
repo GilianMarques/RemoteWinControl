@@ -34,7 +34,7 @@ class AcoesDao {
         else null
     }
 
-    fun salvarAcao(acao: Acao) = preferencias.edit { putString(acao.id, JsonMapper.toJson(acao)) }
+    fun salvarAcao(acao: Acao) = preferencias.edit(true) { putString(acao.id, JsonMapper.toJson(acao)) }
 
     /**
      * Remove a chave do arquivo xml de forma que e como se uma valor daquela chave nunca

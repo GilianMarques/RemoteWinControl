@@ -18,17 +18,17 @@ class Preferencias {
     fun getString(chave: String, padrao: String = "") = preferencias.getString(chave, padrao)
 
 
-    fun putInt(chave: String, valor: Int) = preferencias.edit { putInt(chave, valor) }
+    fun putInt(chave: String, valor: Int) = preferencias.edit(true) { putInt(chave, valor) }
 
-    fun putFloat(chave: String, valor: Float) = preferencias.edit { putFloat(chave, valor) }
+    fun putFloat(chave: String, valor: Float) = preferencias.edit(true) { putFloat(chave, valor) }
 
-    fun putString(chave: String, valor: String) = preferencias.edit { putString(chave, valor) }
+    fun putString(chave: String, valor: String) = preferencias.edit(true) { putString(chave, valor) }
 
     /**
      * Remove a chave do arquivo xml de forma que e como se uma valor daquela chave nunca
      * tivesse sido salvo no arquivo
      */
-    fun remover(chave: String) = preferencias.edit { remove(chave) }
+    fun remover(chave: String) = preferencias.edit(true) { remove(chave) }
 
 
 }

@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.presenter.ui
+package gmarques.remotewincontrol.presenter.ui.dialogos
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior

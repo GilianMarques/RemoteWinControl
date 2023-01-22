@@ -1,11 +1,11 @@
-package gmarques.remotewincontrol.presenter.ui
+package gmarques.remotewincontrol.presenter.ui.dialogos
 
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import gmarques.remotewincontrol.databinding.DialogoAcoesBinding
+import gmarques.remotewincontrol.databinding.DialogoGravarAcoesBinding
 import gmarques.remotewincontrol.domain.acoes.AcaoController
 import gmarques.remotewincontrol.presenter.Vibrador
 import kotlinx.coroutines.CoroutineScope
@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 
 class DialogoGravarAcoes(fragmento: Fragment, private val callback: Callback) {
 
-    private var binding = DialogoAcoesBinding.inflate(fragmento.layoutInflater)
+    private var binding = DialogoGravarAcoesBinding.inflate(fragmento.layoutInflater)
     private var dialog: BottomSheetDialog
     private var acaoController: AcaoController
     private val scope: CoroutineScope
+    private var gravando = false
 
     init {
         scope = fragmento.lifecycleScope
@@ -56,9 +57,11 @@ class DialogoGravarAcoes(fragmento: Fragment, private val callback: Callback) {
 
     private fun cancelarGravacao() = scope.launch(IO) {
 
-        if (acaoController.abortarGravacao()) {
-            dialog.dismiss()
-        }
+        if (gravando) {
+            if (acaoController.abortarGravacao()) {
+                dialog.dismiss()
+            }
+        } else dialog.dismiss()
     }
 
     private fun pararGravacao() = scope.launch {
@@ -66,7 +69,7 @@ class DialogoGravarAcoes(fragmento: Fragment, private val callback: Callback) {
             binding.btnPararGravacao.visibility = View.GONE
             binding.inputNome.visibility = View.VISIBLE
             binding.inputNome.requestFocus()
-
+            gravando = false
 
         }
     }
@@ -76,6 +79,7 @@ class DialogoGravarAcoes(fragmento: Fragment, private val callback: Callback) {
             binding.btnPararGravacao.visibility = View.VISIBLE
             binding.btnGravar.visibility = View.GONE
             binding.sMovMouse.visibility = View.GONE
+            gravando = true
         }
     }
 

@@ -13,4 +13,8 @@
         android:id="@+id/acessibilidade"
         android:title="@string/Acessibilidade" />
 
+    <item
+        android:id="@+id/desligar"
+        android:title="@string/Agendar_desligamento" />
+
 </menu>

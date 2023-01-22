@@ -1,4 +1,3 @@
-import io.materialtheme.darkstackoverflow.DarkStackOverflowTheme
 import mdlaf.MaterialLookAndFeel
 import mdlaf.themes.MaterialLiteTheme
 import java.awt.Dimension

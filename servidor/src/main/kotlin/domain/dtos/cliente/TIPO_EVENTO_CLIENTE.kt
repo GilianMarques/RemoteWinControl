@@ -1,9 +1,11 @@
-package gmarques.remotewincontrol.domain.dtos.cliente
+package domain.dtos.cliente
 
 /**
  * Todos os tipos de informaçao que o cliente pode enviar para o servidor
  */
 enum class TIPO_EVENTO_CLIENTE(val nome: String) {
+    ABORTAR_DESLIGAMENTO("abortar_desligamento"),
+    AGENDAR_DESLIGAMENTO("agendar_desligamento"),
     ACAO_REPRODUZIR_GRAVACAO("acao_reproduzir_gravacao"),
     ACAO_ABORTAR_GRAVACAO("acao_abortar_gravacao"),
     ACAO_PARAR_GRAVACAO("acao_parar_gravacao"),

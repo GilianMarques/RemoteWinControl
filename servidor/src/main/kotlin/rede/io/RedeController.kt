@@ -1,11 +1,12 @@
 package rede.io
 
+import domain.Desligamento
 import domain.acoes.AcaoController
 import domain.dtos.cliente.DtoCliente
 import domain.dtos.servidor.DtoServidor
 import domain.reprodutores.Mouse
 import domain.reprodutores.Volume
-import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE.*
+import domain.dtos.cliente.TIPO_EVENTO_CLIENTE.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import rede.JsonMapper
@@ -45,6 +46,8 @@ object RedeController {
             ACAO_PARAR_GRAVACAO -> AcaoController.pararGravacao(comando)
             ACAO_ABORTAR_GRAVACAO -> AcaoController.abortarGravacao()
             ACAO_REPRODUZIR_GRAVACAO -> AcaoController.reproduzir(comando)
+            AGENDAR_DESLIGAMENTO -> Desligamento.agendar(comando)
+            ABORTAR_DESLIGAMENTO -> Desligamento.abortar()
             NONE -> {}
         }
     }
