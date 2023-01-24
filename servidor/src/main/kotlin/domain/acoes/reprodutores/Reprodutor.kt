@@ -15,7 +15,7 @@ object Reprodutor {
 
     fun executar(acao: Acao) = scopeExecucao.launch {
         this@Reprodutor.acao = acao
-        exibirDescricao("executando ação: ${JsonMapper.toJson(acao.etapas)}")
+        exibirDescricao("executando ação: '${acao.nome}' em ${acao.velocidade}x")
         iterarSobreEtapas()
         exibirDescricao("ação executada")
     }
@@ -27,20 +27,21 @@ object Reprodutor {
     private suspend fun iterarSobreEtapas() {
         for (i in 0 until acao.etapas.size) {
             val etapa = acao.etapas[i]
-            avaliarAcao(etapa)
-
-            if (i < acao.etapas.size - 1) {
-                val intervalo = acao.etapas[i + 1].momentoExec - etapa.momentoExec
-                val delay =  intervalo / acao.velocidade
-                val delayTratado = delay.toLong().coerceIn(1, 60_000)
-                println("esperando ${delayTratado}mls delay orginal ${intervalo}mls vel: ${acao.velocidade}")
-                delay(delayTratado)
-
-            }
+            executarAcao(etapa)
+            delay(calcularDelay(i, etapa))
         }
     }
 
-    private fun avaliarAcao(etapa: Etapa) {
+    private fun calcularDelay(indice: Int, etapa: Etapa): Long {
+        return if (indice < acao.etapas.size - 1) {
+            val intervalo = acao.etapas[indice + 1].momentoExec - etapa.momentoExec
+            val delay = intervalo / acao.velocidade
+            delay.toLong().coerceIn(0, 60_000)
+
+        } else 0
+    }
+
+    private fun executarAcao(etapa: Etapa) {
         when (etapa.tipo) {
             TECLADO_PRESS -> reprodutorTeclado.tecladoPressionarTecla(etapa)
             TECLADO_SOLTAR -> reprodutorTeclado.tecladoSoltarTecla(etapa)

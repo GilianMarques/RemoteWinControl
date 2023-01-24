@@ -11,7 +11,8 @@ import java.net.*
 
 class Servidor {
 
-    private var porta = REDE_PORTA_PADRAO
+    var porta = REDE_PORTA_PADRAO
+        private set
 
     suspend fun ligar(listener: (String) -> Unit) = withContext(Dispatchers.IO) {
 

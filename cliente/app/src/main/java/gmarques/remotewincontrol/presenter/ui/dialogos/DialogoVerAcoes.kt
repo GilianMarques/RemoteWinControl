@@ -2,10 +2,11 @@ package gmarques.remotewincontrol.presenter.ui.dialogos
 
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.util.Log
 import android.view.View.*
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.flexbox.FlexboxLayout
@@ -80,8 +81,10 @@ class DialogoVerAcoes(
             itemView.tvAcao.text = acao.nome
             itemView.tvAcao.tag = acao.id
 
-            itemView.tvAcao.setOnClickListener { executarAcao(acao) }
-            itemView.tvAcao.setOnLongClickListener { alternarMenu(itemView) }
+            itemView.tvAcao.setOnClickListener { executarAcao(acao, false) }
+            itemView.tvAcao.setOnLongClickListener { executarAcao(acao, true) }
+
+            itemView.ivMenu.setOnClickListener { mostrarMenu(itemView) }
 
             itemView.ivRemover.setOnClickListener { mostrarViewConfirmarRemocao(itemView, acao) }
             itemView.tvConfirmarRemocao.setOnClickListener { removerAcao(itemView, acao) }
@@ -109,12 +112,10 @@ class DialogoVerAcoes(
 
     }
 
-
-    private fun alternarMenu(itemView: ItemAcaoBinding): Boolean {
+    private fun mostrarMenu(itemView: ItemAcaoBinding): Boolean {
 
         if (ultimoItemComMenuExibido != null) {
-            ocultarOpcoesDaAcao(ultimoItemComMenuExibido)
-            restaurarViewProEstadoPadrao(ultimoItemComMenuExibido!!)
+            exibirApenasContainerEspecifico(ultimoItemComMenuExibido, ultimoItemComMenuExibido?.containerPrincipal)
         }
 
         return mostrarOpcoesDaAcao(itemView)
@@ -130,12 +131,7 @@ class DialogoVerAcoes(
     }
 
     private fun restaurarViewProEstadoPadrao(itemView: ItemAcaoBinding) {
-        itemView.containerPrincipal.visibility = VISIBLE
-        itemView.containerRenomear.visibility = GONE
-        itemView.containerRemocao.visibility = GONE
-        itemView.containerVelocidade.visibility = GONE
-        ocultarOpcoesDaAcao(itemView)
-
+        exibirApenasContainerEspecifico(itemView, itemView.containerPrincipal)
     }
 
     private fun removerAcao(itemView: ItemAcaoBinding, acao: Acao) {
@@ -145,9 +141,7 @@ class DialogoVerAcoes(
 
     private fun mostrarOpcoesDaAcao(itemView: ItemAcaoBinding): Boolean {
 
-        itemView.containerPrincipal.visibility = GONE
-        itemView.containerOpcoes.visibility = VISIBLE
-
+        exibirApenasContainerEspecifico(itemView, itemView.containerOpcoes)
         ultimoItemComMenuExibido = itemView
         Vibrador.vibInteracao()
 
@@ -155,16 +149,12 @@ class DialogoVerAcoes(
     }
 
     private fun ocultarOpcoesDaAcao(itemView: ItemAcaoBinding?): Boolean {
-        itemView?.containerPrincipal?.visibility = VISIBLE
-        itemView?.containerOpcoes?.visibility = GONE
+        exibirApenasContainerEspecifico(itemView, itemView?.containerPrincipal)
         return true
     }
 
     private fun mostrarViewRenomearAcao(itemView: ItemAcaoBinding, acao: Acao) {
-        itemView.containerRenomear.visibility = VISIBLE
-        itemView.containerPrincipal.visibility = GONE
-        itemView.containerOpcoes.visibility = GONE
-        itemView.containerRemocao.visibility = GONE
+        exibirApenasContainerEspecifico(itemView, itemView.containerRenomear)
         itemView.edtNome.setText(acao.nome)
         itemView.edtNome.requestFocus()
 
@@ -172,11 +162,9 @@ class DialogoVerAcoes(
 
     @SuppressLint("SetTextI18n")
     private fun mostrarViewVelocidade(itemView: ItemAcaoBinding, acao: Acao) {
-        itemView.containerVelocidade.visibility = VISIBLE
-        itemView.containerPrincipal.visibility = GONE
-        itemView.containerOpcoes.visibility = GONE
-        itemView.containerRenomear.visibility = GONE
-        itemView.containerRemocao.visibility = GONE
+
+        exibirApenasContainerEspecifico(itemView, itemView.containerVelocidade)
+
         itemView.edtVelocidade.setText("${acao.velocidade}x".replace(".0x", "x"))
         itemView.edtVelocidade.requestFocus()
 
@@ -198,21 +186,26 @@ class DialogoVerAcoes(
     }
 
     private fun mostrarViewConfirmarRemocao(itemView: ItemAcaoBinding, acao: Acao) {
-        itemView.containerOpcoes.visibility = GONE
-        itemView.containerRenomear.visibility = GONE
-        itemView.containerPrincipal.visibility = GONE
-        itemView.containerRemocao.visibility = VISIBLE
+        exibirApenasContainerEspecifico(itemView, itemView.containerRemocao)
+
     }
 
-    private fun executarAcao(acao: Acao) {
+    private fun exibirApenasContainerEspecifico(itemView: ItemAcaoBinding?, alvo: ViewGroup?) {
+        itemView?.itemViewContainer?.forEach {
+            it.visibility = if (alvo?.id == it.id) VISIBLE else GONE
+        }
+    }
+
+    private fun executarAcao(acao: Acao, dispensarDialogo: Boolean): Boolean {
         fragmento.lifecycleScope.launch {
             RedeController.enviar(
                 DtoCliente(TIPO_EVENTO_CLIENTE.ACAO_REPRODUZIR_GRAVACAO)
                     .addString("acao", acao.toJson())
             )
         }
-        dialog.dismiss()
-
+        Vibrador.vibInteracao()
+        if (dispensarDialogo) dialog.dismiss()
+        return true
     }
 
 

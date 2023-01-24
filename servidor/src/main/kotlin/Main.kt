@@ -6,21 +6,22 @@ import kotlin.system.exitProcess
 
 val globalScope = CoroutineScope(Job())
 
-fun main(): Unit = runBlocking {
+class Main {
+    fun main(): Unit = runBlocking {
 
-    RedeController.iniciarServidorAsync()
-
-    initNativeHook()
-}
-
-
-fun initNativeHook() {
-    try {
-        GlobalScreen.registerNativeHook()
-    } catch (ex: NativeHookException) {
-        System.err.println("There was a problem registering the native hook.")
-        System.err.println(ex.message)
-        exitProcess(1)
+        initNativeHook()
+        RedeController.iniciarServidorAsync()
+        TrayIcon().criar()
     }
 
+
+    private fun initNativeHook() {
+        try {
+            GlobalScreen.registerNativeHook()
+        } catch (ex: NativeHookException) {
+            System.err.println("There was a problem registering the native hook.")
+            System.err.println(ex.message)
+            exitProcess(1)
+        }
+    }
 }

@@ -20,6 +20,9 @@ object RedeController {
     private val servidor = Servidor()
     private val cliente = Cliente()
 
+    fun getPortaDoServidor() = servidor.porta
+
+
     fun iniciarServidorAsync() = CoroutineScope(Job() + IO).launch {
         servidor.ligar(::eventoRecebido)
     }

@@ -176,38 +176,49 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_principal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_border"
-            android:gravity="center"
             android:minWidth="120dp"
             android:orientation="horizontal"
             app:layout_flexBasisPercent="50%">
 
             <TextView
                 android:id="@+id/tv_acao"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:drawablePadding="12dp"
-                android:gravity="center"
                 android:padding="16dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/Iniciar_gravacao"
                 app:drawableStartCompat="@drawable/vec_gravar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_menu"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="CrunchRoll: Pular abertura" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:minWidth="48dp"
+                android:padding="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_acao"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_acao"
+                app:srcCompat="@drawable/vec_menu"
+                app:tint="?colorPrimary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/container_opcoes"

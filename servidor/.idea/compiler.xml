@@ -11,7 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="RemoteWinControl" target="1.5" />
-      <module name="RemoteWinControlServer" target="1.5" />
+      <module name="RemoteWinControlServer" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
