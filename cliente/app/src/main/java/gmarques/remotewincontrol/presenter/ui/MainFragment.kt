@@ -160,7 +160,6 @@ class MainFragment : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
-                    R.id.acessibilidade -> abrirTelaDeAcessibilidade()
                     R.id.ip -> mostrarDialogoIpPorta()
                     R.id.desligar -> mostrarDialogoDesligar()
                 }
@@ -211,9 +210,6 @@ class MainFragment : Fragment() {
         DialogoVerAcoes(this, ::mostrarDialogoGravarDeAcoes)
     }
 
-    private fun abrirTelaDeAcessibilidade() {
-        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-    }
 
 
 }

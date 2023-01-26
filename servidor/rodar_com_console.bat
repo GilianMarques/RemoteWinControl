@@ -1,1 +1,0 @@
-java -jar D:\@Projetos\ControleV2\servidor\out\artifacts\RemoteWinControlServer_jar\RemoteWinControlServer.jar
