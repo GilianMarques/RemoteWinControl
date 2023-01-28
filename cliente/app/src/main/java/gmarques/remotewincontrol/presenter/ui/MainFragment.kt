@@ -4,18 +4,19 @@ package gmarques.remotewincontrol.presenter.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import gmarques.remotewincontrol.App
 import gmarques.remotewincontrol.R
+import gmarques.remotewincontrol.data.PREFS_TIPO_NIGHT_MODE
+import gmarques.remotewincontrol.data.Preferencias
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
 import gmarques.remotewincontrol.domain.desligamento_agendado.DesligamentoController
 import gmarques.remotewincontrol.domain.desligamento_agendado.ServicoAgendarDesligamento
@@ -162,6 +163,9 @@ class MainFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.ip -> mostrarDialogoIpPorta()
                     R.id.desligar -> mostrarDialogoDesligar()
+                    R.id.tema_claro -> alternarModeNoite(MODE_NIGHT_NO)
+                    R.id.tema_escuro -> alternarModeNoite(MODE_NIGHT_YES)
+                    R.id.tema_sistema -> alternarModeNoite(MODE_NIGHT_FOLLOW_SYSTEM)
                 }
                 return true
             }
@@ -169,6 +173,12 @@ class MainFragment : Fragment() {
 
         val menuHost = requireActivity()
         menuHost.addMenuProvider(provider)
+    }
+
+    private fun alternarModeNoite(tipoTema: Int) {
+        setDefaultNightMode(tipoTema)
+        Preferencias().putInt(PREFS_TIPO_NIGHT_MODE, tipoTema)
+        requireActivity().recreate()
     }
 
     private fun mostrarDialogoDesligar() = DialogoDesligar(this, ::agendarDesligamento)
@@ -191,7 +201,7 @@ class MainFragment : Fragment() {
         ServicoAgendarDesligamento.listeners.remove(listener)
     }
 
-    private fun mostrarDialogoGravarDeAcoes() {
+    private fun mostrarDialogoGravarAcoes() {
 
         DialogoGravarAcoes(this) {
             mostrarDialogoVerAcoes()
@@ -207,9 +217,8 @@ class MainFragment : Fragment() {
     }
 
     private fun mostrarDialogoVerAcoes() {
-        DialogoVerAcoes(this, ::mostrarDialogoGravarDeAcoes)
+        DialogoVerAcoes(this, ::mostrarDialogoGravarAcoes)
     }
-
 
 
 }

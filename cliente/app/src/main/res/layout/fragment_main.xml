@@ -13,14 +13,21 @@
         tools:context=".presenter.ui.MainFragment">
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/container_status"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:orientation="horizontal"
-            android:padding="8dp">
-
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_timer"
@@ -34,10 +41,10 @@
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
-                android:textStyle="bold"
                 android:paddingBottom="8dp"
                 android:textColor="?colorSurface"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 android:visibility="gone"
                 app:drawableStartCompat="@drawable/vec_desligar"
                 app:drawableTint="?colorSurface"
@@ -69,8 +76,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mouse_btn_esq"
@@ -128,7 +135,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mouse_btn_meio" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

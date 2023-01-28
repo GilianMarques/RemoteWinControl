@@ -5,7 +5,6 @@ import gmarques.remotewincontrol.domain.JsonMapper
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.servidor.DtoServidor
 import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
-import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
@@ -21,8 +20,8 @@ object RedeController {
 
     init {
         CoroutineScope(job).launch(IO) {
-            servidor.addListener(::eventoRecebido)
-            servidor.ligar()
+            servidor.definirListener(::eventoRecebido)
+            servidor.executar()
         }
     }
 
@@ -38,17 +37,8 @@ object RedeController {
      * @see Servidor
      * */
     private fun eventoRecebido(entrada: String) {
-
-
         val comando = JsonMapper.fromJson(entrada, DtoServidor::class.java)
-
-        Log.d("USUK", "RedeController.eventoRecebido: '${comando.tipo}' $entrada")
-
-        when (comando.tipo) {
-            ACAO_GRAVADA -> notificarListeners(comando.tipo, comando)
-            else -> {}
-        }
-
+        notificarListeners(comando.tipo, comando)
     }
 
     private fun notificarListeners(tipo: TIPO_EVENTO_SERVIDOR, comando: DtoServidor) {
@@ -69,6 +59,14 @@ object RedeController {
     fun addListener(tipo: TIPO_EVENTO_SERVIDOR, callback: RedeCallback) {
         if (listeners[tipo] == null) listeners[tipo] = arrayListOf(callback)
         else listeners[tipo]!!.add(callback)
+    }
+
+    /**@return null se nao houver listeners registrados para esse tipo de evento
+     * true se o listener foi encontrado e removido, caso contrario, false
+     * */
+    fun removerListener(tipo: TIPO_EVENTO_SERVIDOR, callback: RedeCallback): Boolean? {
+        return if (listeners[tipo] != null) listeners[tipo]!!.remove(callback) else null
+
     }
 
     fun interface RedeCallback {

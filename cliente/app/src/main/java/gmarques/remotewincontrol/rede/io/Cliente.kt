@@ -31,7 +31,7 @@ class Cliente {
                     it.close()
                 }
 
-            Log.d("USUK", "Cliente.enviarMsg: \"$mensagem\" ")
+      //      Log.d("USUK", "Cliente.enviarMsg: \"$mensagem\" ")
             mSocket.close()
 
             return@withContext true

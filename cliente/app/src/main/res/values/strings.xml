@@ -30,4 +30,10 @@
     <string name="descricao_servico_volume">Permite interceptar os cliques nos botes de volume do aparelho e enviar para o servidor, manipulando o volume do computador.</string>
     <string name="Enviando_seus_cliques_ao_pc">Enviando seus cliques ao PC (Clique aqui para parar)</string>
     <string name="Controle_de_volume">Controle de volume</string>
+    <string name="Temas">Temas</string>
+    <string name="Claro">Claro</string>
+    <string name="Definido_pelo_sistema">Definido pelo sistema</string>
+    <string name="Escuro">Escuro</string>
+    <string name="Tela_sempre_acesa">Tela sempre acesa</string>
+    <string name="Parar_reproducao">Parar reprodução</string>
 </resources>

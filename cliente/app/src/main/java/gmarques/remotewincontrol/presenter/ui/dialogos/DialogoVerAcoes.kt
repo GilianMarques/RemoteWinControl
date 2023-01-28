@@ -2,6 +2,7 @@ package gmarques.remotewincontrol.presenter.ui.dialogos
 
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.util.Log
 import android.view.View.*
 import android.view.ViewGroup
@@ -16,9 +17,12 @@ import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.data.AcoesDao
 import gmarques.remotewincontrol.databinding.DialogoVerAcoesBinding
 import gmarques.remotewincontrol.databinding.ItemAcaoBinding
+import gmarques.remotewincontrol.domain.JsonMapper
 import gmarques.remotewincontrol.domain.acoes.Acao
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
+import gmarques.remotewincontrol.domain.dtos.servidor.DtoServidor
+import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.rede.io.RedeController
 import kotlinx.coroutines.launch
@@ -26,7 +30,7 @@ import kotlinx.coroutines.launch
 class DialogoVerAcoes(
     private val fragmento: Fragment,
     private val mostrarDialogoDeAcoes: () -> Any,
-) {
+) : RedeController.RedeCallback, DialogInterface.OnDismissListener {
 
 
     private var ultimoItemComMenuExibido: ItemAcaoBinding? = null
@@ -38,29 +42,33 @@ class DialogoVerAcoes(
 
     init {
         initViews()
+        addListenerDeRede()
+
         dialog = BottomSheetDialog(fragmento.requireContext())
         dialog.setContentView(binding.root)
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.show()
+        dialog.setOnDismissListener(this)
     }
 
     private fun initViews() {
         initToolbar()
         carregarAcoes()
-        initFabAddAcao()
+        initBotoesAddEParar()
 
         val transition = LayoutTransition()
         transition.setAnimateParentHierarchy(false)
         binding.container.layoutTransition = transition
     }
 
-    @SuppressLint("SetTextI18n")
-
-
-    private fun initFabAddAcao() {
+    private fun initBotoesAddEParar() {
         binding.btnGravar.setOnClickListener {
             mostrarDialogoDeAcoes.invoke()
             dialog.dismiss()
+        }
+
+        binding.btnPararReproducao.setOnClickListener {
+            pararReproducao()
         }
     }
 
@@ -68,7 +76,7 @@ class DialogoVerAcoes(
         binding.toolbar.setNavigationOnClickListener { dialog.dismiss() }
     }
 
-    private fun carregarAcoes() {
+    private fun carregarAcoes() = fragmento.lifecycleScope.launch {
 
         val acoes = acoesDao.getAcoes()
         acoes.sortByDescending { it.nome }
@@ -97,15 +105,13 @@ class DialogoVerAcoes(
 
 
             binding.container.addView(itemView.root).also {
-                Log.d("USUK", "DialogoVerAcoes.carregarAcoes: ${acao.nome} ${acao.posicao}")
+                //      Log.d("USUK", "DialogoVerAcoes.carregarAcoes: ${acao.nome} ${acao.posicao}")
 
                 val params = itemView.root.layoutParams as FlexboxLayout.LayoutParams
                 params.flexGrow =
                         itemView.root.findViewById<TextView>(R.id.tv_acao).text.length.toFloat()
             }
 
-            //garante que açoes sem um posiçao definida pelo usuario recebam uma posiçao de acordo com sua posiçao na tela
-            acao.posicao = binding.container.childCount - 1
 
         }
 
@@ -197,15 +203,55 @@ class DialogoVerAcoes(
     }
 
     private fun executarAcao(acao: Acao, dispensarDialogo: Boolean): Boolean {
+
         fragmento.lifecycleScope.launch {
-            RedeController.enviar(
+            val ordemEnviada = RedeController.enviar(
                 DtoCliente(TIPO_EVENTO_CLIENTE.ACAO_REPRODUZIR_GRAVACAO)
                     .addString("acao", acao.toJson())
             )
+            if (ordemEnviada) alternarBotaoParar(true)
+
         }
+
         Vibrador.vibInteracao()
+
         if (dispensarDialogo) dialog.dismiss()
         return true
+    }
+
+    private fun pararReproducao() {
+
+        fragmento.lifecycleScope.launch {
+            val ordemEnviada = RedeController.enviar(
+                DtoCliente(TIPO_EVENTO_CLIENTE.ACAO_PARAR_REPRODUCAO)
+            )
+
+            if (ordemEnviada) Vibrador.vibInteracao()
+        }
+    }
+
+    private fun addListenerDeRede() {
+        RedeController.addListener(TIPO_EVENTO_SERVIDOR.ACOES_REPRODUZIDAS, this)
+        Log.d("USUK", "DialogoVerAcoes.addListenerDeRede: ")
+    }
+
+    private fun alternarBotaoParar(mostar: Boolean) {
+
+        binding.btnPararReproducao.visibility = if (mostar) VISIBLE else INVISIBLE
+        binding.btnGravar.visibility = if (!mostar) VISIBLE else INVISIBLE
+
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        RedeController.removerListener(TIPO_EVENTO_SERVIDOR.ACOES_REPRODUZIDAS, this)
+    }
+
+    /** callback do listener de servidor
+     * @see addListenerDeRede
+     * */
+    override fun eventoRecebido(comandoJson: DtoServidor): Boolean {
+        alternarBotaoParar(false)
+        return false
     }
 
 

@@ -2,6 +2,7 @@ package gmarques.remotewincontrol.rede.io
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
@@ -16,19 +17,19 @@ class Servidor {
     private lateinit var listener: (String) -> Any
     private var porta = EnderecosDeRede.portaDoCliente
 
-    suspend fun ligar() = withContext(Dispatchers.IO) {
+    suspend fun executar() = withContext(Dispatchers.IO) {
 
         try {
 
             val server = ServerSocket(porta)
-            Log.d("USUK", "Servidor.ligar: Conectado via porta: $porta e ip ${EnderecosDeRede.ipDoCliente}")
+            Log.d("USUK", "Servidor.executar: Conectado via porta: $porta e ip ${EnderecosDeRede.ipDoCliente}")
 
             while (true) {
                 val cliente = server.accept()
                 val br = BufferedReader(InputStreamReader(cliente.getInputStream()))
 
                 val entrada = br.readLine()
-                launch { listener.invoke(entrada) }
+                withContext(Main) { listener.invoke(entrada) }
 
                 br.close()
                 cliente.close()
@@ -39,7 +40,7 @@ class Servidor {
         }
     }
 
-    fun addListener(listener: (String) -> Any) {
+    fun definirListener(listener: (String) -> Any) {
         this.listener = listener
     }
 }

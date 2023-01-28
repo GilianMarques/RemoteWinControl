@@ -3,9 +3,12 @@ package gmarques.remotewincontrol.presenter.ui
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.MaterialToolbar
 import gmarques.remotewincontrol.R
+import gmarques.remotewincontrol.data.PREFS_TIPO_NIGHT_MODE
+import gmarques.remotewincontrol.data.Preferencias
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.domain.volume.VolumeHelper
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     // TODO: usar sensores para decidir quando desligar o pc
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

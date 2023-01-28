@@ -49,6 +49,7 @@ object RedeController {
             ACAO_PARAR_GRAVACAO -> AcaoController.pararGravacao(comando)
             ACAO_ABORTAR_GRAVACAO -> AcaoController.abortarGravacao()
             ACAO_REPRODUZIR_GRAVACAO -> AcaoController.reproduzir(comando)
+            ACAO_PARAR_REPRODUCAO -> AcaoController.pararReproducao()
             AGENDAR_DESLIGAMENTO -> Desligamento.agendar(comando)
             ABORTAR_DESLIGAMENTO -> Desligamento.abortar()
             NONE -> {}

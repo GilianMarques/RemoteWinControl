@@ -1,42 +1,82 @@
 package domain.acoes.reprodutores
 
+import com.google.gson.Gson
 import domain.acoes.Acao
 import domain.acoes.Etapa
 import domain.acoes.Etapa.TIPO.*
+import domain.dtos.cliente.DtoCliente
+import domain.dtos.servidor.DtoServidor
+import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
 import kotlinx.coroutines.*
-import rede.JsonMapper
+import rede.io.RedeController
 
 object Reprodutor {
 
-    private val scopeExecucao = CoroutineScope(Job())
+    private var scopeExecucao = CoroutineScope(Job())
     private val reprodutorMouse = ReprodutorMouse()
     private val reprodutorTeclado = ReprodutorTeclado()
-    private lateinit var acao: Acao
+    private lateinit var comando: DtoCliente
+    private var reproduzindo = false
+    private var gson = Gson()
+    private val acoes = ArrayList<Acao>()
 
-    fun executar(acao: Acao) = scopeExecucao.launch {
-        this@Reprodutor.acao = acao
-        exibirDescricao("executando ação: '${acao.nome}' em ${acao.velocidade}x")
-        iterarSobreEtapas()
+    fun executar(acao: Acao, comando: DtoCliente) {
+        this@Reprodutor.comando = comando
+
+        acoes.add(acao)
+
+        if (!reproduzindo) iterarSobreAcoes()
+        else exibirDescricao("${acao.nome} adiconada a fila na posição #${acoes.size}")
+
+    }
+
+    private fun iterarSobreAcoes(): Any = scopeExecucao.launch {
+        reproduzindo = true
+        val acao = acoes[0]
+
+        exibirDescricao("iterarSobreAcoes ação: '${acao.nome}' em ${acao.velocidade}x")
+        iterarSobreEtapas(acao)
         exibirDescricao("ação executada")
+
+        acoes.removeAt(0)
+
+        if (acoes.size > 0) this@Reprodutor.iterarSobreAcoes()
+        else {
+            reproduzindo = false
+            notificarClienteSobreFimDaReproducao()
+        }
+
     }
 
-    fun cancelar() {
-        scopeExecucao.cancel("Açao cancelada pelo usuario")
-    }
-
-    private suspend fun iterarSobreEtapas() {
+    private suspend fun iterarSobreEtapas(acao: Acao) {
         for (i in 0 until acao.etapas.size) {
             val etapa = acao.etapas[i]
             executarAcao(etapa)
-            delay(calcularDelay(i, etapa))
+            delay(calcularDelay(acao, i, etapa))
         }
     }
 
-    private fun calcularDelay(indice: Int, etapa: Etapa): Long {
+    fun cancelar() {
+        scopeExecucao.cancel("Reprodução cancelada pelo usuario")
+        scopeExecucao = CoroutineScope(Job())
+        acoes.clear()
+        reproduzindo = false
+        notificarClienteSobreFimDaReproducao()
+
+    }
+    private fun notificarClienteSobreFimDaReproducao() = scopeExecucao.launch {
+        RedeController.enviar(
+            comando.ipResposta,
+            comando.portaResposta,
+            DtoServidor(TIPO_EVENTO_SERVIDOR.ACOES_REPRODUZIDAS)
+        )
+    }
+
+    private fun calcularDelay(acao: Acao, indice: Int, etapa: Etapa): Long {
         return if (indice < acao.etapas.size - 1) {
             val intervalo = acao.etapas[indice + 1].momentoExec - etapa.momentoExec
             val delay = intervalo / acao.velocidade
-            delay.toLong().coerceIn(0, 60_000)
+            delay.toLong().coerceIn(0, 999_999)
 
         } else 0
     }
