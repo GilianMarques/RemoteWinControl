@@ -5,12 +5,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.awt.MouseInfo
 import java.awt.Robot
 import java.awt.event.InputEvent
 
 
 object Mouse {
 
+    private var mouseY: Int = 0
+    private var mouseX: Int = 0
     private val mouse = Robot()
     private val scope = CoroutineScope(Job())
 
@@ -33,12 +36,19 @@ object Mouse {
         mouse.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
     }
 
-    // TODO: ver como se comportar sem lançar ca corotina
     fun mover(cmd: DtoCliente) = scope.launch {
         Cmd.run("nircmd.exe movecursor ${cmd.getFloat("movX")} ${cmd.getFloat("movY")}")
     }
 
     fun rolar(cmd: DtoCliente) = mouse.mouseWheel(cmd.getInt("direcao"))
+    fun salvarPosicaoAtualDoMouse() {
+        mouseX = MouseInfo.getPointerInfo().getLocation().x
+        mouseY = MouseInfo.getPointerInfo().getLocation().y
+    }
+
+    fun restaurarPosicaoOriginalDoMouse() {
+        mouse.mouseMove(mouseX, mouseY)
+    }
 
 
 }

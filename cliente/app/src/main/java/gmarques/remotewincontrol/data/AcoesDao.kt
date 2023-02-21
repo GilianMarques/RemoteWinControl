@@ -16,7 +16,6 @@ class AcoesDao {
     private var preferencias: SharedPreferences = App.get
         .getSharedPreferences("app_acoes", Context.MODE_PRIVATE)
 
-
     fun getAcoes(): ArrayList<Acao> {
         val acoes = ArrayList<Acao>()
         preferencias.all.values.forEach { json ->
@@ -26,7 +25,6 @@ class AcoesDao {
         acoes.sortBy { it.nome }
         return acoes
     }
-
 
     fun getAcao(chave: String): Acao? {
         val json = preferencias.getString(chave, null)

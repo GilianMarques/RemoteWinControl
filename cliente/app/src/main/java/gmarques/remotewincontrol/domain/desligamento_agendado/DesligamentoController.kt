@@ -30,8 +30,13 @@ class DesligamentoController(val listener: Listener) {
 
                 listener.tick(formatarTimer(millisAteDesligar))
 
-                if (millisAteDesligar == DELAY_DESLIGAMENTO) listener.quaseDesligando(millisAteDesligar)
-                else if (millisAteDesligar == 0L) desligar()
+                if (millisAteDesligar == DELAY_DESLIGAMENTO) listener.quaseDesligando(
+                    millisAteDesligar
+                )
+                else if (millisAteDesligar <= 0L) {
+                    desligar()
+                    this.cancel()
+                }
 
             }
 
@@ -55,8 +60,8 @@ class DesligamentoController(val listener: Listener) {
     }
 
     private fun desligar() {
-        timerDeslPc?.cancel()
         listener.desligar()
+        timerDeslPc?.cancel()
     }
 
     private fun abortarAgendamento() {

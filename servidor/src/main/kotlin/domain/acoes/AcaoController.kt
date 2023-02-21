@@ -49,7 +49,7 @@ object AcaoController {
     // TODO: aguardar o fim da execucao antes de executar outra acao
     fun reproduzir(comando: DtoCliente) {
         val acao = JsonMapper.fromJson(comando.getString("acao"), Acao::class.java)
-        Reprodutor.executar(acao, comando)
+        Reprodutor.reproduzir(acao, comando)
     }
 
     fun pararReproducao() = Reprodutor.cancelar()

@@ -1,8 +1,11 @@
 package gmarques.remotewincontrol.domain.desligamento_agendado
 
+import android.Manifest
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import gmarques.remotewincontrol.App
@@ -98,20 +101,30 @@ class ServicoAgendarDesligamento : Service(), DesligamentoController.Listener {
 
     private fun criarCanalDeNotificacao() {
 
-        val canalNotificacao = NotificationChannel(ID_CANAL,
+        val canalNotificacao = NotificationChannel(
+            ID_CANAL,
             getString(R.string.Servico_de_desligamento_do_pc),
-            NotificationManager.IMPORTANCE_LOW)
+            NotificationManager.IMPORTANCE_LOW
+        )
 
 
         val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(canalNotificacao)
 
     }
 
     private fun notificar(notificacao: Notification) {
         with(NotificationManagerCompat.from(App.get)) {
-            notify(ID_NOTIFICACAO, notificacao)
+
+            if (ActivityCompat.checkSelfPermission(
+                    this@ServicoAgendarDesligamento,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                notify(ID_NOTIFICACAO, notificacao)
+            }
+
         }
     }
 
@@ -160,7 +173,6 @@ class ServicoAgendarDesligamento : Service(), DesligamentoController.Listener {
             exitProcess(0)
         }
     }
-
 
     override fun onDestroy() {
         servicoDesligamento = null

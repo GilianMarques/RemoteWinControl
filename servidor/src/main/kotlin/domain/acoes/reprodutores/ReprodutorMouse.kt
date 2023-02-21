@@ -8,7 +8,6 @@ import java.awt.Robot
 class ReprodutorMouse {
 
     private val mouse = Robot()
-    private val ultimaEtapaExecutada: Etapa? = null
 
     fun mouseSoltar(etapa: Etapa) {
         val botao = when (etapa.botao) {

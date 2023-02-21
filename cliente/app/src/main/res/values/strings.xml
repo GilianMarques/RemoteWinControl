@@ -36,4 +36,5 @@
     <string name="Escuro">Escuro</string>
     <string name="Tela_sempre_acesa">Tela sempre acesa</string>
     <string name="Parar_reproducao">Parar reprodução</string>
+    <string name="Ping_x">Ping: %1$s</string>
 </resources>

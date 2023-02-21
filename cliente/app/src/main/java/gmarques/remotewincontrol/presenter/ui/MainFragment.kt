@@ -29,6 +29,7 @@ import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoDesligar
 import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoGravarAcoes
 import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoPortaIp
 import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoVerAcoes
+import gmarques.remotewincontrol.rede.io.RedeController
 import kotlinx.coroutines.launch
 
 
@@ -91,8 +92,15 @@ class MainFragment : Fragment() {
         initBotoesMouse()
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
+        observarPing()
         addListenersAoServicoDeDesligamento()
 
+    }
+
+    private fun observarPing() {
+        RedeController.ping.observe(viewLifecycleOwner) {
+            binding.tvPing.text = String.format(getString(R.string.Ping_x), it.toString())
+        }
     }
 
     override fun onDetach() {
@@ -136,21 +144,21 @@ class MainFragment : Fragment() {
     }
 
     private fun observerVibracaoDeScroll() =
-            viewModel.vibrarScroll.observe(viewLifecycleOwner) { duracao ->
-                if (duracao > 0) Vibrador.vibScroll(duracao, lifecycleScope)
-            }
+        viewModel.vibrarScroll.observe(viewLifecycleOwner) { duracao ->
+            if (duracao > 0) Vibrador.vibScroll(duracao, lifecycleScope)
+        }
 
     private fun observerVibracaoDoMousePad() =
-            viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
-                when (tipo) {
-                    TIPO_EVENTO_CLIENTE.NONE -> {}
-                    TIPO_EVENTO_CLIENTE.MOUSE_MOVE -> {}
-                    TIPO_EVENTO_CLIENTE.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
-                    TIPO_EVENTO_CLIENTE.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
-                    else -> Vibrador.vibCLick()
+        viewModel.vibrarMousePad.observe(viewLifecycleOwner) { tipo ->
+            when (tipo) {
+                TIPO_EVENTO_CLIENTE.NONE -> {}
+                TIPO_EVENTO_CLIENTE.MOUSE_MOVE -> {}
+                TIPO_EVENTO_CLIENTE.PAD_CLICK_TWO_FINGERS -> Vibrador.vibClickTwoFingers()
+                TIPO_EVENTO_CLIENTE.PAD_LONG_CLICK -> Vibrador.vibLongCLick()
+                else -> Vibrador.vibCLick()
 
-                }
             }
+        }
 
     private fun initMenu() {
 

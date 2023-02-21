@@ -1,17 +1,25 @@
 package gmarques.remotewincontrol.rede.io
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import gmarques.remotewincontrol.domain.JsonMapper
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.servidor.DtoServidor
 import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
+import kotlin.system.measureTimeMillis
+import kotlin.time.measureTime
 
 /**
  *Hub que centraliza as comunicaçoes
  * */
 object RedeController {
+
+    var _ping = MutableLiveData<Long>(0)
+    val ping: LiveData<Long> get() = _ping
+
 
     private val cliente = Cliente()
     private val servidor = Servidor()
@@ -26,10 +34,14 @@ object RedeController {
     }
 
     suspend fun enviar(dto: DtoCliente): Boolean = withContext(IO) {
-        dto.ipResposta = EnderecosDeRede.ipDoCliente
-        dto.portaResposta = EnderecosDeRede.portaDoCliente
+        var enviado: Boolean
+        _ping.postValue(measureTimeMillis {
+            dto.ipResposta = EnderecosDeRede.ipDoCliente
+            dto.portaResposta = EnderecosDeRede.portaDoCliente
+            enviado = cliente.enviarMsg(dto.toJson())
+        })
+        return@withContext enviado
 
-        return@withContext cliente.enviarMsg(dto.toJson())
     }
 
     /**

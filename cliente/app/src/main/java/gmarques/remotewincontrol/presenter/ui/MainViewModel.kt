@@ -1,6 +1,7 @@
 package gmarques.remotewincontrol.presenter.ui
 
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,10 +31,10 @@ class MainViewModel : ViewModel() {
 
 
     private val _vibrarScroll = MutableLiveData(0)
-    val vibrarScroll get() = _vibrarScroll
+    val vibrarScroll: LiveData<Int> get() = _vibrarScroll
 
     private val _vibrarMousePad = MutableLiveData(TIPO_EVENTO_CLIENTE.NONE)
-    val vibrarMousePad get() = _vibrarMousePad
+    val vibrarMousePad: LiveData<TIPO_EVENTO_CLIENTE> get() = _vibrarMousePad
 
 
     fun infiniteScrollListener(direcao: Int) {
@@ -46,8 +47,11 @@ class MainViewModel : ViewModel() {
             val sucesso = ScrollHandler.enviarEvento(direcao)
             if (!sucesso) {
                 val msg = String.format(
-                    App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado,
-                        TIPO_EVENTO_CLIENTE.MOUSE_SCROLL))
+                    App.get.getString(
+                        R.string.Gesto_do_tipo_x_nao_foi_enviado,
+                        TIPO_EVENTO_CLIENTE.MOUSE_SCROLL
+                    )
+                )
                 notificarErroToasty(msg)
             }
 
@@ -60,7 +64,12 @@ class MainViewModel : ViewModel() {
             _vibrarMousePad.value = comandoDto.tipo
             viewModelScope.launch {
                 val sucesso = RedeController.enviar(comandoDto)
-                if (!sucesso) notificarErroToasty(String.format(App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado), comandoDto.tipo))
+                if (!sucesso) notificarErroToasty(
+                    String.format(
+                        App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado),
+                        comandoDto.tipo
+                    )
+                )
             }
         }
 
@@ -69,7 +78,8 @@ class MainViewModel : ViewModel() {
             EntradaClique(mousePadCallback),
             EntradaCliqueDoisDedos(mousePadCallback),
             EntradaCliqueLongo(mousePadCallback),
-            EntradaMover(mousePadCallback))
+            EntradaMover(mousePadCallback)
+        )
 
         return MousePadTouchListener(eventosSuportados)
     }
@@ -77,12 +87,21 @@ class MainViewModel : ViewModel() {
     fun mouseClique(botao: TIPO_EVENTO_CLIENTE) = viewModelScope.launch {
         _vibrarMousePad.value = botao
         val sucesso = RedeController.enviar(DtoCliente(botao))
-        if (!sucesso) notificarErroToasty(String.format(App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado), botao))
+        if (!sucesso) notificarErroToasty(
+            String.format(
+                App.get.getString(R.string.Gesto_do_tipo_x_nao_foi_enviado),
+                botao
+            )
+        )
 
     }
 
     private fun notificarErroToasty(mensagem: String) {
-        Toast.makeText(App.get, String.format(App.get.getString(R.string.Erro_x), mensagem), Toast.LENGTH_LONG)
+        Toast.makeText(
+            App.get,
+            String.format(App.get.getString(R.string.Erro_x), mensagem),
+            Toast.LENGTH_LONG
+        )
             .show()
         Vibrador.vibErro()
     }

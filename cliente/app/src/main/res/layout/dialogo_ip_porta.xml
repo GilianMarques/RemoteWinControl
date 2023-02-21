@@ -63,11 +63,9 @@
                 android:id="@+id/edt_ip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:digits="123456789."
                 android:imeOptions="actionDone"
-                android:inputType="textAutoComplete"
-
+                android:inputType="numberDecimal"
                 android:maxLength="18"
                 android:maxLines="1"
                 tools:text="192.168.16.123" />
