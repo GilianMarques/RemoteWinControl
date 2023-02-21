@@ -25,13 +25,14 @@ class Cliente {
         try {
 
             val mSocket = Socket(EnderecosDeRede.ipDoServidor, EnderecosDeRede.portaDoServidor)
+            mSocket.tcpNoDelay = true
             PrintWriter(mSocket.getOutputStream(), true)
                 .also {
                     it.println(mensagem) // mando pro servidor
                     it.close()
                 }
 
-      //      Log.d("USUK", "Cliente.enviarMsg: \"$mensagem\" ")
+            //      Log.d("USUK", "Cliente.enviarMsg: \"$mensagem\" ")
             mSocket.close()
 
             return@withContext true

@@ -19,6 +19,7 @@ class Servidor {
         try {
 
             val server = ServerSocket(porta)
+
             println("Conectado via porta: $porta e ip ${EnderecosDeRede.lerIpDaRede()}")
 
             while (true) {
@@ -33,12 +34,12 @@ class Servidor {
             }
 
         } catch (ex: BindException) { // porta em uso
-            tratarPortaEmUso(listener)
+            escolherNovaPorta(listener)
 
         }
     }
 
-    private suspend fun tratarPortaEmUso(listener: (String) -> Unit) {
+    private suspend fun escolherNovaPorta(listener: (String) -> Unit) {
         println("Porta $porta em uso tentando proxima...")
         porta++
         ligar(listener)

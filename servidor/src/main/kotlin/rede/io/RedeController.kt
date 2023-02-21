@@ -19,18 +19,17 @@ object RedeController {
 
     private val servidor = Servidor()
     private val cliente = Cliente()
+    private val execScope = CoroutineScope(IO)
 
     fun getPortaDoServidor() = servidor.porta
 
 
     fun iniciarServidorAsync() = CoroutineScope(Job() + IO).launch {
-        servidor.ligar(::eventoRecebido)
+        servidor.ligar { execScope.launch { eventoRecebido(it) } }
     }
 
-    private fun eventoRecebido(entrada: String) {
+    private suspend fun eventoRecebido(entrada: String) = withContext(IO) {
 
-        // Aqui, desserializo o json usando uma das subclasses Dto apenas para acessar o tipo
-        // Com essa info posso desserializar usando a classe correta posteriormente
         val comando = JsonMapper.fromJson(entrada, DtoCliente::class.java)
 
         println("Comando recebido: $entrada")

@@ -24,18 +24,22 @@ object Reprodutor {
 
         acoes.add(acao)
 
-        if (!reproduzindo) iterarSobreAcoes()
-        else exibirDescricao("${acao.nome} adiconada a fila na posição #${acoes.size}")
+        if (!reproduzindo) {
+            scopeExecucao.launch {
+                Mouse.salvarPosicaoAtualDoMouse()
+                iterarSobreAcoes()
+                delay(30)// pra dar tempo do nircmd soltar o botao do mouse 'release ou mouse up' caso tenha sido a ultima etapa da açao
+                Mouse.restaurarPosicaoOriginalDoMouse()
+            }
+        } else exibirDescricao("${acao.nome} adiconada a fila na posição #${acoes.size}")
 
     }
 
-    private fun iterarSobreAcoes(): Any = scopeExecucao.launch {
+    private suspend fun iterarSobreAcoes() {
         reproduzindo = true
         val acao = acoes[0]
         exibirDescricao("iterarSobreAcoes ação: '${acao.nome}' em ${acao.velocidade}x")
-        Mouse.salvarPosicaoAtualDoMouse()
         iterarSobreEtapas(acao)
-        Mouse.restaurarPosicaoOriginalDoMouse()
         exibirDescricao("ação executada")
 
         acoes.removeAt(0)
@@ -45,7 +49,6 @@ object Reprodutor {
             reproduzindo = false
             notificarClienteSobreFimDaReproducao()
         }
-
     }
 
 
