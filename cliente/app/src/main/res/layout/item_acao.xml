@@ -9,12 +9,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-
-        android:text="@string/Iniciar_gravacao"
-        app:drawableStartCompat="@drawable/vec_gravar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_flexGrow="1">
@@ -22,7 +18,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/container_remocao"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
 
             android:layout_marginTop="8dp"
@@ -58,7 +54,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_renomear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
@@ -73,13 +69,12 @@
             <EditText
                 android:id="@+id/edt_nome"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:drawablePadding="12dp"
                 android:gravity="center"
-                android:padding="16dp"
                 android:paddingStart="16dp"
-
+                android:textSize="16sp"
                 android:paddingEnd="16dp"
                 app:drawableStartCompat="@drawable/vec_gravar"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -119,7 +114,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_velocidade"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
@@ -134,13 +129,13 @@
             <EditText
                 android:id="@+id/edt_velocidade"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:drawablePadding="12dp"
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:padding="16dp"
+                android:textSize="16sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 app:drawableStartCompat="@drawable/vec_velocidade"
@@ -179,7 +174,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_principal"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
@@ -192,16 +187,18 @@
             <TextView
                 android:id="@+id/tv_acao"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:drawablePadding="12dp"
-                android:padding="16dp"
                 android:paddingStart="16dp"
+                android:textSize="16sp"
                 android:paddingEnd="16dp"
-                android:text="@string/Iniciar_gravacao"
+                android:gravity="center_vertical"
                 app:drawableStartCompat="@drawable/vec_gravar"
                 app:layout_constraintEnd_toStartOf="@id/iv_menu"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
                 tools:text="CrunchRoll: Pular abertura" />
 
             <ImageView

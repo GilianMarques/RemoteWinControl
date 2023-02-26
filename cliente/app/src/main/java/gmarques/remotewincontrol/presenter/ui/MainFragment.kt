@@ -10,7 +10,7 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import gmarques.remotewincontrol.App
@@ -25,10 +25,10 @@ import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.domain.mouse.scroll.ScrollClique
 import gmarques.remotewincontrol.domain.mouse.scroll.ScrollInfinito
 import gmarques.remotewincontrol.presenter.Vibrador
+import gmarques.remotewincontrol.presenter.ui.dialogos.BottomSheetVerAcoes
 import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoDesligar
 import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoGravarAcoes
 import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoPortaIp
-import gmarques.remotewincontrol.presenter.ui.dialogos.DialogoVerAcoes
 import gmarques.remotewincontrol.rede.io.RedeController
 import kotlinx.coroutines.launch
 
@@ -39,8 +39,9 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private lateinit var bottomSheet: BottomSheetVerAcoes
     private lateinit var binding: FragmentMainBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     private val listener = object : DesligamentoController.Listener {
 
         override fun tick(tempoFormatado: String) {
@@ -69,7 +70,6 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding = FragmentMainBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
@@ -92,8 +92,24 @@ class MainFragment : Fragment() {
         initBotoesMouse()
         observerVibracaoDeScroll()
         observerVibracaoDoMousePad()
+        initBottomSheet()
         observarPing()
         addListenersAoServicoDeDesligamento()
+
+    }
+
+    private fun initFabAcoes() {
+        binding.fabAcoes.setOnClickListener {
+            bottomSheet.exibir()
+        }
+    }
+
+    private fun initBottomSheet() {
+
+        bottomSheet = BottomSheetVerAcoes(this@MainFragment, binding) {
+            mostrarDialogoGravarAcoes()
+        }
+
 
     }
 
@@ -108,11 +124,6 @@ class MainFragment : Fragment() {
         super.onDetach()
     }
 
-    private fun initFabAcoes() {
-        binding.fabAcoes.setOnClickListener {
-            mostrarDialogoVerAcoes()
-        }
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initBotoesMouse() {
@@ -212,7 +223,8 @@ class MainFragment : Fragment() {
     private fun mostrarDialogoGravarAcoes() {
 
         DialogoGravarAcoes(this) {
-            mostrarDialogoVerAcoes()
+            bottomSheet.atualizar()
+            bottomSheet.exibir()
         }
     }
 
@@ -222,10 +234,6 @@ class MainFragment : Fragment() {
             viewModel.atualizarEnderecosEnotificar(porta, ip)
         }
 
-    }
-
-    private fun mostrarDialogoVerAcoes() {
-        DialogoVerAcoes(this, ::mostrarDialogoGravarAcoes)
     }
 
 

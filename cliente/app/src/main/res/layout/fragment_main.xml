@@ -17,9 +17,10 @@
             android:id="@+id/tv_ping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="5dp"
             android:padding="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mouse_btn_esq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container_status"
             tools:text="Ping: 16mls" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +28,8 @@
             android:layout_height="match_parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <LinearLayout
             android:id="@+id/container_status"
@@ -63,17 +66,6 @@
                 tools:visibility="visible" />
 
         </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_acoes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/Acoes"
-            app:layout_constraintBottom_toTopOf="@id/mouse_btn_dir"
-            app:layout_constraintEnd_toEndOf="@id/mouse_btn_dir"
-            app:srcCompat="@drawable/vec_gravar" />
 
         <LinearLayout
             android:id="@+id/mouse_pad"
@@ -145,5 +137,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mouse_btn_meio" />
 
+        <include
+            android:id="@+id/include_bottom_sheet"
+            layout="@layout/bottom_sheet_ver_acoes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/mouse_btn_esq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_acoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/Acoes"
+            app:layout_constraintBottom_toTopOf="@id/mouse_btn_dir"
+            app:layout_constraintEnd_toEndOf="@id/mouse_btn_dir"
+            app:srcCompat="@drawable/vec_gravar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

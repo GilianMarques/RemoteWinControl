@@ -2,22 +2,20 @@ package gmarques.remotewincontrol.presenter.ui.dialogos
 
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.util.Log
+import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.data.AcoesDao
-import gmarques.remotewincontrol.databinding.DialogoVerAcoesBinding
+import gmarques.remotewincontrol.databinding.BottomSheetVerAcoesBinding
+import gmarques.remotewincontrol.databinding.FragmentMainBinding
 import gmarques.remotewincontrol.databinding.ItemAcaoBinding
-import gmarques.remotewincontrol.domain.JsonMapper
 import gmarques.remotewincontrol.domain.acoes.Acao
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
@@ -27,32 +25,64 @@ import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.rede.io.RedeController
 import kotlinx.coroutines.launch
 
-class DialogoVerAcoes(
-    private val fragmento: Fragment,
-    private val mostrarDialogoDeAcoes: () -> Any,
-) : RedeController.RedeCallback, DialogInterface.OnDismissListener {
+// TODO: refatorar essa classe
 
+class BottomSheetVerAcoes(
+    private val fragmento: Fragment,
+    private val fragmentBinding: FragmentMainBinding,
+    private val mostrarDialogoDeAcoes: () -> Any,
+) : RedeController.RedeCallback {
+
+
+    private val binding: BottomSheetVerAcoesBinding = fragmentBinding.includeBottomSheet
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private var ultimoItemComMenuExibido: ItemAcaoBinding? = null
-    private var binding: DialogoVerAcoesBinding =
-            DialogoVerAcoesBinding.inflate(fragmento.layoutInflater)
-
-    private var dialog: BottomSheetDialog
     private var acoesDao = AcoesDao()
 
     init {
+
+        initBottomSheetBehavior()
         initViews()
         addListenerDeRede()
 
-        dialog = BottomSheetDialog(fragmento.requireContext())
-        dialog.setContentView(binding.root)
-        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        dialog.show()
-        dialog.setOnDismissListener(this)
+    }
+
+    private fun initBottomSheetBehavior() {
+
+        val bottomSheetView = binding.parentContainer
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+        bottomSheetBehavior.isHideable = false
+
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        fragmentBinding.fabAcoes.visibility = VISIBLE
+                    }
+
+                    else -> fragmentBinding.fabAcoes.visibility = GONE
+
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
+    }
+
+    fun atualizar() {
+        binding.container.removeAllViews()
+        carregarAcoes()
+    }
+
+    fun exibir() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun initViews() {
-        initToolbar()
         carregarAcoes()
         initBotoesAddEParar()
 
@@ -64,7 +94,8 @@ class DialogoVerAcoes(
     private fun initBotoesAddEParar() {
         binding.btnGravar.setOnClickListener {
             mostrarDialogoDeAcoes.invoke()
-            dialog.dismiss()
+            ocultarBottomSheet()
+
         }
 
         binding.btnPararReproducao.setOnClickListener {
@@ -72,14 +103,10 @@ class DialogoVerAcoes(
         }
     }
 
-    private fun initToolbar() {
-        binding.toolbar.setNavigationOnClickListener { dialog.dismiss() }
-    }
-
     private fun carregarAcoes() = fragmento.lifecycleScope.launch {
 
         val acoes = acoesDao.getAcoes()
-        acoes.sortByDescending { it.nome }
+        acoes.sortBy { it.nome }
         acoes.forEach { acao ->
 
             val itemView = ItemAcaoBinding.inflate(fragmento.layoutInflater)
@@ -103,16 +130,7 @@ class DialogoVerAcoes(
             itemView.ivVelocidade.setOnClickListener { mostrarViewVelocidade(itemView, acao) }
             itemView.ivAplicarVelocidade.setOnClickListener { salvarNovaVelocidade(itemView, acao) }
 
-
-            binding.container.addView(itemView.root).also {
-                //      Log.d("USUK", "DialogoVerAcoes.carregarAcoes: ${acao.nome} ${acao.posicao}")
-
-                val params = itemView.root.layoutParams as FlexboxLayout.LayoutParams
-                params.flexGrow =
-                        itemView.root.findViewById<TextView>(R.id.tv_acao).text.length.toFloat()
-            }
-
-
+            binding.container.addView(itemView.root)
         }
 
 
@@ -121,15 +139,20 @@ class DialogoVerAcoes(
     private fun mostrarMenu(itemView: ItemAcaoBinding): Boolean {
 
         if (ultimoItemComMenuExibido != null) {
-            exibirApenasContainerEspecifico(ultimoItemComMenuExibido, ultimoItemComMenuExibido?.containerPrincipal)
+            exibirApenasContainerEspecifico(
+                ultimoItemComMenuExibido, ultimoItemComMenuExibido?.containerPrincipal
+            )
         }
 
         return mostrarOpcoesDaAcao(itemView)
     }
 
     private fun atualizaNomeDaAcao(itemView: ItemAcaoBinding, acao: Acao) {
-        val nome = itemView.edtNome.text.toString()
-            .ifEmpty { String.format(fragmento.getString(R.string.Acao_x), binding.container.childCount) }
+        val nome = itemView.edtNome.text.toString().ifEmpty {
+            String.format(
+                fragmento.getString(R.string.Acao_x), binding.container.childCount
+            )
+        }
         acao.nome = nome
         acoesDao.salvarAcao(acao)
         itemView.tvAcao.text = nome
@@ -177,17 +200,14 @@ class DialogoVerAcoes(
     }
 
     private fun salvarNovaVelocidade(itemView: ItemAcaoBinding, acao: Acao) {
-        Regex("[^0-9.]")
-            .replace(itemView.edtVelocidade.text.toString(), "")
-            .ifEmpty { "1" }
-            .apply {
-                val velocidade = toFloat().coerceIn(Acao.velocidadeMinima, Acao.velocidadeMaxima)
-                acao.velocidade = velocidade
-                itemView.edtVelocidade.setText("${velocidade}x")
-                acoesDao.salvarAcao(acao)
-                restaurarViewProEstadoPadrao(itemView)
+        Regex("[^0-9.]").replace(itemView.edtVelocidade.text.toString(), "").ifEmpty { "1" }.apply {
+            val velocidade = toFloat().coerceIn(Acao.velocidadeMinima, Acao.velocidadeMaxima)
+            acao.velocidade = velocidade
+            itemView.edtVelocidade.setText("${velocidade}x")
+            acoesDao.salvarAcao(acao)
+            restaurarViewProEstadoPadrao(itemView)
 
-            }
+        }
 
     }
 
@@ -206,17 +226,25 @@ class DialogoVerAcoes(
 
         fragmento.lifecycleScope.launch {
             val ordemEnviada = RedeController.enviar(
-                DtoCliente(TIPO_EVENTO_CLIENTE.ACAO_REPRODUZIR_GRAVACAO)
-                    .addString("acao", acao.toJson())
+                DtoCliente(TIPO_EVENTO_CLIENTE.ACAO_REPRODUZIR_GRAVACAO).addString(
+                    "acao",
+                    acao.toJson()
+                )
             )
-            if (ordemEnviada) alternarBotaoParar(true)
+            if (ordemEnviada) mostrarBotaoPararReproducao(true)
 
         }
 
         Vibrador.vibInteracao()
 
-        if (dispensarDialogo) dialog.dismiss()
+        if (dispensarDialogo) ocultarBottomSheet()
+
         return true
+    }
+
+    private fun ocultarBottomSheet() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
     }
 
     private fun pararReproducao() {
@@ -235,22 +263,18 @@ class DialogoVerAcoes(
         Log.d("USUK", "DialogoVerAcoes.addListenerDeRede: ")
     }
 
-    private fun alternarBotaoParar(mostar: Boolean) {
+    private fun mostrarBotaoPararReproducao(mostar: Boolean) {
 
         binding.btnPararReproducao.visibility = if (mostar) VISIBLE else INVISIBLE
-        binding.btnGravar.visibility = if (!mostar) VISIBLE else INVISIBLE
+     //   binding.btnGravar.visibility = if (!mostar) VISIBLE else INVISIBLE
 
-    }
-
-    override fun onDismiss(dialog: DialogInterface?) {
-        RedeController.removerListener(TIPO_EVENTO_SERVIDOR.ACOES_REPRODUZIDAS, this)
     }
 
     /** callback do listener de servidor
      * @see addListenerDeRede
      * */
     override fun eventoRecebido(comandoJson: DtoServidor): Boolean {
-        alternarBotaoParar(false)
+        mostrarBotaoPararReproducao(false)
         return false
     }
 
