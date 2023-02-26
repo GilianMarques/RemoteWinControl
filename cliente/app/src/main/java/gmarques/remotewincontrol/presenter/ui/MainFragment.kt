@@ -52,13 +52,13 @@ class MainFragment : Fragment() {
 
         }
 
-        override fun abortarAgendamento(millisAteDesligar: Long) {
+        override fun abortarAgendamento(segsAteDesligar: Int) {
             lifecycleScope.launch {
                 binding.tvTimer.visibility = GONE
             }
         }
 
-        override fun quaseDesligando(millisAteDesligar: Long) {
+        override fun quaseDesligando(segsAteDesligar: Int) {
             Vibrador.vibDesligar()
         }
 
@@ -171,9 +171,9 @@ class MainFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.ip -> mostrarDialogoIpPorta()
                     R.id.desligar -> mostrarDialogoDesligar()
-                    R.id.tema_claro -> alternarModeNoite(MODE_NIGHT_NO)
-                    R.id.tema_escuro -> alternarModeNoite(MODE_NIGHT_YES)
-                    R.id.tema_sistema -> alternarModeNoite(MODE_NIGHT_FOLLOW_SYSTEM)
+                    R.id.tema_claro -> alternarModoNoite(MODE_NIGHT_NO)
+                    R.id.tema_escuro -> alternarModoNoite(MODE_NIGHT_YES)
+                    R.id.tema_sistema -> alternarModoNoite(MODE_NIGHT_FOLLOW_SYSTEM)
                 }
                 return true
             }
@@ -183,7 +183,7 @@ class MainFragment : Fragment() {
         menuHost.addMenuProvider(provider)
     }
 
-    private fun alternarModeNoite(tipoTema: Int) {
+    private fun alternarModoNoite(tipoTema: Int) {
         setDefaultNightMode(tipoTema)
         Preferencias().putInt(PREFS_TIPO_NIGHT_MODE, tipoTema)
         requireActivity().recreate()

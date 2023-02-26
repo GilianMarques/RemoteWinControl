@@ -8,7 +8,7 @@ object Desligamento {
     fun agendar(comando: DtoCliente) {
 
         val delay = comando.getInt("segundosDeAtraso")
-        val mensagem = "O PC será desligado dentro de $delay segundos"
+        val mensagem = "O computador será desligado dentro de $delay segundos"
         Cmd.run("nircmd.exe initshutdown \"$mensagem\" $delay force")
         println(mensagem)
     }

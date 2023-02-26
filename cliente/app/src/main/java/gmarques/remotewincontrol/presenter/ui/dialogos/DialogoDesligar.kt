@@ -1,6 +1,8 @@
 package gmarques.remotewincontrol.presenter.ui.dialogos
 
 import android.annotation.SuppressLint
+import android.view.MotionEvent
+import android.view.View
 import android.view.View.*
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
@@ -21,7 +23,7 @@ class DialogoDesligar(
 
     private var minutosAteDesligar: Int = 1
     private var binding: DialogoDesligarBinding =
-            DialogoDesligarBinding.inflate(fragmento.layoutInflater)
+        DialogoDesligarBinding.inflate(fragmento.layoutInflater)
 
     private val regex = Regex("[^0-9]")
 
@@ -47,12 +49,13 @@ class DialogoDesligar(
 
     }
 
-
     @SuppressLint("SetTextI18n")
     private fun initBotoesViewMinutos() {
 
         binding.ivAdd.setOnClickListener {
-            regex.replace(binding.edtMinutos.text, "").toInt().let { atualizarMostrador(it + 5) }
+            regex.replace(binding.edtMinutos.text, "")
+                .toIntOrNull()
+                .let { atualizarMostrador((it ?: 0) + 5) }
         }
 
         binding.ivAdd.setOnLongClickListener {
@@ -61,7 +64,9 @@ class DialogoDesligar(
         }
 
         binding.ivSub.setOnClickListener {
-            regex.replace(binding.edtMinutos.text, "").toInt().let { atualizarMostrador(it - 5) }
+            regex.replace(binding.edtMinutos.text, "")
+                .toIntOrNull()
+                .let { atualizarMostrador((it ?: 0) - 5) }
         }
 
         binding.ivSub.setOnLongClickListener {
@@ -77,6 +82,11 @@ class DialogoDesligar(
 
     private fun initEditTextMinutos() {
 
+
+        binding.edtMinutos.setOnClickListener {
+            binding.edtMinutos.selectAll()
+        }
+
         binding.edtMinutos.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 atualizarMostrador(regex.replace(binding.edtMinutos.text, "").toInt())
@@ -90,7 +100,12 @@ class DialogoDesligar(
         val tempoVerificado = minutos.coerceIn(TEMPO_MINIMO, TEMPO_MAXIMO)
         minutosAteDesligar = tempoVerificado
         Preferencias().putInt(PREFS_MINS_ATE_DESLIGAR, minutosAteDesligar)
-        binding.edtMinutos.setText(String.format(fragmento.getString(R.string.x_mins), minutosAteDesligar))
+        binding.edtMinutos.setText(
+            String.format(
+                fragmento.getString(R.string.x_mins),
+                minutosAteDesligar
+            )
+        )
         Vibrador.vibInteracao()
     }
 

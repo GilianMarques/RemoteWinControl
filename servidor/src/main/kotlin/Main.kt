@@ -2,7 +2,6 @@ import com.github.kwhat.jnativehook.GlobalScreen
 import com.github.kwhat.jnativehook.NativeHookException
 import kotlinx.coroutines.*
 import rede.io.RedeController
-import kotlin.system.exitProcess
 
 val globalScope = CoroutineScope(Job())
 

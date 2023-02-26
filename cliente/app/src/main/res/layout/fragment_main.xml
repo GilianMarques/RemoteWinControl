@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/container_status"
+            app:layout_constraintBottom_toTopOf="@id/mouse_btn_esq"
             tools:text="Ping: 16mls" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

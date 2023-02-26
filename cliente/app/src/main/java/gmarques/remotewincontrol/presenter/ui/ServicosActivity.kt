@@ -19,7 +19,7 @@ class ServicosActivity : AppCompatActivity() {
         Log.d("USUK", "ServicosActivity.verificarActionDaIntent: ")
         // intent criada pelo serviço ServicoAgendarDesligamento
         if (intent.action == ABORTAR_AGEND_DESLIGAR) {
-            ServicoAgendarDesligamento.servicoDesligamento?.abortar()
+            ServicoAgendarDesligamento.servicoDesligamento!!.abortar()
             finish()
         }
     }
