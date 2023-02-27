@@ -1,1 +1,1 @@
-java -jar RemoteWinControlServer.jar
+java -jar RemoteWinControlServer.jar 2>> app_console_log.txt
