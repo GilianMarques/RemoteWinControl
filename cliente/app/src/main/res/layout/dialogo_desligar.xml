@@ -64,6 +64,7 @@
                 android:inputType="number"
                 android:padding="16dp"
                 android:textColor="?colorSurface"
+                android:selectAllOnFocus="true"
                 app:drawableStartCompat="@drawable/vec_desligar"
                 app:drawableTint="?colorSurface"
                 app:layout_constraintBottom_toBottomOf="parent"

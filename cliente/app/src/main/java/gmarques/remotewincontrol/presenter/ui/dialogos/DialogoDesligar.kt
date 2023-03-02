@@ -22,8 +22,7 @@ class DialogoDesligar(
     private val TEMPO_MAXIMO = 2880/*48hrs*/
 
     private var minutosAteDesligar: Int = 1
-    private var binding: DialogoDesligarBinding =
-        DialogoDesligarBinding.inflate(fragmento.layoutInflater)
+    private var binding: DialogoDesligarBinding =   DialogoDesligarBinding.inflate(fragmento.layoutInflater)
 
     private val regex = Regex("[^0-9]")
 
@@ -82,10 +81,6 @@ class DialogoDesligar(
 
     private fun initEditTextMinutos() {
 
-
-        binding.edtMinutos.setOnClickListener {
-            binding.edtMinutos.selectAll()
-        }
 
         binding.edtMinutos.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

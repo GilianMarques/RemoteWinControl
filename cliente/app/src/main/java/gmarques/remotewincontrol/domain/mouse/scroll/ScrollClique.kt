@@ -8,7 +8,7 @@ import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.MAX_MOV_PERM
 import kotlin.math.abs
 
 /**
- * Usada como touchlistener para  permitir reconhecer um toque no recyclerview de scroll infitnito
+ * Usada como touchlistener para  permitir reconhecer um toque no recyclerview de scroll infinito
  * Assim que um toque é reconhecido o metodo onclick do RV é chamado
  * */
 class ScrollClique : View.OnTouchListener {

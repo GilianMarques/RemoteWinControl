@@ -42,8 +42,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="number"
-                android:maxLength="18"
-                android:maxLines="5"
+                android:maxLength="5"
                 tools:text="18954" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -63,12 +62,14 @@
                 android:id="@+id/edt_ip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="123456789."
+                android:digits="0123456789."
                 android:imeOptions="actionDone"
-                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:inputType="textAutoComplete"
                 android:maxLength="18"
-                android:maxLines="1"
-                tools:text="192.168.16.123" />
+                android:text="192.168."
+                tools:text="192.168.16.123"
+                tools:ignore="HardcodedText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
