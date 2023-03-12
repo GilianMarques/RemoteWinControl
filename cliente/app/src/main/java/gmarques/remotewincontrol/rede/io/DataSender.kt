@@ -1,7 +1,5 @@
 package gmarques.remotewincontrol.rede.io
 
-import android.util.Log
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.PrintWriter
@@ -14,7 +12,7 @@ import java.net.Socket
  * Nao use essa classe diretamente.
  * @See RedeController
  * */
-class Cliente {
+class DataSender {
 
 
     /**

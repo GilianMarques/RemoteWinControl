@@ -11,7 +11,7 @@ import gmarques.remotewincontrol.data.PREFS_TIPO_NIGHT_MODE
 import gmarques.remotewincontrol.data.Preferencias
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
-import gmarques.remotewincontrol.domain.volume.VolumeHelper
+import gmarques.remotewincontrol.domain.funcoes.volume.VolumeHelper
 import gmarques.remotewincontrol.presenter.Vibrador
 import gmarques.remotewincontrol.rede.io.RedeController
 import kotlinx.coroutines.launch

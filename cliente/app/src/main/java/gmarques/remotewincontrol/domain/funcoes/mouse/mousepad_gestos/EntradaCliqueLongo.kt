@@ -1,10 +1,10 @@
-package gmarques.remotewincontrol.domain.mouse.mousepad_gestos
+package gmarques.remotewincontrol.domain.funcoes.mouse.mousepad_gestos
 
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
-import gmarques.remotewincontrol.domain.mouse.EntradaCallback
+import gmarques.remotewincontrol.domain.funcoes.mouse.EntradaCallback
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 
 import kotlin.math.abs

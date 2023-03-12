@@ -1,8 +1,7 @@
-package gmarques.remotewincontrol.domain.mouse.scroll
+package gmarques.remotewincontrol.domain.funcoes.mouse.scroll
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import gmarques.remotewincontrol.presenter.ui.ScrollAdapter
@@ -94,11 +93,11 @@ class ScrollInfinito(
      * mesmo na menor sensibilidade possivel por conta da propria interface mesmo...
      */
     private fun dispacharEvento(dy: Int): Boolean {
-        val velocidade = abs(dy).coerceIn(1,100)
+        val velocidade = abs(dy).coerceIn(1, 100)
         val arrasto = 40
-        val relacao = (arrasto/velocidade).coerceIn(1,15)
+        val relacao = (arrasto / velocidade).coerceIn(1, 15)
 
-      //  Log.d("USUK", "ScrollInfinito.dispacharEvento: dy $dy, arrasto $arrasto  auto $relacao")
+        //  Log.d("USUK", "ScrollInfinito.dispacharEvento: dy $dy, arrasto $arrasto  auto $relacao")
         return (chamadas % relacao == 0).also { chamadas++ }
     }
 

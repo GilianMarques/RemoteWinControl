@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import gmarques.remotewincontrol.R
-import gmarques.remotewincontrol.domain.ABORTAR_AGEND_DESLIGAR
-import gmarques.remotewincontrol.domain.desligamento_agendado.ServicoAgendarDesligamento
+import gmarques.remotewincontrol.domain.funcoes.desligamento.ABORTAR_AGEND_DESLIGAR
+import gmarques.remotewincontrol.domain.funcoes.desligamento.ServicoAgendarDesligamento
 
 class ServicosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

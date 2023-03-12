@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import gmarques.remotewincontrol.App
-import gmarques.remotewincontrol.domain.acoes.Acao
+import gmarques.remotewincontrol.domain.funcoes.acoes.Acao
 import gmarques.remotewincontrol.domain.JsonMapper
 
 /**

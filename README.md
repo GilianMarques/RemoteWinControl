@@ -51,8 +51,12 @@ Através do App é possível:
 **Info**
 * Ambos, cliente e servidor são escritos em kotlin usando Android Studio e Intellij IDEA.
 * O servidor não tem interface, toda a configuração e interação é feita pelo cliente (app android)
-* Senta-se livre para me contactar a respeito desse repositório (meios de contato no perfil)
+* Sinta-se livre para me contactar a respeito desse repositório
 -------
 **Stats**
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/gilianmarques/RemoteWinControl?color=green&style=flat-square) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/gilianmarques/RemoteWinControl/master?color=green&style=flat-square)
+
+### Metricas:
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GilianMarques_RemoteWinControl&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GilianMarques_RemoteWinControl) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GilianMarques_RemoteWinControl&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=GilianMarques_RemoteWinControl) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GilianMarques_RemoteWinControl&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=GilianMarques_RemoteWinControl) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GilianMarques_RemoteWinControl&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=GilianMarques_RemoteWinControl)

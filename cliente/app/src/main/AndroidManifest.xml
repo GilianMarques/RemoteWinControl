@@ -27,7 +27,7 @@
         </activity>
 
         <service
-            android:name=".domain.desligamento_agendado.ServicoAgendarDesligamento"
+            android:name=".domain.funcoes.desligamento.ServicoAgendarDesligamento"
             android:enabled="true"
             android:exported="false" />
 

@@ -1,10 +1,10 @@
-package gmarques.remotewincontrol.domain.mouse.scroll
+package gmarques.remotewincontrol.domain.funcoes.mouse.scroll
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
-import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.CLICK_INTERVAL
-import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.MAX_MOV_PERM
+import gmarques.remotewincontrol.domain.funcoes.mouse.mousepad_gestos.CLICK_INTERVAL
+import gmarques.remotewincontrol.domain.funcoes.mouse.mousepad_gestos.MAX_MOV_PERM
 import kotlin.math.abs
 
 /**

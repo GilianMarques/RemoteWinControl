@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import gmarques.remotewincontrol.databinding.DialogoGravarAcoesBinding
-import gmarques.remotewincontrol.domain.acoes.AcaoController
+import gmarques.remotewincontrol.domain.funcoes.acoes.AcaoController
 import gmarques.remotewincontrol.presenter.Vibrador
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

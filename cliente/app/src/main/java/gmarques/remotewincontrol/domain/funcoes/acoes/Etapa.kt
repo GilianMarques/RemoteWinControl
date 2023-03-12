@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.domain.acoes
+package gmarques.remotewincontrol.domain.funcoes.acoes
 
 data class Etapa(
     val momentoExec: Long,

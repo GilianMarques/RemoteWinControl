@@ -1,20 +1,23 @@
-package gmarques.remotewincontrol.domain.desligamento_agendado
+package gmarques.remotewincontrol.domain.funcoes.desligamento
 
-import gmarques.remotewincontrol.domain.DELAY_DESLIGAMENTO
 import java.util.*
 
+/**
+ * Aqui fica toda a logica do timer de desligar o PC. Depois de inicializar o timer, os listeners
+ * registrados vao receber eventos a cada etapa do processo até que o timer chegue a 0 ou seja cancelado.
+ */
 class DesligamentoController(val listener: Listener) {
 
     private var segsAteDesligar: Int = -123
     private var timerDeslPc: Timer? = null
 
     fun agendarDesligamento(minutosAteDesligar: Int) {
-        if (minutosAteDesligar == 0) desligarComputador()
+        if (minutosAteDesligar == 0) avisarDesligarComputador()
         else iniciarTimer(minutosAteDesligar)
     }
 
     fun cancelarAgendamento() {
-        abortarAgendamento()
+        avisarAbortarAgendamento()
     }
 
     private fun iniciarTimer(minutosAteDesligar: Int) {
@@ -42,7 +45,7 @@ class DesligamentoController(val listener: Listener) {
         if (segsAteDesligar == DELAY_DESLIGAMENTO) {
             avisarQuaseDesligando()
         } else if (segsAteDesligar == 0) {
-            desligarComputador()
+            avisarDesligarComputador()
         } else if (segsAteDesligar < 0) {
             throw java.lang.IllegalStateException("O timer deveria parar no 0")
         }
@@ -53,7 +56,6 @@ class DesligamentoController(val listener: Listener) {
     }
 
     private fun formatarTimer(segs: Int): String {
-
 
         val segundos = segs % 60
         val minutos = segs / 60 % 60
@@ -67,12 +69,12 @@ class DesligamentoController(val listener: Listener) {
         listener.quaseDesligando(segsAteDesligar)
     }
 
-    private fun desligarComputador() {
+    private fun avisarDesligarComputador() {
         timerDeslPc?.cancel()
         listener.desligar()
     }
 
-    private fun abortarAgendamento() {
+    private fun avisarAbortarAgendamento() {
         timerDeslPc?.cancel()
         listener.abortarAgendamento(segsAteDesligar)
     }

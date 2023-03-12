@@ -17,7 +17,7 @@
     <string name="Nome">Nome</string>
     <string name="Acoes">Ações</string>
     <string name="Ignorar_movimento_do_mouse">Ignorar movimento do mouse</string>
-    <string name="Clique_para_remover">Clique para remover</string>
+    <string name="Clique_para_confirmar_remocao">Clique para confirmar remoção</string>
     <string name="Acao_x">Ação #%1$s</string>
     <string name="Agendar_desligamento">Agendar desligamento</string>
     <string name="x_mins">%1$s mins</string>
@@ -37,4 +37,7 @@
     <string name="Tela_sempre_acesa">Tela sempre acesa</string>
     <string name="Parar_reproducao">Parar reprodução</string>
     <string name="Ping_x">Ping: %1$s</string>
+    <string name="Remover_acao">Remover ação</string>
+    <string name="Velocidade">Velocidade</string>
+    <string name="Editar_x">Editar %1$s</string>
 </resources>

@@ -1,9 +1,9 @@
-package gmarques.remotewincontrol.domain.mouse
+package gmarques.remotewincontrol.domain.funcoes.mouse
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
-import gmarques.remotewincontrol.domain.mouse.mousepad_gestos.EntradaAbs
+import gmarques.remotewincontrol.domain.funcoes.mouse.mousepad_gestos.EntradaAbs
 
 /**
  * Recebe as entradas do usuario direto da view e passa para serem analisados
