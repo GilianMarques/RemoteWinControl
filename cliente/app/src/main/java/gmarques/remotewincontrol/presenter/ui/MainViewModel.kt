@@ -98,6 +98,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun notificarErroToasty(mensagem: String) {
+
         Log.d("USUK", "MainViewModel.notificarErroToasty: $mensagem")
         Vibrador.vibErro()
     }
