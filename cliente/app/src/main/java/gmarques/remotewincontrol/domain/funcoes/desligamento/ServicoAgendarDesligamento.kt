@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.domain.desligamento_agendado
+package gmarques.remotewincontrol.domain.funcoes.desligamento
 
 import android.Manifest
 import android.app.*
@@ -11,8 +11,6 @@ import androidx.core.app.NotificationManagerCompat
 import gmarques.remotewincontrol.App
 import gmarques.remotewincontrol.BuildConfig
 import gmarques.remotewincontrol.R
-import gmarques.remotewincontrol.domain.ABORTAR_AGEND_DESLIGAR
-import gmarques.remotewincontrol.domain.DELAY_DESLIGAMENTO
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.presenter.ui.MainActivity
@@ -62,7 +60,7 @@ class ServicoAgendarDesligamento : Service() {
              * */
             override fun tick(tempoFormatado: String) {
                 listeners.forEach { it.tick(tempoFormatado) }
-                notificar(criarNotificacao(tempoFormatado))
+                exibirNotificacao(criarNotificacao(tempoFormatado))
             }
 
             /**
@@ -176,7 +174,7 @@ class ServicoAgendarDesligamento : Service() {
 
     }
 
-    private fun notificar(notificacao: Notification) {
+    private fun exibirNotificacao(notificacao: Notification) {
         with(NotificationManagerCompat.from(App.get)) {
 
             if (ActivityCompat.checkSelfPermission(

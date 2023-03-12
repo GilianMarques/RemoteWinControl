@@ -3,7 +3,6 @@ package gmarques.remotewincontrol.rede.io
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -12,17 +11,18 @@ import java.net.ServerSocket
 
 //http://www.java2s.com/Code/Java/Network-Protocol/StringbasedcommunicationbetweenSocket.htm
 
-class Servidor {
+class DataReceiver {
 
     private lateinit var listener: (String) -> Any
     private var porta = EnderecosDeRede.portaDoCliente
-
+    
+    @SuppressWarnings("kotlin:S6310")
     suspend fun executar() = withContext(Dispatchers.IO) {
 
         try {
 
             val server = ServerSocket(porta)
-            Log.d("USUK", "Servidor.executar: Conectado via porta: $porta e ip ${EnderecosDeRede.ipDoCliente}")
+            Log.d("USUK", "DataReceiver.executar: Conectado via porta: $porta e ip ${EnderecosDeRede.ipDoCliente}")
 
             while (true) {
                 val cliente = server.accept()

@@ -1,7 +1,6 @@
-package gmarques.remotewincontrol.presenter.ui.dialogos
+package gmarques.remotewincontrol.presenter.ui.bs_ver_acoes
 
 import android.animation.LayoutTransition
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import android.view.View.*
@@ -11,12 +10,11 @@ import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import gmarques.remotewincontrol.R
 import gmarques.remotewincontrol.data.AcoesDao
 import gmarques.remotewincontrol.databinding.BottomSheetVerAcoesBinding
 import gmarques.remotewincontrol.databinding.FragmentMainBinding
 import gmarques.remotewincontrol.databinding.ItemAcaoBinding
-import gmarques.remotewincontrol.domain.acoes.Acao
+import gmarques.remotewincontrol.domain.funcoes.acoes.Acao
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE
 import gmarques.remotewincontrol.domain.dtos.servidor.DtoServidor
@@ -37,7 +35,6 @@ class BottomSheetVerAcoes(
     private val binding: BottomSheetVerAcoesBinding = fragmentBinding.includeBottomSheet
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private var ultimoItemComMenuExibido: ItemAcaoBinding? = null
     private var acoesDao = AcoesDao()
 
     init {
@@ -111,24 +108,13 @@ class BottomSheetVerAcoes(
 
             val itemView = ItemAcaoBinding.inflate(fragmento.layoutInflater)
 
-            itemView.ivFecharMenu.setOnClickListener { ocultarOpcoesDaAcao(itemView) }
 
             itemView.tvAcao.text = acao.nome
-            itemView.tvAcao.tag = acao.id
 
             itemView.tvAcao.setOnClickListener { executarAcao(acao, false) }
             itemView.tvAcao.setOnLongClickListener { executarAcao(acao, true) }
 
-            itemView.ivMenu.setOnClickListener { mostrarMenu(itemView) }
-
-            itemView.ivRemover.setOnClickListener { mostrarViewConfirmarRemocao(itemView, acao) }
-            itemView.tvConfirmarRemocao.setOnClickListener { removerAcao(itemView, acao) }
-
-            itemView.ivRenomear.setOnClickListener { mostrarViewRenomearAcao(itemView, acao) }
-            itemView.ivSalvarRenomear.setOnClickListener { atualizaNomeDaAcao(itemView, acao) }
-
-            itemView.ivVelocidade.setOnClickListener { mostrarViewVelocidade(itemView, acao) }
-            itemView.ivAplicarVelocidade.setOnClickListener { salvarNovaVelocidade(itemView, acao) }
+            itemView.ivMenu.setOnClickListener { mostrarMenu(acao) }
 
             binding.container.addView(itemView.root)
         }
@@ -136,91 +122,10 @@ class BottomSheetVerAcoes(
 
     }
 
-    private fun mostrarMenu(itemView: ItemAcaoBinding): Boolean {
-
-        if (ultimoItemComMenuExibido != null) {
-            exibirApenasContainerEspecifico(
-                ultimoItemComMenuExibido, ultimoItemComMenuExibido?.containerPrincipal
-            )
-        }
-
-        return mostrarOpcoesDaAcao(itemView)
+    private fun mostrarMenu(acao: Acao) {
+        DialogoEditarAcao(acao, fragmento) { atualizar() }
     }
 
-    private fun atualizaNomeDaAcao(itemView: ItemAcaoBinding, acao: Acao) {
-        val nome = itemView.edtNome.text.toString().ifEmpty {
-            String.format(
-                fragmento.getString(R.string.Acao_x), binding.container.childCount
-            )
-        }
-        acao.nome = nome
-        acoesDao.salvarAcao(acao)
-        itemView.tvAcao.text = nome
-        restaurarViewProEstadoPadrao(itemView)
-    }
-
-    private fun restaurarViewProEstadoPadrao(itemView: ItemAcaoBinding) {
-        exibirApenasContainerEspecifico(itemView, itemView.containerPrincipal)
-    }
-
-    private fun removerAcao(itemView: ItemAcaoBinding, acao: Acao) {
-        acoesDao.removerAcao(acao.id)
-        binding.container.removeView(itemView.root)
-    }
-
-    private fun mostrarOpcoesDaAcao(itemView: ItemAcaoBinding): Boolean {
-
-        exibirApenasContainerEspecifico(itemView, itemView.containerOpcoes)
-        ultimoItemComMenuExibido = itemView
-        Vibrador.vibInteracao()
-
-        return true
-    }
-
-    private fun ocultarOpcoesDaAcao(itemView: ItemAcaoBinding?): Boolean {
-        exibirApenasContainerEspecifico(itemView, itemView?.containerPrincipal)
-        return true
-    }
-
-    private fun mostrarViewRenomearAcao(itemView: ItemAcaoBinding, acao: Acao) {
-        exibirApenasContainerEspecifico(itemView, itemView.containerRenomear)
-        itemView.edtNome.setText(acao.nome)
-        itemView.edtNome.requestFocus()
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun mostrarViewVelocidade(itemView: ItemAcaoBinding, acao: Acao) {
-
-        exibirApenasContainerEspecifico(itemView, itemView.containerVelocidade)
-
-        itemView.edtVelocidade.setText("${acao.velocidade}x".replace(".0x", "x"))
-        itemView.edtVelocidade.requestFocus()
-
-    }
-
-    private fun salvarNovaVelocidade(itemView: ItemAcaoBinding, acao: Acao) {
-        Regex("[^0-9.]").replace(itemView.edtVelocidade.text.toString(), "").ifEmpty { "1" }.apply {
-            val velocidade = toFloat().coerceIn(Acao.velocidadeMinima, Acao.velocidadeMaxima)
-            acao.velocidade = velocidade
-            itemView.edtVelocidade.setText("${velocidade}x")
-            acoesDao.salvarAcao(acao)
-            restaurarViewProEstadoPadrao(itemView)
-
-        }
-
-    }
-
-    private fun mostrarViewConfirmarRemocao(itemView: ItemAcaoBinding, acao: Acao) {
-        exibirApenasContainerEspecifico(itemView, itemView.containerRemocao)
-
-    }
-
-    private fun exibirApenasContainerEspecifico(itemView: ItemAcaoBinding?, alvo: ViewGroup?) {
-        itemView?.itemViewContainer?.forEach {
-            it.visibility = if (alvo?.id == it.id) VISIBLE else GONE
-        }
-    }
 
     private fun executarAcao(acao: Acao, dispensarDialogo: Boolean): Boolean {
 
@@ -266,7 +171,7 @@ class BottomSheetVerAcoes(
     private fun mostrarBotaoPararReproducao(mostar: Boolean) {
 
         binding.btnPararReproducao.visibility = if (mostar) VISIBLE else INVISIBLE
-     //   binding.btnGravar.visibility = if (!mostar) VISIBLE else INVISIBLE
+        //   binding.btnGravar.visibility = if (!mostar) VISIBLE else INVISIBLE
 
     }
 

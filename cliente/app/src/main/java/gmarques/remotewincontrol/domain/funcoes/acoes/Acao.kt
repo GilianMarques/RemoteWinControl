@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.domain.acoes
+package gmarques.remotewincontrol.domain.funcoes.acoes
 
 import gmarques.remotewincontrol.domain.JsonMapper
 import java.util.ArrayList

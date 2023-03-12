@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.domain.mouse.scroll
+package gmarques.remotewincontrol.domain.funcoes.mouse.scroll
 
 import gmarques.remotewincontrol.domain.dtos.cliente.DtoCliente
 import gmarques.remotewincontrol.domain.dtos.cliente.TIPO_EVENTO_CLIENTE

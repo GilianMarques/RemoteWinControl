@@ -1,6 +1,5 @@
 package gmarques.remotewincontrol.rede.io
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import gmarques.remotewincontrol.domain.JsonMapper
@@ -10,7 +9,6 @@ import gmarques.remotewincontrol.domain.dtos.servidor.TIPO_EVENTO_SERVIDOR
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlin.system.measureTimeMillis
-import kotlin.time.measureTime
 
 /**
  *Hub que centraliza as comunicaçoes
@@ -21,15 +19,15 @@ object RedeController {
     val ping: LiveData<Long> get() = _ping
 
 
-    private val cliente = Cliente()
-    private val servidor = Servidor()
+    private val dataSender = DataSender()
+    private val dataReceiver = DataReceiver()
     private val job = Job()
     private val listeners = HashMap<TIPO_EVENTO_SERVIDOR, ArrayList<RedeCallback>>()
 
     init {
         CoroutineScope(job).launch(IO) {
-            servidor.definirListener(::eventoRecebido)
-            servidor.executar()
+            dataReceiver.definirListener(::eventoRecebido)
+            dataReceiver.executar()
         }
     }
 
@@ -38,7 +36,7 @@ object RedeController {
         _ping.postValue(measureTimeMillis {
             dto.ipResposta = EnderecosDeRede.ipDoCliente
             dto.portaResposta = EnderecosDeRede.portaDoCliente
-            enviado = cliente.enviarMsg(dto.toJson())
+            enviado = dataSender.enviarMsg(dto.toJson())
         })
         return@withContext enviado
 
@@ -46,7 +44,7 @@ object RedeController {
 
     /**
      * Chamado a partir do servidor
-     * @see Servidor
+     * @see DataReceiver
      * */
     private fun eventoRecebido(entrada: String) {
         val comando = JsonMapper.fromJson(entrada, DtoServidor::class.java)

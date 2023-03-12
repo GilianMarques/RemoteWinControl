@@ -3,6 +3,9 @@ package gmarques.remotewincontrol.domain.dtos.cliente
 import gmarques.remotewincontrol.domain.JsonMapper
 
 @Suppress("unused")
+/**
+ * Estrutura de dados usada para enviar os comandos do cliente (Android) para o servidor (Windows)
+ */
 data class DtoCliente(val tipo: TIPO_EVENTO_CLIENTE = TIPO_EVENTO_CLIENTE.NONE) {
 
 

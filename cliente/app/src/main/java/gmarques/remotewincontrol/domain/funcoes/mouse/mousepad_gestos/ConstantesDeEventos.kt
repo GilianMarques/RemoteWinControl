@@ -1,4 +1,4 @@
-package gmarques.remotewincontrol.domain.mouse.mousepad_gestos
+package gmarques.remotewincontrol.domain.funcoes.mouse.mousepad_gestos
 
 /** um evento de clique com duraçao maior que esse valor sera desconsiderado */
 const val CLICK_INTERVAL = 150
