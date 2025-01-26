@@ -12,23 +12,15 @@
 
         tools:context=".presenter.ui.MainFragment">
 
-
         <TextView
             android:id="@+id/tv_ping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="5dp"
             android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/container_status"
             tools:text="Ping: 16mls" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         <LinearLayout
@@ -84,30 +76,39 @@
             android:id="@+id/mouse_btn_esq"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:foreground="?selectableItemBackgroundBorderless"
             app:cardBackgroundColor="?attr/cardColor"
             app:cardCornerRadius="6dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/mouse_btn_meio"
+            app:layout_constraintEnd_toEndOf="@id/centro"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/centro"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mouse_btn_meio"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-
+            android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:foreground="?selectableItemBackgroundBorderless"
-            app:cardBackgroundColor="?attr/cardColor"
+            app:cardBackgroundColor="?android:windowBackground"
             app:cardCornerRadius="6dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:animateLayoutChanges="true"
+            app:layout_constraintBottom_toTopOf="@id/mouse_btn_dir"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_infinite_scroll"
@@ -115,8 +116,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="2dp"
-                android:fadingEdgeLength="30dp"
+                android:fadingEdgeLength="500dp"
                 android:requiresFadingEdge="vertical"
+                android:visibility="invisible"
+                tools:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -127,15 +130,15 @@
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:foreground="?selectableItemBackgroundBorderless"
             app:cardBackgroundColor="?attr/cardColor"
             app:cardCornerRadius="6dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/mouse_btn_meio" />
+            app:layout_constraintStart_toEndOf="@id/centro" />
 
         <include
             android:id="@+id/include_bottom_sheet"
@@ -156,10 +159,22 @@
             android:clickable="true"
             android:contentDescription="@string/Acoes"
             app:layout_constraintBottom_toTopOf="@id/mouse_btn_dir"
-            app:layout_constraintEnd_toEndOf="@id/mouse_btn_dir"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/vec_gravar" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_voz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/voz"
+            android:src="@drawable/vec_voz"
+            app:elevation="10dp"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@id/fab_acoes"
+            app:layout_constraintStart_toStartOf="parent" />
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
