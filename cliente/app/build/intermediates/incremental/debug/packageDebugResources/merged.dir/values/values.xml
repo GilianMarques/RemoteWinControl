@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="color" name="cardColor"/>
+    <color name="black">#FF000000</color>
+    <color name="card_color_day">#F5F5F5</color>
+    <color name="gray">#BABABA</color>
+    <color name="ic_launcher_background">#C8ADFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="remover">#F44336</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="Abortar">Abortar</string>
+    <string name="Acao_x">Ação #%1$s</string>
+    <string name="Acessibilidade">Acessibilidade</string>
+    <string name="Acoes">Ações</string>
+    <string name="Agendar">Agendar</string>
+    <string name="Agendar_desligamento">Agendar desligamento</string>
+    <string name="Alterar_ip_e_porta">Alterar IP e porta</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="Claro">Claro</string>
+    <string name="Clique_para_confirmar_remocao">Clique para confirmar remoção</string>
+    <string name="Controle_de_volume">Controle de volume</string>
+    <string name="Definido_pelo_sistema">Definido pelo sistema</string>
+    <string name="Editar_x">Editar %1$s</string>
+    <string name="Encerrar">Encerrar</string>
+    <string name="Endereco_ip">Endereço IP</string>
+    <string name="Enviando_seus_cliques_ao_pc">Enviando seus cliques ao PC (Clique aqui para parar)</string>
+    <string name="Erro_x">Erro: %1$s</string>
+    <string name="Escuro">Escuro</string>
+    <string name="Gesto_do_tipo_x_nao_foi_enviado">Gesto do tipo "%1$s" não foi enviado</string>
+    <string name="Gravar_acao">Gravar ação</string>
+    <string name="Ignorar_movimento_do_mouse">Ignorar movimento do mouse</string>
+    <string name="Iniciar_gravacao">Iniciar gravação</string>
+    <string name="Ip_e_porta">IP e porta</string>
+    <string name="Nome">Nome</string>
+    <string name="Parar_gravaco">Parar gravação</string>
+    <string name="Parar_reproducao">Parar reprodução</string>
+    <string name="Permissao_de_acessibilidade_necessaria_para_controlar">Permissão de \"Acessibilidade\" necessária para controlar o volume.</string>
+    <string name="Permitir">Permitir</string>
+    <string name="Ping_x">Ping: %1$s</string>
+    <string name="Porta">Porta</string>
+    <string name="Remover_acao">Remover ação</string>
+    <string name="Salvar">Salvar</string>
+    <string name="Servico_de_desligamento_do_pc">Serviço de desligamento do PC</string>
+    <string name="Servico_de_volume">Serviço de controle do volume</string>
+    <string name="Tela_sempre_acesa">Tela sempre acesa</string>
+    <string name="Temas">Temas</string>
+    <string name="Tempo_ate_desligar">Tempo até desligar</string>
+    <string name="Velocidade">Velocidade</string>
+    <string name="app_name">RemoteWinControl</string>
+    <string name="descricao_servico_volume">Permite interceptar os cliques nos botes de volume do aparelho e enviar para o servidor, manipulando o volume do computador.</string>
+    <string name="voz">Voz</string>
+    <string name="x_mins">%1$s mins</string>
+    <style name="Theme.RemoteWinControl" parent="Theme.Material3.Light.NoActionBar">
+        
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        
+
+        <item name="cardColor">@color/card_color_day</item>
+
+    </style>
+</resources>

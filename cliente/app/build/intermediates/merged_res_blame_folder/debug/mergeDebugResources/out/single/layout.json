@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/rv_item_scroll.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/rv_item_scroll.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/fragment_main.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/fragment_main.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/switch_item.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/switch_item.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/item_acao.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/item_acao.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/dialogo_gravar_acoes.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_gravar_acoes.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/dialogo_desligar.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_desligar.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/dialogo_editar_acao.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_editar_acao.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/activity_servicos.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/activity_servicos.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/bottom_sheet_ver_acoes.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/bottom_sheet_ver_acoes.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-mergeDebugResources-3:/layout/dialogo_ip_porta.xml",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_ip_porta.xml"
+    }
+]

@@ -1,0 +1,202 @@
+[
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_editar.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_editar.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_desligar.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_desligar.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_dialogo_editar_acao.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_editar_acao.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_descer.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_descer.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_grid.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_grid.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_dialogo_gravar_acoes.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_gravar_acoes.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_background_status.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/background_status.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_dialogo_ip_porta.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_ip_porta.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_activity_servicos.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/activity_servicos.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/xml_backup_rules.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_bottom_sheet_ver_acoes.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/bottom_sheet_ver_acoes.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_remover.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_remover.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_check.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_check.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap_ic_launcher.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap/ic_launcher.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_subir.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_subir.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_fragment_main.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/fragment_main.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/xml_data_extraction_rules.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_ic_launcher_background.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_parar_gravacao.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_parar_gravacao.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/menu_menu_principal.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/menu/menu_principal.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_sub.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_sub.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_rv_item_scroll.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/rv_item_scroll.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_item_acao.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/item_acao.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_switch_item.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/switch_item.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_dialogo_desligar.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/dialogo_desligar.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_menu.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_menu.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_volume.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_volume.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_background_dialogo_ver_acoes.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/background_dialogo_ver_acoes.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_velocidade.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_velocidade.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_add.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_add.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_gravar.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_gravar.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_voz.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_voz.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/xml_key.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/xml/key.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_arrow_back.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_arrow_back.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_vec_cancelar.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/vec_cancelar.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/layout_activity_main.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "dev.gmarques.remotewincontrol.app-debug-4:/drawable_background_border.xml.flat",
+        "source": "dev.gmarques.remotewincontrol.app-main-6:/drawable/background_border.xml"
+    }
+]

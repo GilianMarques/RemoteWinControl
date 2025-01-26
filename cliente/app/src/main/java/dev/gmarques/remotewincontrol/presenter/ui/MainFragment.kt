@@ -114,7 +114,7 @@ class MainFragment : Fragment() {
     private fun initBottomSheet() {
 
         bottomSheet = BottomSheetVerAcoes(this@MainFragment, binding) {
-            mostrarDialogoGravarAcoes()
+            mostrarDialogoGravarAcoes() 
         }
 
 

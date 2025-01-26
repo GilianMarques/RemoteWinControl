@@ -1,0 +1,190 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="dev.gmarques.remotewincontrol"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+11-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:5:5-77
+11-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:5:22-74
+12    <uses-permission android:name="android.permission.VIBRATE" />
+12-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:6:5-66
+12-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:6:22-63
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:7:5-67
+13-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:7:22-64
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:8:5-79
+14-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:8:22-76
+15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+15-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:9:5-77
+15-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:9:22-74
+16
+17    <permission
+17-->[androidx.core:core:1.15.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\dd32194762d3a2150cb27b6c04df2ab1\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+18        android:name="dev.gmarques.remotewincontrol.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+18-->[androidx.core:core:1.15.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\dd32194762d3a2150cb27b6c04df2ab1\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+19        android:protectionLevel="signature" />
+19-->[androidx.core:core:1.15.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\dd32194762d3a2150cb27b6c04df2ab1\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+20
+21    <uses-permission android:name="dev.gmarques.remotewincontrol.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+21-->[androidx.core:core:1.15.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\dd32194762d3a2150cb27b6c04df2ab1\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+21-->[androidx.core:core:1.15.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\dd32194762d3a2150cb27b6c04df2ab1\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
+22
+23    <application
+23-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:11:5-50:19
+24        android:name="dev.gmarques.remotewincontrol.App"
+24-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:13:9-28
+25        android:allowBackup="true"
+25-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:12:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.15.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\dd32194762d3a2150cb27b6c04df2ab1\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+27        android:dataExtractionRules="@xml/data_extraction_rules"
+27-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:14:9-65
+28        android:debuggable="true"
+29        android:extractNativeLibs="false"
+30        android:fullBackupContent="@xml/backup_rules"
+30-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:15:9-54
+31        android:icon="@mipmap/ic_launcher"
+31-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:16:9-43
+32        android:label="@string/app_name"
+32-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:17:9-41
+33        android:roundIcon="@mipmap/ic_launcher_round"
+33-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:18:9-54
+34        android:supportsRtl="true"
+34-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:19:9-35
+35        android:theme="@style/Theme.RemoteWinControl" >
+35-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:20:9-54
+36        <activity
+36-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:23:9-29:20
+37            android:name="dev.gmarques.remotewincontrol.presenter.ui.ServicosActivity"
+37-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:24:13-58
+38            android:exported="true" >
+38-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:25:13-36
+39            <meta-data
+39-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:26:13-28:36
+40                android:name="android.app.lib_name"
+40-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:27:17-52
+41                android:value="" />
+41-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:28:17-33
+42        </activity>
+43
+44        <service
+44-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:31:9-34:40
+45            android:name="dev.gmarques.remotewincontrol.domain.funcoes.desligamento.ServicoAgendarDesligamento"
+45-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:32:13-83
+46            android:enabled="true"
+46-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:33:13-35
+47            android:exported="false" />
+47-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:34:13-37
+48
+49        <activity
+49-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:36:9-48:20
+50            android:name="dev.gmarques.remotewincontrol.presenter.ui.MainActivity"
+50-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:37:13-54
+51            android:exported="true" >
+51-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:38:13-36
+52            <intent-filter>
+52-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:39:13-43:29
+53                <action android:name="android.intent.action.MAIN" />
+53-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:40:17-69
+53-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:40:25-66
+54
+55                <category android:name="android.intent.category.LAUNCHER" />
+55-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:42:17-77
+55-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:42:27-74
+56            </intent-filter>
+57
+58            <meta-data
+58-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:26:13-28:36
+59                android:name="android.app.lib_name"
+59-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:27:17-52
+60                android:value="" />
+60-->C:\Github_clones\RemoteWinControl\cliente\app\src\main\AndroidManifest.xml:28:17-33
+61        </activity>
+62
+63        <provider
+63-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+64            android:name="androidx.startup.InitializationProvider"
+64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+65            android:authorities="dev.gmarques.remotewincontrol.androidx-startup"
+65-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+66            android:exported="false" >
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+67            <meta-data
+67-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+68                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+68-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+69                android:value="androidx.startup" />
+69-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\1796defc8cbf69b30dc8487f9a89f56d\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+70            <meta-data
+70-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Gilian\.gradle\caches\8.9\transforms\165babe5f9187418f0273b0e1fa07a67\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+71-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Gilian\.gradle\caches\8.9\transforms\165babe5f9187418f0273b0e1fa07a67\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+72                android:value="androidx.startup" />
+72-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Gilian\.gradle\caches\8.9\transforms\165babe5f9187418f0273b0e1fa07a67\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+73            <meta-data
+73-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+74-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+75                android:value="androidx.startup" />
+75-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+76        </provider>
+77
+78        <uses-library
+78-->[androidx.window:window:1.0.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\6da66a1a90de403d3c81f3b9c9fc41da\transformed\window-1.0.0\AndroidManifest.xml:25:9-27:40
+79            android:name="androidx.window.extensions"
+79-->[androidx.window:window:1.0.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\6da66a1a90de403d3c81f3b9c9fc41da\transformed\window-1.0.0\AndroidManifest.xml:26:13-54
+80            android:required="false" />
+80-->[androidx.window:window:1.0.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\6da66a1a90de403d3c81f3b9c9fc41da\transformed\window-1.0.0\AndroidManifest.xml:27:13-37
+81        <uses-library
+81-->[androidx.window:window:1.0.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\6da66a1a90de403d3c81f3b9c9fc41da\transformed\window-1.0.0\AndroidManifest.xml:28:9-30:40
+82            android:name="androidx.window.sidecar"
+82-->[androidx.window:window:1.0.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\6da66a1a90de403d3c81f3b9c9fc41da\transformed\window-1.0.0\AndroidManifest.xml:29:13-51
+83            android:required="false" />
+83-->[androidx.window:window:1.0.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\6da66a1a90de403d3c81f3b9c9fc41da\transformed\window-1.0.0\AndroidManifest.xml:30:13-37
+84
+85        <receiver
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+86            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+86-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+87            android:directBootAware="false"
+87-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+88            android:enabled="true"
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+89            android:exported="true"
+89-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+90            android:permission="android.permission.DUMP" >
+90-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+91            <intent-filter>
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+92                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+92-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+92-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+93            </intent-filter>
+94            <intent-filter>
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+95                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+95-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+95-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+96            </intent-filter>
+97            <intent-filter>
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+98                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+98-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+98-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+99            </intent-filter>
+100            <intent-filter>
+100-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+101                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+101-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+101-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Gilian\.gradle\caches\8.9\transforms\3af87b7732f5ebaff475d1567d2cba5f\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+102            </intent-filter>
+103        </receiver>
+104    </application>
+105
+106</manifest>

@@ -1,0 +1,2 @@
+dev.gmarques.remotewincontrol.test:style/WhiteBackgroundTheme = 0x7f010001
+dev.gmarques.remotewincontrol.test:style/WhiteBackgroundDialogTheme = 0x7f010000

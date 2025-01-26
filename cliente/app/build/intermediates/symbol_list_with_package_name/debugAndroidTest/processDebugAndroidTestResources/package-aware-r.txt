@@ -1,0 +1,3 @@
+dev.gmarques.remotewincontrol.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

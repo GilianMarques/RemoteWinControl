@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/ip"
+        android:title="@string/Ip_e_porta" />
+
+    <item
+        android:id="@+id/desligar"
+        android:title="@string/Agendar_desligamento" />
+
+    <item
+        android:id="@+id/tema_menu"
+        android:title="@string/Temas">
+        <menu>
+            <item
+                android:id="@+id/tema_claro"
+                android:title="@string/Claro" />
+            <item
+                android:id="@+id/tema_escuro"
+                android:title="@string/Escuro" />
+            <item
+                android:id="@+id/tema_sistema"
+                android:title="@string/Definido_pelo_sistema" />
+        </menu>
+    </item>
+
+</menu>

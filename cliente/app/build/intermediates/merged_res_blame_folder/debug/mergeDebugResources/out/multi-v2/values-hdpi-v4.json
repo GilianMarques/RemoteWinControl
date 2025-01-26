@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "dev.gmarques.remotewincontrol.app-mergeDebugResources-2:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Gilian\\.gradle\\caches\\8.9\\transforms\\159d05d9e7f7af99e03830a5e045cb4c\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/item_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_flexGrow="1" android:tag="layout/item_acao_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_principal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_border"
+            android:minWidth="120dp"
+            android:orientation="horizontal"
+            app:layout_flexBasisPercent="50%">
+
+            <TextView
+                android:id="@+id/tv_acao"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:textSize="16sp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/vec_gravar"
+                app:layout_constraintEnd_toStartOf="@id/iv_menu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                tools:text="CrunchRoll: Pular abertura" />
+
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:minWidth="48dp"
+                android:padding="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_acao"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_acao"
+                app:srcCompat="@drawable/vec_menu"
+                app:tint="?colorPrimary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+         

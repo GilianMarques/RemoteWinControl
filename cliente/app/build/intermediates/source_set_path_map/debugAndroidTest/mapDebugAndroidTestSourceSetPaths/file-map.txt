@@ -1,0 +1,6 @@
+dev.gmarques.remotewincontrol.test.app-androidTest-0 C:\Github_clones\RemoteWinControl\cliente\app\build\generated\res\resValues\androidTest\debug
+dev.gmarques.remotewincontrol.test.app-mergeDebugAndroidTestResources-1 C:\Github_clones\RemoteWinControl\cliente\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+dev.gmarques.remotewincontrol.test.app-mergeDebugAndroidTestResources-2 C:\Github_clones\RemoteWinControl\cliente\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+dev.gmarques.remotewincontrol.test.app-debugAndroidTest-3 C:\Github_clones\RemoteWinControl\cliente\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
+dev.gmarques.remotewincontrol.test.app-core-1.6.1-4 C:\Users\Gilian\.gradle\caches\8.9\transforms\86d4d33a4a753f24f35c610de0d63c14\transformed\core-1.6.1\res
+dev.gmarques.remotewincontrol.test.app-tracing-1.2.0-5 C:\Users\Gilian\.gradle\caches\8.9\transforms\e42fbceda4993a6b916d105c45f908a1\transformed\tracing-1.2.0\res
